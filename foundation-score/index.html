@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is Your Business Foundation Ready? | Business Plans Plus</title>
+<meta property="og:title" content="Is your business foundation ready to build on?">
+<meta property="og:description" content="Answer 10 questions and get your Foundation Readiness Score, plus the gaps to close before you push for growth. Free, 2 minutes.">
+<meta property="og:type" content="website">
+<meta name="description" content="Free 2-minute Foundation Readiness Score for new business owners. Find out if your legal setup, brand, offer, lead engine, and money basics are ready to grow on.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #044771;
+    --navy-dark: #033654;
+    --gold: #F1BE5C;
+    --blue: #5987A5;
+    --bg: #edf1f5;
+    --green: #1a9e5c;
+    --amber: #d4920a;
+    --red: #c0392b;
+    --ink: #1c2b36;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Poppins', -apple-system, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 20px 64px; }
+  .card { background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(4, 71, 113, 0.10); overflow: hidden; }
+  .card-head { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: #fff; padding: 36px 32px 30px; }
+  .card-head .kicker { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .card-head h1 { font-family: 'Montserrat', sans-serif; font-size: clamp(24px, 5vw, 32px); font-weight: 800; line-height: 1.25; margin-bottom: 10px; }
+  .card-head p { font-size: 15px; opacity: 0.9; }
+  .card-body { padding: 32px; }
+  @media (max-width: 520px) { .card-body { padding: 24px 20px; } .card-head { padding: 28px 20px 24px; } }
+  .btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 16px; padding: 14px 32px; border-radius: 10px; border: none; cursor: pointer; text-decoration: none; transition: transform .12s ease, box-shadow .12s ease; }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(4,71,113,.22); }
+  .btn-gold { background: var(--gold); color: var(--navy-dark); }
+  .progress-track { height: 6px; background: #dde5ec; border-radius: 3px; margin-bottom: 26px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--gold); border-radius: 3px; width: 0%; transition: width .3s ease; }
+  .q-count { font-size: 13px; color: var(--blue); font-weight: 500; margin-bottom: 6px; }
+  .pillar-tag { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--navy); background: rgba(89, 135, 165, 0.14); padding: 4px 12px; border-radius: 20px; margin-bottom: 14px; }
+  .q-text { font-family: 'Montserrat', sans-serif; font-size: 21px; font-weight: 700; color: var(--navy-dark); line-height: 1.35; margin-bottom: 24px; }
+  .opts { display: flex; flex-direction: column; gap: 10px; }
+  .opt { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border: 2px solid #dde5ec; border-radius: 12px; cursor: pointer; font-size: 15px; background: #fff; transition: border-color .12s ease, background .12s ease; text-align: left; width: 100%; font-family: inherit; color: var(--ink); }
+  .opt:hover { border-color: var(--blue); background: #f6f9fb; }
+  .opt.selected { border-color: var(--navy); background: rgba(4,71,113,.06); }
+  .opt .dot { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--bg); color: var(--navy); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .opt.selected .dot { background: var(--gold); color: var(--navy-dark); }
+  .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; }
+  .back-link { background: none; border: none; color: var(--blue); font-family: inherit; font-size: 14px; cursor: pointer; padding: 8px 0; }
+  .back-link:hover { text-decoration: underline; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; color: var(--navy-dark); margin-bottom: 6px; }
+  .field input { width: 100%; padding: 12px 14px; border: 2px solid #dde5ec; border-radius: 10px; font-family: inherit; font-size: 15px; color: var(--ink); }
+  .field input:focus { outline: none; border-color: var(--blue); }
+  .fine-print { font-size: 12px; color: #6b7c88; margin-top: 14px; }
+  .score-ring-wrap { text-align: center; margin: 6px 0 22px; }
+  .score-big { font-family: 'Montserrat', sans-serif; font-size: 64px; font-weight: 800; line-height: 1; }
+  .score-label { font-size: 14px; color: #55677a; margin-top: 4px; }
+  .band-pill { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; padding: 6px 18px; border-radius: 20px; color: #fff; margin-top: 12px; }
+  .pillar-row { margin-bottom: 14px; }
+  .pillar-row .pr-head { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 600; color: var(--navy-dark); margin-bottom: 5px; }
+  .pillar-bar-track { height: 10px; background: #e4eaf0; border-radius: 5px; overflow: hidden; }
+  .pillar-bar-fill { height: 100%; border-radius: 5px; transition: width .6s ease; }
+  .weak-callout { background: rgba(241, 190, 92, 0.14); border-left: 4px solid var(--gold); border-radius: 0 10px 10px 0; padding: 16px 18px; margin: 22px 0; font-size: 14.5px; }
+  .weak-callout strong { color: var(--navy-dark); }
+  .cta-box { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); border-radius: 14px; color: #fff; padding: 26px 24px; text-align: center; margin-top: 24px; }
+  .cta-box h3 { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+  .cta-box p { font-size: 14px; opacity: .9; margin-bottom: 18px; }
+  .hidden { display: none; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 1px; margin: 26px 0 14px; }
+  .brand-foot { text-align: center; font-size: 12px; color: #7d8b97; margin-top: 22px; }
+  .brand-foot a { color: var(--blue); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head">
+      <div class="kicker">Free 2-Minute Score</div>
+      <h1 id="headTitle">Is your foundation ready to build on?</h1>
+      <p id="headSub">Answer 10 quick questions and get your Foundation Readiness Score, plus the gaps to close before you push for growth.</p>
+    </div>
+    <div class="card-body">
+
+      <!-- INTRO -->
+      <div id="viewIntro">
+        <p style="margin-bottom:16px;">Most new businesses don't stall because the idea was bad. They stall because the foundation under the idea was never finished: the legal setup, the money basics, a clear offer, and a repeatable way to get customers.</p>
+        <p style="margin-bottom:16px;">This score checks your foundation across 5 areas: <strong>legal and money basics, brand and online presence, your offer and pricing, your first-clients engine, and simple operations</strong>.</p>
+        <p style="margin-bottom:26px;">It takes about 2 minutes. You'll get your score plus the two gaps to close first.</p>
+        <button class="btn btn-gold" onclick="startQuiz()">Get My Score</button>
+      </div>
+
+      <!-- QUIZ -->
+      <div id="viewQuiz" class="hidden">
+        <div class="q-count"><span id="qNum">1</span> of 10</div>
+        <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+        <div class="pillar-tag" id="qPillar"></div>
+        <div class="q-text" id="qText"></div>
+        <div class="opts" id="qOpts"></div>
+        <div class="nav-row">
+          <button class="back-link" id="btnBack" onclick="prevQ()">&larr; Back</button>
+          <span style="font-size:13px;color:#8895a2;">Select an answer to continue</span>
+        </div>
+      </div>
+
+      <!-- GATE -->
+      <div id="viewGate" class="hidden">
+        <div class="q-text" style="margin-bottom:8px;">Your score is ready.</div>
+        <p style="font-size:14.5px;margin-bottom:22px;">Tell us where to send your results and we'll show your score now, plus email you a short breakdown of your two biggest gaps and what to do about them.</p>
+        <div class="field">
+          <label for="fName">First name</label>
+          <input type="text" id="fName" autocomplete="given-name" placeholder="Jordan">
+        </div>
+        <div class="field">
+          <label for="fEmail">Email</label>
+          <input type="email" id="fEmail" autocomplete="email" placeholder="you@yourbusiness.com">
+        </div>
+        <div class="field">
+          <label for="fBiz">Business name (or working name)</label>
+          <input type="text" id="fBiz" autocomplete="organization" placeholder="Your Company LLC">
+        </div>
+        <button class="btn btn-gold" id="btnReveal" onclick="submitGate()">Show My Score</button>
+        <div class="fine-print">We'll email your results and occasional practical tips for new business owners. No spam, unsubscribe anytime.</div>
+        <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter a first name and a valid email to see your score.</div>
+      </div>
+
+      <!-- RESULTS -->
+      <div id="viewResults" class="hidden">
+        <div class="score-ring-wrap">
+          <div class="score-big" id="scoreNum">0%</div>
+          <div class="score-label">Foundation Readiness Score</div>
+          <div class="band-pill" id="bandPill"></div>
+        </div>
+        <p id="bandBlurb" style="font-size:15px;text-align:center;margin-bottom:8px;"></p>
+
+        <div class="section-title">Your 5 foundations</div>
+        <div id="pillarBars"></div>
+
+        <div class="weak-callout" id="weakCallout"></div>
+
+        <div class="cta-box" id="ctaBox">
+          <h3 id="ctaTitle"></h3>
+          <p id="ctaBody"></p>
+          <a class="btn btn-gold" id="ctaBtn" href="#" target="_blank"></a>
+        </div>
+
+        <div class="brand-foot">
+          Built by <a href="https://www.buildwithbpp.com" target="_blank">Business Plans Plus</a>. We build the foundations and operating systems that make businesses easier to run.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= CONFIG - wire these before launch ================= */
+const CONFIG = {
+  // HubSpot form: firstname, email, company + hidden fields
+  // foundation_readiness_score, weakest_foundation_1, weakest_foundation_2
+  HUBSPOT_PORTAL_ID: "",
+  HUBSPOT_FORM_GUID: "",
+  BOOKING_URL: "https://www.buildwithbpp.com/booking",
+  SCORECARD_URL: "https://buildwithbpp.github.io/bpp-free-tools/scorecard/"
+};
+/* ==================================================================== */
+
+const QUESTIONS = [
+  { pillar: "Legal & Money Basics", text: "Is your business legally set up: entity registered, EIN, licenses you need?",
+    labels: ["Nothing yet", "Started the paperwork", "Registered, gaps remain", "Mostly complete", "Fully set up"] },
+  { pillar: "Legal & Money Basics", text: "Are business finances fully separated from personal, with bookkeeping that's up to date?",
+    labels: ["All mixed together", "Separate account only", "Separated, books behind", "Books mostly current", "Separated and current"] },
+  { pillar: "Brand & Presence", text: "Do you have a name, logo, and look you'd put in front of any customer?",
+    labels: ["Still deciding", "Name only", "Name + rough logo", "Solid brand basics", "Complete and consistent"] },
+  { pillar: "Brand & Presence", text: "Can a stranger find you online and see what you offer (website, Google profile)?",
+    labels: ["Can't find us", "Social page only", "Basic site or profile", "Site + Google profile", "Strong presence, reviews"] },
+  { pillar: "Offer & Pricing", text: "Can you explain what you sell, who it's for, and what it costs in two sentences?",
+    labels: ["Still figuring it out", "It changes weekly", "Roughly defined", "Defined, needs polish", "Crystal clear"] },
+  { pillar: "Offer & Pricing", text: "Is your pricing based on real costs and margin, not a guess or a competitor's number?",
+    labels: ["Pure guess", "Copied competitors", "Some cost math", "Mostly cost-based", "Priced with real margin math"] },
+  { pillar: "First-Clients Engine", text: "Do you know exactly where your next 5 customers will come from?",
+    labels: ["No idea", "Hoping for referrals", "One channel, untested", "One channel working", "Repeatable channel proven"] },
+  { pillar: "First-Clients Engine", text: "Do you have a way to capture and follow up with every person who shows interest?",
+    labels: ["Nothing", "Memory and notes", "A list, manual follow-up", "Simple CRM or sheet", "System that never drops one"] },
+  { pillar: "Simple Operations", text: "When you win a customer, is there a repeatable way you deliver the work?",
+    labels: ["Reinvent it each time", "Rough mental routine", "Some written steps", "Mostly repeatable", "Documented and repeatable"] },
+  { pillar: "Simple Operations", text: "Do you know your numbers each month: what came in, what went out, what's left?",
+    labels: ["Never look", "Check the bank app", "Rough monthly idea", "Review most months", "Clear monthly picture"] }
+];
+
+const PILLARS = ["Legal & Money Basics", "Brand & Presence", "Offer & Pricing", "First-Clients Engine", "Simple Operations"];
+const PILLAR_FIXES = {
+  "Legal & Money Basics": "finishing the legal setup and splitting business money from personal",
+  "Brand & Presence": "getting a clean brand and a findable online front door",
+  "Offer & Pricing": "locking one clear offer with pricing built on real margin math",
+  "First-Clients Engine": "building one repeatable channel and a follow-up system that never drops a lead",
+  "Simple Operations": "writing down how you deliver so every customer gets the same experience"
+};
+
+let answers = new Array(QUESTIONS.length).fill(null);
+let current = 0;
+
+function show(id) {
+  ["viewIntro","viewQuiz","viewGate","viewResults"].forEach(v =>
+    document.getElementById(v).classList.toggle("hidden", v !== id));
+}
+
+function startQuiz() { current = 0; renderQ(); show("viewQuiz"); }
+
+function renderQ() {
+  const q = QUESTIONS[current];
+  document.getElementById("qNum").textContent = current + 1;
+  document.getElementById("progFill").style.width = ((current) / QUESTIONS.length * 100) + "%";
+  document.getElementById("qPillar").textContent = q.pillar;
+  document.getElementById("qText").textContent = q.text;
+  document.getElementById("btnBack").style.visibility = current === 0 ? "hidden" : "visible";
+  const opts = document.getElementById("qOpts");
+  opts.innerHTML = "";
+  q.labels.forEach((label, i) => {
+    const b = document.createElement("button");
+    b.className = "opt" + (answers[current] === i + 1 ? " selected" : "");
+    b.innerHTML = '<span class="dot">' + (i + 1) + '</span><span>' + label + '</span>';
+    b.onclick = () => { answers[current] = i + 1; setTimeout(nextQ, 180); renderQ(); };
+    opts.appendChild(b);
+  });
+}
+
+function nextQ() {
+  if (answers[current] === null) return;
+  if (current < QUESTIONS.length - 1) { current++; renderQ(); }
+  else {
+    document.getElementById("headTitle").textContent = "One last step";
+    document.getElementById("headSub").textContent = "Your Foundation Readiness Score is calculated. See it below.";
+    show("viewGate");
+  }
+}
+function prevQ() { if (current > 0) { current--; renderQ(); } }
+
+function computeScores() {
+  const byPillar = {};
+  PILLARS.forEach(p => byPillar[p] = { sum: 0, n: 0 });
+  QUESTIONS.forEach((q, i) => {
+    const v = answers[i] || 3;
+    byPillar[q.pillar].sum += v;
+    byPillar[q.pillar].n += 1;
+  });
+  const pillarPct = {};
+  PILLARS.forEach(p => {
+    const { sum, n } = byPillar[p];
+    pillarPct[p] = Math.round(((sum - n) / (n * 4)) * 100);
+  });
+  const readiness = Math.round(PILLARS.reduce((a, p) => a + pillarPct[p], 0) / PILLARS.length);
+  const weakest = [...PILLARS].sort((a, b) => pillarPct[a] - pillarPct[b]).slice(0, 2);
+  return { pillarPct, readiness, weakest };
+}
+
+function submitGate() {
+  const name = document.getElementById("fName").value.trim();
+  const email = document.getElementById("fEmail").value.trim();
+  const biz = document.getElementById("fBiz").value.trim();
+  const valid = name.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  document.getElementById("gateError").classList.toggle("hidden", valid);
+  if (!valid) return;
+
+  const { readiness, weakest } = computeScores();
+  sendToHubSpot({ name, email, biz, readiness, weakest });
+  renderResults(name);
+}
+
+function sendToHubSpot({ name, email, biz, readiness, weakest }) {
+  if (!CONFIG.HUBSPOT_PORTAL_ID || !CONFIG.HUBSPOT_FORM_GUID) return;
+  const url = "https://api.hsforms.com/submissions/v3/integration/submit/" +
+    CONFIG.HUBSPOT_PORTAL_ID + "/" + CONFIG.HUBSPOT_FORM_GUID;
+  const payload = {
+    fields: [
+      { name: "firstname", value: name },
+      { name: "email", value: email },
+      { name: "company", value: biz },
+      { name: "foundation_readiness_score", value: String(readiness) },
+      { name: "weakest_foundation_1", value: weakest[0] },
+      { name: "weakest_foundation_2", value: weakest[1] }
+    ],
+    context: { pageUri: location.href, pageName: "Foundation Readiness Score" }
+  };
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+}
+
+function renderResults(name) {
+  const { pillarPct, readiness, weakest } = computeScores();
+  document.getElementById("headTitle").textContent = (name ? name + ", here" : "Here") + "'s your score";
+  const wired = CONFIG.HUBSPOT_PORTAL_ID && CONFIG.HUBSPOT_FORM_GUID;
+  document.getElementById("headSub").textContent = wired
+    ? "Your full breakdown is on its way to your inbox."
+    : "Here's where your foundation stands today.";
+
+  const scoreEl = document.getElementById("scoreNum");
+  scoreEl.textContent = readiness + "%";
+
+  let band, color, blurb, cta;
+  if (readiness >= 70) {
+    band = "Ready to Build"; color = "var(--green)";
+    blurb = "Your foundation is solid. The next question isn't whether the basics are done, it's whether the business can grow without running entirely on you.";
+    cta = {
+      title: "Take the next score",
+      body: "The Owner-Dependency Scorecard measures how much of your business depends on you personally. It's the natural next check once the foundation is in.",
+      btn: "Check Owner Dependency", url: CONFIG.SCORECARD_URL
+    };
+  } else if (readiness >= 40) {
+    band = "Almost Ready"; color = "var(--amber)";
+    blurb = "You've done real work, and a few gaps are still holding the structure up with tape. Close the two gaps below before you spend money on growth.";
+    cta = {
+      title: "Close the gaps in 30 days",
+      body: "Our Launch Pad engagement finishes the foundation: legal, brand, offer, and your first-clients engine, done with you in about a month. Start with a free 30-minute call.",
+      btn: "Book a Free Call", url: CONFIG.BOOKING_URL
+    };
+  } else {
+    band = "Foundation First"; color = "var(--red)";
+    blurb = "The honest read: growth spending now would leak. The good news is the foundation stage is fast when you work it in the right order, and you just found your order below.";
+    cta = {
+      title: "Build it once, build it right",
+      body: "Launch Pad takes you from idea-on-paper to a real, findable, sellable business in about 30 days: legal setup, brand, offer, pricing, and your first lead engine. Start with a free 30-minute call.",
+      btn: "Book a Free Call", url: CONFIG.BOOKING_URL
+    };
+  }
+  scoreEl.style.color = color;
+  const pill = document.getElementById("bandPill");
+  pill.textContent = band;
+  pill.style.background = color;
+  document.getElementById("bandBlurb").textContent = blurb;
+
+  const bars = document.getElementById("pillarBars");
+  bars.innerHTML = "";
+  PILLARS.forEach(p => {
+    const pct = pillarPct[p];
+    const c = pct >= 70 ? "var(--green)" : pct >= 40 ? "var(--amber)" : "var(--red)";
+    bars.innerHTML +=
+      '<div class="pillar-row"><div class="pr-head"><span>' + p + '</span><span>' + pct + '% ready</span></div>' +
+      '<div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:' + pct + '%;background:' + c + ';"></div></div></div>';
+  });
+
+  document.getElementById("weakCallout").innerHTML =
+    "<strong>Close these first:</strong> " + weakest[0] + " and " + weakest[1] + ". " +
+    "Start with " + PILLAR_FIXES[weakest[0]] + ", then " + PILLAR_FIXES[weakest[1]] + ".";
+
+  document.getElementById("ctaTitle").textContent = cta.title;
+  document.getElementById("ctaBody").textContent = cta.body;
+  const btn = document.getElementById("ctaBtn");
+  btn.textContent = cta.btn;
+  btn.href = cta.url;
+
+  show("viewResults");
+}
+</script>
+</body>
+</html>

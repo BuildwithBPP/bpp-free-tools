@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which AI Employee Should You Hire First? | Business Plans Plus</title>
+<meta property="og:title" content="Which AI employee should your business hire first?">
+<meta property="og:description" content="Answer 8 questions and find out which AI assistant would give you back the most hours, plus whether your business is ready for it. Free, 2 minutes.">
+<meta property="og:type" content="website">
+<meta name="description" content="Free 2-minute AI Employee Readiness Assessment for business owners. Find out which AI assistant fits your business first: follow-up, admin, proposals, content, or numbers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #044771;
+    --navy-dark: #033654;
+    --gold: #F1BE5C;
+    --blue: #5987A5;
+    --bg: #edf1f5;
+    --green: #1a9e5c;
+    --amber: #d4920a;
+    --red: #c0392b;
+    --ink: #1c2b36;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Poppins', -apple-system, 'Segoe UI', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; min-height: 100vh; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 20px 64px; }
+  .card { background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(4, 71, 113, 0.10); overflow: hidden; }
+  .card-head { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: #fff; padding: 36px 32px 30px; }
+  .card-head .kicker { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .card-head h1 { font-family: 'Montserrat', sans-serif; font-size: clamp(24px, 5vw, 32px); font-weight: 800; line-height: 1.25; margin-bottom: 10px; }
+  .card-head p { font-size: 15px; opacity: 0.9; }
+  .card-body { padding: 32px; }
+  @media (max-width: 520px) { .card-body { padding: 24px 20px; } .card-head { padding: 28px 20px 24px; } }
+  .btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 16px; padding: 14px 32px; border-radius: 10px; border: none; cursor: pointer; text-decoration: none; transition: transform .12s ease, box-shadow .12s ease; }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(4,71,113,.22); }
+  .btn-gold { background: var(--gold); color: var(--navy-dark); }
+  .progress-track { height: 6px; background: #dde5ec; border-radius: 3px; margin-bottom: 26px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--gold); border-radius: 3px; width: 0%; transition: width .3s ease; }
+  .q-count { font-size: 13px; color: var(--blue); font-weight: 500; margin-bottom: 6px; }
+  .q-text { font-family: 'Montserrat', sans-serif; font-size: 21px; font-weight: 700; color: var(--navy-dark); line-height: 1.35; margin-bottom: 24px; }
+  .opts { display: flex; flex-direction: column; gap: 10px; }
+  .opt { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border: 2px solid #dde5ec; border-radius: 12px; cursor: pointer; font-size: 15px; background: #fff; transition: border-color .12s ease, background .12s ease; text-align: left; width: 100%; font-family: inherit; color: var(--ink); }
+  .opt:hover { border-color: var(--blue); background: #f6f9fb; }
+  .opt.selected { border-color: var(--navy); background: rgba(4,71,113,.06); }
+  .opt .dot { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--bg); color: var(--navy); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .opt.selected .dot { background: var(--gold); color: var(--navy-dark); }
+  .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; }
+  .back-link { background: none; border: none; color: var(--blue); font-family: inherit; font-size: 14px; cursor: pointer; padding: 8px 0; }
+  .back-link:hover { text-decoration: underline; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; color: var(--navy-dark); margin-bottom: 6px; }
+  .field input { width: 100%; padding: 12px 14px; border: 2px solid #dde5ec; border-radius: 10px; font-family: inherit; font-size: 15px; color: var(--ink); }
+  .field input:focus { outline: none; border-color: var(--blue); }
+  .fine-print { font-size: 12px; color: #6b7c88; margin-top: 14px; }
+  .rec-card { text-align: center; margin: 6px 0 20px; }
+  .rec-icon { font-size: 44px; }
+  .rec-title { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800; color: var(--navy-dark); margin-top: 6px; line-height: 1.25; }
+  .rec-label { font-size: 13px; color: #55677a; text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 4px; }
+  .band-pill { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; padding: 6px 18px; border-radius: 20px; color: #fff; margin-top: 12px; }
+  .rec-body { font-size: 14.5px; margin: 14px 0 6px; text-align: left; }
+  .day1 { background: var(--bg); border-radius: 12px; padding: 16px 18px; margin: 16px 0; font-size: 14px; }
+  .day1 .d1-head { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--navy); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .day1 ul { margin-left: 18px; }
+  .day1 li { margin-bottom: 5px; }
+  .runner { background: rgba(241, 190, 92, 0.14); border-left: 4px solid var(--gold); border-radius: 0 10px 10px 0; padding: 14px 16px; margin: 16px 0; font-size: 14px; }
+  .runner strong { color: var(--navy-dark); }
+  .cta-box { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); border-radius: 14px; color: #fff; padding: 26px 24px; text-align: center; margin-top: 22px; }
+  .cta-box h3 { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+  .cta-box p { font-size: 14px; opacity: .9; margin-bottom: 18px; }
+  .hidden { display: none; }
+  .brand-foot { text-align: center; font-size: 12px; color: #7d8b97; margin-top: 22px; }
+  .brand-foot a { color: var(--blue); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head">
+      <div class="kicker">Free 2-Minute Assessment</div>
+      <h1 id="headTitle">Which AI employee should you hire first?</h1>
+      <p id="headSub">Answer 8 quick questions. We'll tell you which AI assistant gives you back the most hours, and whether your business is ready for it.</p>
+    </div>
+    <div class="card-body">
+
+      <!-- INTRO -->
+      <div id="viewIntro">
+        <p style="margin-bottom:16px;">AI can now do real work in a small business: chase leads, draft proposals, keep the books current, write content, and run the admin that eats your week. The mistake most owners make is starting with the wrong one.</p>
+        <p style="margin-bottom:16px;">This assessment looks at where your time actually goes and what systems you already have, then recommends <strong>the one AI assistant to start with</strong>: the one that pays for itself fastest in your business.</p>
+        <p style="margin-bottom:26px;">8 questions, about 2 minutes.</p>
+        <button class="btn btn-gold" onclick="startQuiz()">Find My First AI Hire</button>
+      </div>
+
+      <!-- QUIZ -->
+      <div id="viewQuiz" class="hidden">
+        <div class="q-count"><span id="qNum">1</span> of 8</div>
+        <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+        <div class="q-text" id="qText"></div>
+        <div class="opts" id="qOpts"></div>
+        <div class="nav-row">
+          <button class="back-link" id="btnBack" onclick="prevQ()">&larr; Back</button>
+          <span style="font-size:13px;color:#8895a2;">Select an answer to continue</span>
+        </div>
+      </div>
+
+      <!-- GATE -->
+      <div id="viewGate" class="hidden">
+        <div class="q-text" style="margin-bottom:8px;">Your recommendation is ready.</div>
+        <p style="font-size:14.5px;margin-bottom:22px;">Tell us where to send your results and we'll show your first AI hire now, plus email you the breakdown of what it would handle in your business.</p>
+        <div class="field">
+          <label for="fName">First name</label>
+          <input type="text" id="fName" autocomplete="given-name" placeholder="Jordan">
+        </div>
+        <div class="field">
+          <label for="fEmail">Email</label>
+          <input type="email" id="fEmail" autocomplete="email" placeholder="you@yourbusiness.com">
+        </div>
+        <div class="field">
+          <label for="fBiz">Business name</label>
+          <input type="text" id="fBiz" autocomplete="organization" placeholder="Your Company LLC">
+        </div>
+        <button class="btn btn-gold" onclick="submitGate()">Show My Recommendation</button>
+        <div class="fine-print">We'll email your results and occasional practical AI-for-business tips. No spam, unsubscribe anytime.</div>
+        <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter a first name and a valid email to see your results.</div>
+      </div>
+
+      <!-- RESULTS -->
+      <div id="viewResults" class="hidden">
+        <div class="rec-card">
+          <div class="rec-icon" id="recIcon"></div>
+          <div class="rec-label">Your first AI hire</div>
+          <div class="rec-title" id="recTitle"></div>
+          <div class="band-pill" id="readyPill"></div>
+        </div>
+        <div class="rec-body" id="recBody"></div>
+        <div class="day1">
+          <div class="d1-head">What it handles in week one</div>
+          <ul id="day1List"></ul>
+        </div>
+        <div class="runner" id="runnerBox"></div>
+        <div class="rec-body" id="readyNote" style="font-size:13.5px;color:#55677a;"></div>
+
+        <div class="cta-box">
+          <h3>Want it built and working, not just recommended?</h3>
+          <p>BPP installs AI assistants inside real businesses: connected to your calendar, your CRM, your books. Start with a free 30-minute call and we'll map your first hire together.</p>
+          <a class="btn btn-gold" href="https://www.buildwithbpp.com/booking" target="_blank">Book a Free Call</a>
+        </div>
+
+        <div class="brand-foot">
+          Built by <a href="https://www.buildwithbpp.com" target="_blank">Business Plans Plus</a>. We build the operating systems that make growth-stage businesses easier to run.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= CONFIG - wire these before launch ================= */
+const CONFIG = {
+  // HubSpot form: firstname, email, company + hidden fields
+  // ai_first_hire, ai_readiness_level
+  HUBSPOT_PORTAL_ID: "",
+  HUBSPOT_FORM_GUID: ""
+};
+/* ==================================================================== */
+
+// Categories: F = Follow-Up Assistant, A = Admin Assistant, P = Proposal Writer,
+// C = Content Assistant, N = Numbers Copilot. r = readiness points (max 10 total).
+const QUESTIONS = [
+  { text: "Where does most of your week actually disappear?",
+    opts: [
+      { label: "Scheduling, emails, and repetitive admin", w: { A: 3 } },
+      { label: "Chasing leads and following up on quotes", w: { F: 3 } },
+      { label: "Writing quotes, proposals, and estimates", w: { P: 3 } },
+      { label: "Marketing: posts, emails, keeping us visible", w: { C: 3 } },
+      { label: "Bookkeeping, invoices, and money questions", w: { N: 3 } }
+    ] },
+  { text: "What happens to a new lead who contacts you today?",
+    opts: [
+      { label: "Instant response, tracked to close", w: { F: 0 }, r: 2 },
+      { label: "We reply when we can, then it's memory", w: { F: 2 } },
+      { label: "Some get answered, some slip", w: { F: 3 } },
+      { label: "Honestly, leads sit for days", w: { F: 3 } }
+    ] },
+  { text: "How do quotes and proposals get made?",
+    opts: [
+      { label: "We rarely need written proposals", w: {} },
+      { label: "From scratch every time, hours each", w: { P: 3 } },
+      { label: "Old one gets copied and edited (risky)", w: { P: 2 } },
+      { label: "Solid template, just slow to fill", w: { P: 1, A: 1 } }
+    ] },
+  { text: "How visible is your business online in a typical month?",
+    opts: [
+      { label: "We post consistently and it brings leads", w: {}, r: 1 },
+      { label: "Bursts when someone has time, then silence", w: { C: 2 } },
+      { label: "Almost never, no time to create", w: { C: 3 } },
+      { label: "We pay someone but want more output", w: { C: 1 } }
+    ] },
+  { text: "When did you last see a clear monthly picture of your numbers?",
+    opts: [
+      { label: "Every month, current and clear", w: {}, r: 2 },
+      { label: "At tax time", w: { N: 3 } },
+      { label: "I check the bank balance, that's it", w: { N: 3 } },
+      { label: "Books are current but tell me nothing", w: { N: 2 } }
+    ] },
+  { text: "What runs the business today, software-wise?",
+    opts: [
+      { label: "CRM + accounting software, used daily", w: {}, r: 3 },
+      { label: "Accounting software plus spreadsheets", w: {}, r: 2 },
+      { label: "Spreadsheets and a shared inbox", w: {}, r: 1 },
+      { label: "Paper, texts, and memory", w: { A: 1 }, r: 0 }
+    ] },
+  { text: "How much have you personally used AI tools (ChatGPT, Claude, etc.)?",
+    opts: [
+      { label: "Weekly, already part of how I work", w: {}, r: 3 },
+      { label: "Tried them a few times", w: {}, r: 2 },
+      { label: "Curious but haven't started", w: {}, r: 1 },
+      { label: "Skeptical, need to see proof", w: {}, r: 1 }
+    ] },
+  { text: "If an assistant handed you back 5 hours a week, where would you want them taken from?",
+    opts: [
+      { label: "The admin churn", w: { A: 2 } },
+      { label: "The follow-up treadmill", w: { F: 2 } },
+      { label: "Proposal writing", w: { P: 2 } },
+      { label: "Content and marketing", w: { C: 2 } },
+      { label: "The bookkeeping backlog", w: { N: 2 } }
+    ] }
+];
+
+const HIRES = {
+  F: { icon: "📞", name: "The Follow-Up Assistant",
+    body: "Your biggest leak is revenue you already earned the hard way: leads that came in and went quiet. A follow-up assistant works your pipeline every day without being reminded.",
+    day1: ["Answers every new inquiry within minutes, 24/7", "Nudges every open quote on a schedule until it gets a yes or no", "Keeps your pipeline list current so you see what's stalled", "Flags the hot ones so a human calls at the right moment"] },
+  A: { icon: "📅", name: "The Admin Assistant",
+    body: "Your week is being eaten by work that doesn't need your judgment: scheduling, reminders, routine emails, chasing paperwork. That's the first thing AI should take.",
+    day1: ["Handles scheduling and sends confirmations + reminders", "Drafts routine emails and responses for one-click approval", "Chases missing paperwork and invoice follow-ups", "Turns your inbox from a to-do list into a checked-off list"] },
+  P: { icon: "📄", name: "The Proposal Writer",
+    body: "Every proposal is hours of your best-paid time doing formatting. An AI proposal writer turns your notes from a walk-through or call into a branded, priced draft in minutes.",
+    day1: ["Turns rough notes into a full branded proposal draft", "Keeps pricing consistent with your real cost math", "Produces same-day quotes (speed wins deals)", "Builds a library so every proposal gets smarter"] },
+  C: { icon: "📣", name: "The Content Assistant",
+    body: "You know showing up online brings work, and it's always the first thing dropped when you're busy. A content assistant keeps you visible in your voice, every week, without you writing from scratch.",
+    day1: ["Drafts a month of posts in your voice from one working session", "Turns one idea into posts, emails, and a newsletter", "Keeps Google Business Profile and pages fresh", "Hands you a review-and-approve queue, not a blank page"] },
+  N: { icon: "📊", name: "The Numbers Copilot",
+    body: "You're running the business on bank-balance vision. A numbers copilot keeps the books current and translates them into plain-English answers: what made money, what didn't, what's ahead.",
+    day1: ["Keeps transactions categorized weekly, not at tax time", "Sends a monthly one-page scorecard in plain English", "Flags late invoices and drafts the chase messages", "Answers questions like 'what was our margin on that job?'"] }
+};
+
+let answers = new Array(QUESTIONS.length).fill(null);
+let current = 0;
+
+function show(id) {
+  ["viewIntro","viewQuiz","viewGate","viewResults"].forEach(v =>
+    document.getElementById(v).classList.toggle("hidden", v !== id));
+}
+
+function startQuiz() { current = 0; renderQ(); show("viewQuiz"); }
+
+function renderQ() {
+  const q = QUESTIONS[current];
+  document.getElementById("qNum").textContent = current + 1;
+  document.getElementById("progFill").style.width = ((current) / QUESTIONS.length * 100) + "%";
+  document.getElementById("qText").textContent = q.text;
+  document.getElementById("btnBack").style.visibility = current === 0 ? "hidden" : "visible";
+  const opts = document.getElementById("qOpts");
+  opts.innerHTML = "";
+  q.opts.forEach((o, i) => {
+    const b = document.createElement("button");
+    b.className = "opt" + (answers[current] === i ? " selected" : "");
+    b.innerHTML = '<span class="dot">' + String.fromCharCode(65 + i) + '</span><span>' + o.label + '</span>';
+    b.onclick = () => { answers[current] = i; setTimeout(nextQ, 180); renderQ(); };
+    opts.appendChild(b);
+  });
+}
+
+function nextQ() {
+  if (answers[current] === null) return;
+  if (current < QUESTIONS.length - 1) { current++; renderQ(); }
+  else {
+    document.getElementById("headTitle").textContent = "One last step";
+    document.getElementById("headSub").textContent = "Your recommendation is ready. See it below.";
+    show("viewGate");
+  }
+}
+function prevQ() { if (current > 0) { current--; renderQ(); } }
+
+function compute() {
+  const scores = { F: 0, A: 0, P: 0, C: 0, N: 0 };
+  let ready = 0;
+  QUESTIONS.forEach((q, i) => {
+    const o = q.opts[answers[i] ?? 0];
+    if (o.w) Object.entries(o.w).forEach(([k, v]) => scores[k] += v);
+    if (o.r) ready += o.r;
+  });
+  const ranked = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+  // Readiness out of ~11 points
+  const level = ready >= 7 ? "Ready Now" : ready >= 4 ? "Ready With Light Setup" : "Foundations First";
+  return { top: ranked[0], second: ranked[1], scores, level };
+}
+
+function submitGate() {
+  const name = document.getElementById("fName").value.trim();
+  const email = document.getElementById("fEmail").value.trim();
+  const biz = document.getElementById("fBiz").value.trim();
+  const valid = name.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  document.getElementById("gateError").classList.toggle("hidden", valid);
+  if (!valid) return;
+
+  const { top, level } = compute();
+  sendToHubSpot({ name, email, biz, hire: HIRES[top].name, level });
+  renderResults(name);
+}
+
+function sendToHubSpot({ name, email, biz, hire, level }) {
+  if (!CONFIG.HUBSPOT_PORTAL_ID || !CONFIG.HUBSPOT_FORM_GUID) return;
+  const url = "https://api.hsforms.com/submissions/v3/integration/submit/" +
+    CONFIG.HUBSPOT_PORTAL_ID + "/" + CONFIG.HUBSPOT_FORM_GUID;
+  const payload = {
+    fields: [
+      { name: "firstname", value: name },
+      { name: "email", value: email },
+      { name: "company", value: biz },
+      { name: "ai_first_hire", value: hire },
+      { name: "ai_readiness_level", value: level }
+    ],
+    context: { pageUri: location.href, pageName: "AI Employee Readiness Assessment" }
+  };
+  fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).catch(() => {});
+}
+
+function renderResults(name) {
+  const { top, second, level } = compute();
+  const hire = HIRES[top];
+  document.getElementById("headTitle").textContent = (name ? name + ", meet" : "Meet") + " your first AI hire";
+  const wired = CONFIG.HUBSPOT_PORTAL_ID && CONFIG.HUBSPOT_FORM_GUID;
+  document.getElementById("headSub").textContent = wired
+    ? "Your full breakdown is on its way to your inbox."
+    : "Here's the assistant that pays for itself fastest in your business.";
+
+  document.getElementById("recIcon").textContent = hire.icon;
+  document.getElementById("recTitle").textContent = hire.name;
+  document.getElementById("recBody").textContent = hire.body;
+
+  const pill = document.getElementById("readyPill");
+  pill.textContent = level;
+  pill.style.background = level === "Ready Now" ? "var(--green)" : level === "Ready With Light Setup" ? "var(--amber)" : "var(--red)";
+
+  const list = document.getElementById("day1List");
+  list.innerHTML = "";
+  hire.day1.forEach(item => { const li = document.createElement("li"); li.textContent = item; list.appendChild(li); });
+
+  document.getElementById("runnerBox").innerHTML =
+    "<strong>Your second hire:</strong> " + HIRES[second].name + ". Worth doing, but after the first one is earning its keep.";
+
+  let note;
+  if (level === "Ready Now") {
+    note = "Readiness: your systems and comfort level mean this assistant could be working inside your business within weeks.";
+  } else if (level === "Ready With Light Setup") {
+    note = "Readiness: you'll need some light groundwork first (usually getting one system of record in place), then the assistant plugs in. That setup is part of how we build.";
+  } else {
+    note = "Readiness: the honest read is that AI would sit on shaky ground today. The fix is quick: one system of record and clean basics. We build that first, then the assistant.";
+  }
+  document.getElementById("readyNote").textContent = note;
+
+  show("viewResults");
+}
+</script>
+</body>
+</html>
