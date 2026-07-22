@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is Your Business Ready to Run Without You? | Business Plans Plus</title>
+<meta property="og:title" content="Is your business ready to run without you?">
+<meta property="og:description" content="Answer 10 questions and get your Owner-Dependency Score, plus the two areas where you're most exposed. Free, takes 2 minutes.">
+<meta property="og:type" content="website">
+<meta name="description" content="Free 2-minute Owner-Dependency Score for business owners. Find out how much your business depends on you personally, across process, sales follow-up, your website, automation, and financial clarity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #044771;
+    --navy-dark: #033654;
+    --gold: #F1BE5C;
+    --blue: #5987A5;
+    --bg: #edf1f5;
+    --green: #1a9e5c;
+    --amber: #d4920a;
+    --red: #c0392b;
+    --ink: #1c2b36;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Poppins', -apple-system, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 20px 64px; }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(4, 71, 113, 0.10);
+    overflow: hidden;
+  }
+  .card-head {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    color: #fff;
+    padding: 36px 32px 30px;
+  }
+  .card-head .kicker {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .card-head h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(24px, 5vw, 32px);
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .card-head p { font-size: 15px; opacity: 0.9; }
+  .card-body { padding: 32px; }
+  @media (max-width: 520px) { .card-body { padding: 24px 20px; } .card-head { padding: 28px 20px 24px; } }
+
+  .btn {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px 32px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(4,71,113,.22); }
+  .btn-gold { background: var(--gold); color: var(--navy-dark); }
+  .btn-navy { background: var(--navy); color: #fff; }
+  .btn-ghost { background: transparent; color: var(--blue); border: 2px solid var(--blue); }
+  .btn[disabled] { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* Progress */
+  .progress-track { height: 6px; background: #dde5ec; border-radius: 3px; margin-bottom: 26px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--gold); border-radius: 3px; width: 0%; transition: width .3s ease; }
+  .q-count { font-size: 13px; color: var(--blue); font-weight: 500; margin-bottom: 6px; }
+
+  /* Question */
+  .pillar-tag {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: rgba(89, 135, 165, 0.14);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .q-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--navy-dark);
+    line-height: 1.35;
+    margin-bottom: 24px;
+  }
+  .opts { display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 2px solid #dde5ec;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    background: #fff;
+    transition: border-color .12s ease, background .12s ease;
+    text-align: left;
+    width: 100%;
+    font-family: inherit;
+    color: var(--ink);
+  }
+  .opt:hover { border-color: var(--blue); background: #f6f9fb; }
+  .opt.selected { border-color: var(--navy); background: rgba(4,71,113,.06); }
+  .opt .dot {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--bg);
+    color: var(--navy);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .opt.selected .dot { background: var(--gold); color: var(--navy-dark); }
+  .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; }
+  .back-link { background: none; border: none; color: var(--blue); font-family: inherit; font-size: 14px; cursor: pointer; padding: 8px 0; }
+  .back-link:hover { text-decoration: underline; }
+
+  /* Gate form */
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; color: var(--navy-dark); margin-bottom: 6px; }
+  .field input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #dde5ec;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .field input:focus { outline: none; border-color: var(--blue); }
+  .fine-print { font-size: 12px; color: #6b7c88; margin-top: 14px; }
+
+  /* Results */
+  .score-ring-wrap { text-align: center; margin: 6px 0 22px; }
+  .score-big {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .score-label { font-size: 14px; color: #55677a; margin-top: 4px; }
+  .band-pill {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 18px;
+    border-radius: 20px;
+    color: #fff;
+    margin-top: 12px;
+  }
+  .pillar-row { margin-bottom: 14px; }
+  .pillar-row .pr-head { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 600; color: var(--navy-dark); margin-bottom: 5px; }
+  .pillar-bar-track { height: 10px; background: #e4eaf0; border-radius: 5px; overflow: hidden; }
+  .pillar-bar-fill { height: 100%; border-radius: 5px; transition: width .6s ease; }
+  .weak-callout {
+    background: rgba(241, 190, 92, 0.14);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 18px;
+    margin: 22px 0;
+    font-size: 14.5px;
+  }
+  .weak-callout strong { color: var(--navy-dark); }
+  .cta-box {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    border-radius: 14px;
+    color: #fff;
+    padding: 26px 24px;
+    text-align: center;
+    margin-top: 24px;
+  }
+  .cta-box h3 { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+  .cta-box p { font-size: 14px; opacity: .9; margin-bottom: 18px; }
+  .hidden { display: none; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 1px; margin: 26px 0 14px; }
+  .brand-foot { text-align: center; font-size: 12px; color: #7d8b97; margin-top: 22px; }
+  .brand-foot a { color: var(--blue); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head">
+      <div class="kicker">Free 2-Minute Score</div>
+      <h1 id="headTitle">Is your business ready to run without you?</h1>
+      <p id="headSub">Answer 10 quick questions and get your Owner-Dependency Score, plus the two areas where you're most exposed.</p>
+    </div>
+    <div class="card-body">
+
+      <!-- INTRO -->
+      <div id="viewIntro">
+        <p style="margin-bottom:16px;">Most service businesses between $250K and $2M run on the owner's memory. That works until it doesn't: a vacation, a busy season, a growth spurt, and things start slipping.</p>
+        <p style="margin-bottom:16px;">This score measures how much of your business depends on you personally, across 5 areas: <strong>process, sales follow-up, your front door, automation, and financial clarity</strong>.</p>
+        <p style="margin-bottom:26px;">It takes about 2 minutes. You'll get your score plus a short breakdown of where to focus first.</p>
+        <button class="btn btn-gold" onclick="startQuiz()">Get My Score</button>
+      </div>
+
+      <!-- QUIZ -->
+      <div id="viewQuiz" class="hidden">
+        <div class="q-count"><span id="qNum">1</span> of 10</div>
+        <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+        <div class="pillar-tag" id="qPillar"></div>
+        <div class="q-text" id="qText"></div>
+        <div class="opts" id="qOpts"></div>
+        <div class="nav-row">
+          <button class="back-link" id="btnBack" onclick="prevQ()">&larr; Back</button>
+          <span style="font-size:13px;color:#8895a2;">Select an answer to continue</span>
+        </div>
+      </div>
+
+      <!-- GATE -->
+      <div id="viewGate" class="hidden">
+        <div class="q-text" style="margin-bottom:8px;">Your score is ready.</div>
+        <p style="font-size:14.5px;margin-bottom:22px;">Tell us where to send your results and we'll show your score now, plus email you a short breakdown of your two weakest areas and what to do about them.</p>
+        <div class="field">
+          <label for="fName">First name</label>
+          <input type="text" id="fName" autocomplete="given-name" placeholder="Jordan">
+        </div>
+        <div class="field">
+          <label for="fEmail">Email</label>
+          <input type="email" id="fEmail" autocomplete="email" placeholder="you@yourbusiness.com">
+        </div>
+        <div class="field">
+          <label for="fBiz">Business name</label>
+          <input type="text" id="fBiz" autocomplete="organization" placeholder="Your Company LLC">
+        </div>
+        <button class="btn btn-gold" id="btnReveal" onclick="submitGate()">Show My Score</button>
+        <div class="fine-print">We'll email your results and occasional practical systems tips. No spam, unsubscribe anytime.</div>
+        <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter a first name and a valid email to see your score.</div>
+      </div>
+
+      <!-- RESULTS -->
+      <div id="viewResults" class="hidden">
+        <div class="score-ring-wrap">
+          <div class="score-big" id="scoreNum">0%</div>
+          <div class="score-label">Owner-Dependency Score</div>
+          <div class="band-pill" id="bandPill"></div>
+        </div>
+        <p id="bandBlurb" style="font-size:15px;text-align:center;margin-bottom:8px;"></p>
+
+        <div class="section-title">Your 5 pillars</div>
+        <div id="pillarBars"></div>
+
+        <div class="weak-callout" id="weakCallout"></div>
+
+        <div class="cta-box" id="ctaBox">
+          <h3 id="ctaTitle"></h3>
+          <p id="ctaBody"></p>
+          <a class="btn btn-gold" id="ctaBtn" href="#" target="_blank"></a>
+        </div>
+
+        <div class="brand-foot">
+          Built by <a href="https://www.buildwithbpp.com" target="_blank">Business Plans Plus</a>. We build the operating systems that make growth-stage businesses easier to run.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= CONFIG - wire these before launch ================= */
+const CONFIG = {
+  // HubSpot Forms API. Create a form with fields: firstname, email, company,
+  // owner_dependency_score, weakest_pillar_1, weakest_pillar_2, then fill these in.
+  HUBSPOT_PORTAL_ID: "",        // e.g. "45678901"
+  HUBSPOT_FORM_GUID: "",        // e.g. "abcd1234-..."
+  // Where each CTA points.
+  BOOKING_URL: "https://www.buildwithbpp.com/booking",           // audit booking / contact
+  GUIDE_URL: "https://www.buildwithbpp.com/resources"            // Run Without You guide
+};
+/* ==================================================================== */
+
+// Scale: value 1-5. "reverse: true" means the healthy answer is "Never" (left side).
+// Readiness points are always normalized so 5 = healthiest.
+const QUESTIONS = [
+  { pillar: "Process", text: "If you took a 2-week vacation tomorrow, would the business run without you?",
+    labels: ["Not a chance", "Doubtful", "Parts of it", "Mostly", "Absolutely"], reverse: false },
+  { pillar: "Process", text: "Are your core processes documented so someone else could follow them?",
+    labels: ["Nothing written down", "A few notes", "Some are", "Most are", "All documented"], reverse: false },
+  { pillar: "Sales Follow-Up", text: "Do leads get followed up with automatically, or only when you remember?",
+    labels: ["Only when I remember", "Mostly manual", "Mixed", "Mostly automatic", "Fully automatic"], reverse: false },
+  { pillar: "Sales Follow-Up", text: "Can you see your whole pipeline in one place without asking around?",
+    labels: ["No pipeline view", "Scattered notes", "Partly", "Mostly", "One clean view"], reverse: false },
+  { pillar: "Front Door", text: "Does your website consistently turn visitors into booked calls or requests?",
+    labels: ["Never", "Rarely", "Sometimes", "Often", "Consistently"], reverse: false },
+  { pillar: "Automation", text: "How much of your repetitive admin (scheduling, reminders, follow-up) is automated?",
+    labels: ["None of it", "A little", "Some", "Most", "Nearly all"], reverse: false },
+  { pillar: "Automation", text: "Do tasks fall through the cracks when you get busy?",
+    labels: ["Constantly", "Often", "Sometimes", "Rarely", "Never"], reverse: false },
+  { pillar: "Financial Clarity", text: "Do you know your margin by service or job without digging?",
+    labels: ["No idea", "Rough guess", "Some services", "Most services", "Know it cold"], reverse: false },
+  { pillar: "Financial Clarity", text: "Do you have a clear, current view of your numbers each month?",
+    labels: ["Never look", "Tax time only", "Some months", "Most months", "Every month"], reverse: false },
+  { pillar: "Process", text: "How often are you the bottleneck that work waits on?",
+    labels: ["Always", "Often", "Sometimes", "Rarely", "Never"], reverse: false }
+];
+
+const PILLARS = ["Process", "Sales Follow-Up", "Front Door", "Automation", "Financial Clarity"];
+const PILLAR_FIXES = {
+  "Process": "documenting how work gets done so it stops living in your head",
+  "Sales Follow-Up": "a CRM that follows up with every lead so nothing slips",
+  "Front Door": "a website that books calls for you instead of just sitting there",
+  "Automation": "automating the repetitive admin that eats your week",
+  "Financial Clarity": "a clean monthly view of your numbers and margins"
+};
+
+let answers = new Array(QUESTIONS.length).fill(null);
+let current = 0;
+
+function show(id) {
+  ["viewIntro","viewQuiz","viewGate","viewResults"].forEach(v =>
+    document.getElementById(v).classList.toggle("hidden", v !== id));
+}
+
+function startQuiz() { current = 0; renderQ(); show("viewQuiz"); }
+
+function renderQ() {
+  const q = QUESTIONS[current];
+  document.getElementById("qNum").textContent = current + 1;
+  document.getElementById("progFill").style.width = ((current) / QUESTIONS.length * 100) + "%";
+  document.getElementById("qPillar").textContent = q.pillar;
+  document.getElementById("qText").textContent = q.text;
+  document.getElementById("btnBack").style.visibility = current === 0 ? "hidden" : "visible";
+  const opts = document.getElementById("qOpts");
+  opts.innerHTML = "";
+  q.labels.forEach((label, i) => {
+    const b = document.createElement("button");
+    b.className = "opt" + (answers[current] === i + 1 ? " selected" : "");
+    b.innerHTML = '<span class="dot">' + (i + 1) + '</span><span>' + label + '</span>';
+    b.onclick = () => { answers[current] = i + 1; setTimeout(nextQ, 180); renderQ(); };
+    opts.appendChild(b);
+  });
+}
+
+function nextQ() {
+  if (answers[current] === null) return;
+  if (current < QUESTIONS.length - 1) { current++; renderQ(); }
+  else {
+    document.getElementById("headTitle").textContent = "One last step";
+    document.getElementById("headSub").textContent = "Your Owner-Dependency Score is calculated. See it below.";
+    show("viewGate");
+  }
+}
+function prevQ() { if (current > 0) { current--; renderQ(); } }
+
+function computeScores() {
+  // Per-pillar readiness 0-100, then dependency = 100 - overall readiness.
+  const byPillar = {};
+  PILLARS.forEach(p => byPillar[p] = { sum: 0, n: 0 });
+  QUESTIONS.forEach((q, i) => {
+    let v = answers[i] || 3;
+    if (q.reverse) v = 6 - v;
+    byPillar[q.pillar].sum += v;
+    byPillar[q.pillar].n += 1;
+  });
+  const pillarPct = {};
+  PILLARS.forEach(p => {
+    const { sum, n } = byPillar[p];
+    pillarPct[p] = Math.round(((sum - n) / (n * 4)) * 100); // 1->0%, 5->100% readiness
+  });
+  const totalReadiness = Math.round(PILLARS.reduce((a, p) => a + pillarPct[p], 0) / PILLARS.length);
+  const dependency = 100 - totalReadiness;
+  const weakest = [...PILLARS].sort((a, b) => pillarPct[a] - pillarPct[b]).slice(0, 2);
+  return { pillarPct, dependency, weakest };
+}
+
+function submitGate() {
+  const name = document.getElementById("fName").value.trim();
+  const email = document.getElementById("fEmail").value.trim();
+  const biz = document.getElementById("fBiz").value.trim();
+  const valid = name.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  document.getElementById("gateError").classList.toggle("hidden", valid);
+  if (!valid) return;
+
+  const { dependency, weakest } = computeScores();
+  sendToHubSpot({ name, email, biz, dependency, weakest });
+  renderResults(name);
+}
+
+function sendToHubSpot({ name, email, biz, dependency, weakest }) {
+  if (!CONFIG.HUBSPOT_PORTAL_ID || !CONFIG.HUBSPOT_FORM_GUID) return; // not wired yet
+  const url = "https://api.hsforms.com/submissions/v3/integration/submit/" +
+    CONFIG.HUBSPOT_PORTAL_ID + "/" + CONFIG.HUBSPOT_FORM_GUID;
+  const payload = {
+    fields: [
+      { name: "firstname", value: name },
+      { name: "email", value: email },
+      { name: "company", value: biz },
+      { name: "owner_dependency_score", value: String(dependency) },
+      { name: "weakest_pillar_1", value: weakest[0] },
+      { name: "weakest_pillar_2", value: weakest[1] }
+    ],
+    context: { pageUri: location.href, pageName: "Owner-Dependency Scorecard" }
+  };
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).catch(() => {}); // never block the user's results
+}
+
+function renderResults(name) {
+  const { pillarPct, dependency, weakest } = computeScores();
+  document.getElementById("headTitle").textContent = (name ? name + ", here" : "Here") + "'s your score";
+  const wired = CONFIG.HUBSPOT_PORTAL_ID && CONFIG.HUBSPOT_FORM_GUID;
+  document.getElementById("headSub").textContent = wired
+    ? "Your full breakdown is on its way to your inbox."
+    : "Here's where your business stands today.";
+
+  const scoreEl = document.getElementById("scoreNum");
+  scoreEl.textContent = dependency + "%";
+
+  let band, color, blurb, cta;
+  if (dependency >= 60) {
+    band = "Highly Owner-Dependent"; color = "var(--red)";
+    blurb = "Right now the business runs because you personally push it every day. The good news: this is the most fixable problem in business, and fixing it is exactly what we do.";
+    cta = {
+      title: "The fastest way to fix this: a Business Systems Audit",
+      body: "In 1-2 weeks you get a written bottleneck analysis, a prioritized roadmap, and 1-2 quick wins you keep either way. The fee is credited in full toward a full build if you move forward within 30 days.",
+      btn: "Book a Call", url: CONFIG.BOOKING_URL
+    };
+  } else if (dependency >= 35) {
+    band = "Partially Owner-Dependent"; color = "var(--amber)";
+    blurb = "You've built real systems in places, but a few weak areas still pull you back into the day-to-day. Closing those gaps is usually a focused 4-6 week fix, not a rebuild.";
+    cta = {
+      title: "See exactly what to fix first",
+      body: "A Business Systems Audit gives you a written roadmap of your three biggest opportunities, plus 1-2 quick wins you keep regardless. Fee credited toward a full build within 30 days.",
+      btn: "Book a Call", url: CONFIG.BOOKING_URL
+    };
+  } else {
+    band = "Running on Systems"; color = "var(--green)";
+    blurb = "Your business largely runs without you. Nice work. The next level is optimizing what you have and protecting it as you grow.";
+    cta = {
+      title: "Keep sharpening the machine",
+      body: "Grab our free Run-Without-You guide for service businesses: the checklist we use to pressure-test operations before a growth push.",
+      btn: "Get the Free Guide", url: CONFIG.GUIDE_URL
+    };
+  }
+  scoreEl.style.color = color;
+  const pill = document.getElementById("bandPill");
+  pill.textContent = band;
+  pill.style.background = color;
+  document.getElementById("bandBlurb").textContent = blurb;
+
+  const bars = document.getElementById("pillarBars");
+  bars.innerHTML = "";
+  PILLARS.forEach(p => {
+    const pct = pillarPct[p];
+    const c = pct >= 70 ? "var(--green)" : pct >= 40 ? "var(--amber)" : "var(--red)";
+    bars.innerHTML +=
+      '<div class="pillar-row"><div class="pr-head"><span>' + p + '</span><span>' + pct + '% ready</span></div>' +
+      '<div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:' + pct + '%;background:' + c + ';"></div></div></div>';
+  });
+
+  document.getElementById("weakCallout").innerHTML =
+    "<strong>Where you're most exposed:</strong> " + weakest[0] + " and " + weakest[1] + ". " +
+    "Start with " + PILLAR_FIXES[weakest[0]] + ", then " + PILLAR_FIXES[weakest[1]] + ".";
+
+  document.getElementById("ctaTitle").textContent = cta.title;
+  document.getElementById("ctaBody").textContent = cta.body;
+  const btn = document.getElementById("ctaBtn");
+  btn.textContent = cta.btn;
+  btn.href = cta.url;
+
+  show("viewResults");
+}
+</script>
+</body>
+</html>

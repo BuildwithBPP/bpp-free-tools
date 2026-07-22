@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is Owner Dependence Costing You? | Business Plans Plus</title>
+<meta property="og:title" content="What is owner dependence costing you every year?">
+<meta property="og:description" content="Drag five sliders and see the real annual price of doing work someone else should own. Free calculator for business owners.">
+<meta property="og:type" content="website">
+<meta name="description" content="Free calculator: put a dollar figure on owner dependence. Trapped admin hours plus dropped leads, translated into a real annual cost.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #044771;
+    --navy-dark: #033654;
+    --gold: #F1BE5C;
+    --blue: #5987A5;
+    --bg: #edf1f5;
+    --green: #1a9e5c;
+    --amber: #d4920a;
+    --red: #c0392b;
+    --ink: #1c2b36;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Poppins', -apple-system, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(4, 71, 113, 0.10);
+    overflow: hidden;
+  }
+  .card-head {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    color: #fff;
+    padding: 36px 32px 30px;
+  }
+  .card-head .kicker {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .card-head h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(24px, 5vw, 32px);
+    font-weight: 800; line-height: 1.25; margin-bottom: 10px;
+  }
+  .card-head p { font-size: 15px; opacity: .9; max-width: 560px; }
+  .card-body { padding: 32px; }
+  @media (max-width: 560px) { .card-body { padding: 24px 20px; } .card-head { padding: 28px 20px 24px; } }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--navy); text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--gold);
+    display: inline-block;
+  }
+  .input-block { margin-bottom: 22px; }
+  .input-block label { display: block; font-size: 14px; font-weight: 600; color: var(--navy-dark); margin-bottom: 4px; }
+  .input-block .hint { font-size: 12.5px; color: #6b7c88; margin-bottom: 8px; }
+  .slider-row { display: flex; align-items: center; gap: 14px; }
+  input[type=range] {
+    flex: 1;
+    accent-color: var(--navy);
+    height: 6px;
+    cursor: pointer;
+  }
+  .val-badge {
+    min-width: 86px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--navy-dark);
+    background: rgba(241, 190, 92, .22);
+    border-radius: 8px;
+    padding: 6px 10px;
+  }
+
+  .result-panel {
+    background: var(--bg);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .big-cost {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(38px, 6vw, 52px);
+    font-weight: 800;
+    color: var(--red);
+    line-height: 1.1;
+    text-align: center;
+  }
+  .big-cost-label { text-align: center; font-size: 14px; color: #55677a; margin-bottom: 20px; margin-top: 4px; }
+  .break-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 12px 0;
+    border-bottom: 1px solid #dde5ec;
+    font-size: 14px;
+  }
+  .break-row:last-of-type { border-bottom: none; }
+  .break-row .amt { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--navy-dark); font-size: 16px; }
+  .break-row .lbl strong { color: var(--navy-dark); }
+  .break-row .lbl .sub { display: block; font-size: 12px; color: #6b7c88; }
+  .equiv {
+    background: rgba(241, 190, 92, .16);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    margin-top: 18px;
+  }
+  .equiv strong { color: var(--navy-dark); }
+
+  .cta-box {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    border-radius: 14px;
+    color: #fff;
+    padding: 26px 24px;
+    text-align: center;
+    margin-top: 32px;
+  }
+  .cta-box h3 { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+  .cta-box p { font-size: 14px; opacity: .9; margin-bottom: 18px; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .btn {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 16px;
+    padding: 14px 32px;
+    border-radius: 10px;
+    background: var(--gold);
+    color: var(--navy-dark);
+    text-decoration: none;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+  .method-note { font-size: 12px; color: #7d8b97; margin-top: 22px; text-align: center; }
+  .brand-foot { text-align: center; font-size: 12px; color: #7d8b97; margin-top: 18px; }
+  .brand-foot a { color: var(--blue); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head">
+      <div class="kicker">Free Calculator</div>
+      <h1>What is owner dependence costing you every year?</h1>
+      <p>You started the business to build something, not to be its most overworked employee. Drag the sliders and see the real annual price of doing work someone else (or a system) should own.</p>
+    </div>
+    <div class="card-body">
+      <div class="grid">
+        <div>
+          <div class="section-title">Your Time</div>
+          <div class="input-block">
+            <label for="inHours">Hours per week on work someone else could own</label>
+            <div class="hint">Scheduling, invoicing, chasing paperwork, answering the same questions, quoting routine jobs.</div>
+            <div class="slider-row">
+              <input type="range" id="inHours" min="0" max="40" step="1" value="15">
+              <span class="val-badge" id="vHours">15 hrs</span>
+            </div>
+          </div>
+          <div class="input-block">
+            <label for="inRate">What an hour of your time is worth</label>
+            <div class="hint">The value you create selling, leading, and growing. Most owners at $250K-$2M land between $100 and $250/hr.</div>
+            <div class="slider-row">
+              <input type="range" id="inRate" min="50" max="400" step="10" value="150">
+              <span class="val-badge" id="vRate">$150</span>
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-top:10px;">Your Leads</div>
+          <div class="input-block">
+            <label for="inLeads">Leads per month that slip through the cracks</label>
+            <div class="hint">Calls not returned, quotes never followed up, "I'll get back to you" that never happened.</div>
+            <div class="slider-row">
+              <input type="range" id="inLeads" min="0" max="20" step="1" value="4">
+              <span class="val-badge" id="vLeads">4</span>
+            </div>
+          </div>
+          <div class="input-block">
+            <label for="inClose">Your normal close rate on real leads</label>
+            <div class="slider-row">
+              <input type="range" id="inClose" min="5" max="80" step="5" value="30">
+              <span class="val-badge" id="vClose">30%</span>
+            </div>
+          </div>
+          <div class="input-block">
+            <label for="inJob">Average value of a new customer (first year)</label>
+            <div class="hint">For recurring contracts, use the first 12 months of the contract.</div>
+            <div class="slider-row">
+              <input type="range" id="inJob" min="500" max="50000" step="500" value="6000">
+              <span class="val-badge" id="vJob">$6K</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="result-panel">
+            <div class="big-cost" id="totalCost">$0</div>
+            <div class="big-cost-label">estimated cost of owner dependence per year</div>
+            <div class="break-row">
+              <span class="lbl"><strong>Your time trapped in admin</strong><span class="sub" id="timeSub"></span></span>
+              <span class="amt" id="timeCost">$0</span>
+            </div>
+            <div class="break-row">
+              <span class="lbl"><strong>Revenue lost to dropped leads</strong><span class="sub" id="leadSub"></span></span>
+              <span class="amt" id="leadCost">$0</span>
+            </div>
+            <div class="equiv" id="equivBox"></div>
+          </div>
+
+          <div class="cta-box">
+            <h3>Want this number to shrink?</h3>
+            <p id="ctaText">A Business Systems Audit finds your three biggest leaks and gives you a prioritized roadmap in 1-2 weeks, with quick wins you keep either way. The fee is credited in full toward a full build within 30 days.</p>
+            <a class="btn" id="ctaBtn" href="https://www.buildwithbpp.com/booking" target="_blank">Book a Call</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="method-note">
+        Method: time cost = admin hours &times; your hourly value &times; 50 working weeks. Lead cost = slipped leads &times; close rate &times; customer value &times; 12 months. Estimates, not accounting.
+      </div>
+      <div class="brand-foot">
+        Built by <a href="https://www.buildwithbpp.com" target="_blank">Business Plans Plus</a>. We build the operating systems that make growth-stage businesses easier to run.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const fmt = n => {
+  if (n >= 1000000) return "$" + (n / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+  if (n >= 1000) return "$" + Math.round(n / 100) / 10 + "K";
+  return "$" + Math.round(n);
+};
+const fmtFull = n => "$" + Math.round(n).toLocaleString("en-US");
+
+function calc() {
+  const hours = +document.getElementById("inHours").value;
+  const rate  = +document.getElementById("inRate").value;
+  const leads = +document.getElementById("inLeads").value;
+  const close = +document.getElementById("inClose").value / 100;
+  const job   = +document.getElementById("inJob").value;
+
+  document.getElementById("vHours").textContent = hours + " hrs";
+  document.getElementById("vRate").textContent  = "$" + rate;
+  document.getElementById("vLeads").textContent = leads;
+  document.getElementById("vClose").textContent = Math.round(close * 100) + "%";
+  document.getElementById("vJob").textContent   = fmt(job);
+
+  const timeCost = hours * rate * 50;
+  const leadCost = leads * close * job * 12;
+  const total = timeCost + leadCost;
+
+  document.getElementById("totalCost").textContent = fmt(total);
+  document.getElementById("timeCost").textContent  = fmt(timeCost);
+  document.getElementById("leadCost").textContent  = fmt(leadCost);
+  document.getElementById("timeSub").textContent =
+    hours + " hrs/week at $" + rate + "/hr, 50 weeks";
+  document.getElementById("leadSub").textContent =
+    leads + " leads/mo at " + Math.round(close * 100) + "% close, " + fmt(job) + " each";
+
+  const weeksBack = Math.round(hours * 50 / 40);
+  let equiv;
+  if (total <= 0) {
+    equiv = "<strong>Nothing slipping?</strong> Either you're already running on systems, or the sliders are shy. Most owners underestimate both numbers.";
+  } else {
+    equiv = "<strong>Put differently:</strong> that's roughly <strong>" + fmtFull(Math.round(total / 12)) +
+      " every month</strong>, and about <strong>" + weeksBack + " full work-weeks of your year</strong> spent on work that shouldn't need you.";
+  }
+  document.getElementById("equivBox").innerHTML = equiv;
+}
+
+["inHours","inRate","inLeads","inClose","inJob"].forEach(id =>
+  document.getElementById(id).addEventListener("input", calc));
+calc();
+</script>
+</body>
+</html>
