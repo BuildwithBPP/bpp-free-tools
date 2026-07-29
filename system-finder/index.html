@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Does Your Business Actually Need? | Business Plans Plus</title>
+<meta property="og:title" content="What does your business actually need next?">
+<meta property="og:description" content="Answer 7 questions and find out which system to build next: foundation, AI on-ramp, operating system, or intelligence layer. Free, 2 minutes.">
+<meta property="og:type" content="website">
+<meta name="description" content="Free 2-minute diagnostic for business owners. Find out whether your next move is building the foundation, an AI on-ramp, a full operating system, or an intelligence layer on the tools you have.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #044771; --navy-dark: #033654; --gold: #F1BE5C; --blue: #5987A5;
+    --bg: #edf1f5; --green: #1a9e5c; --amber: #d4920a; --red: #c0392b; --ink: #1c2b36;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Poppins', -apple-system, 'Segoe UI', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; min-height: 100vh; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 20px 64px; }
+  .card { background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(4, 71, 113, 0.10); overflow: hidden; }
+  .card-head { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: #fff; padding: 36px 32px 30px; }
+  .card-head .kicker { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .card-head h1 { font-family: 'Montserrat', sans-serif; font-size: clamp(24px, 5vw, 32px); font-weight: 800; line-height: 1.25; margin-bottom: 10px; }
+  .card-head p { font-size: 15px; opacity: 0.9; }
+  .card-body { padding: 32px; }
+  @media (max-width: 520px) { .card-body { padding: 24px 20px; } .card-head { padding: 28px 20px 24px; } }
+  .btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 16px; padding: 14px 32px; border-radius: 10px; border: none; cursor: pointer; text-decoration: none; transition: transform .12s ease, box-shadow .12s ease; }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(4,71,113,.22); }
+  .btn-gold { background: var(--gold); color: var(--navy-dark); }
+  .progress-track { height: 6px; background: #dde5ec; border-radius: 3px; margin-bottom: 26px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--gold); border-radius: 3px; width: 0%; transition: width .3s ease; }
+  .q-count { font-size: 13px; color: var(--blue); font-weight: 500; margin-bottom: 6px; }
+  .q-text { font-family: 'Montserrat', sans-serif; font-size: 21px; font-weight: 700; color: var(--navy-dark); line-height: 1.35; margin-bottom: 24px; }
+  .opts { display: flex; flex-direction: column; gap: 10px; }
+  .opt { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border: 2px solid #dde5ec; border-radius: 12px; cursor: pointer; font-size: 15px; background: #fff; transition: border-color .12s ease, background .12s ease; text-align: left; width: 100%; font-family: inherit; color: var(--ink); }
+  .opt:hover { border-color: var(--blue); background: #f6f9fb; }
+  .opt.selected { border-color: var(--navy); background: rgba(4,71,113,.06); }
+  .opt .dot { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--bg); color: var(--navy); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .opt.selected .dot { background: var(--gold); color: var(--navy-dark); }
+  .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; }
+  .back-link { background: none; border: none; color: var(--blue); font-family: inherit; font-size: 14px; cursor: pointer; padding: 8px 0; }
+  .back-link:hover { text-decoration: underline; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; color: var(--navy-dark); margin-bottom: 6px; }
+  .field input { width: 100%; padding: 12px 14px; border: 2px solid #dde5ec; border-radius: 10px; font-family: inherit; font-size: 15px; color: var(--ink); }
+  .field input:focus { outline: none; border-color: var(--blue); }
+  .fine-print { font-size: 12px; color: #6b7c88; margin-top: 14px; }
+  .rec-card { text-align: center; margin: 6px 0 20px; }
+  .rec-icon { font-size: 44px; }
+  .rec-label { font-size: 13px; color: #55677a; text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 4px; }
+  .rec-title { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800; color: var(--navy-dark); margin-top: 6px; line-height: 1.25; }
+  .rec-body { font-size: 14.5px; margin: 14px 0 6px; text-align: left; }
+  .inc { background: var(--bg); border-radius: 12px; padding: 16px 18px; margin: 16px 0; font-size: 14px; }
+  .inc .inc-head { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--navy); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .inc ul { margin-left: 18px; }
+  .inc li { margin-bottom: 5px; }
+  .also { background: rgba(241, 190, 92, 0.14); border-left: 4px solid var(--gold); border-radius: 0 10px 10px 0; padding: 14px 16px; margin: 16px 0; font-size: 14px; }
+  .also strong { color: var(--navy-dark); }
+  .also a { color: var(--navy); font-weight: 600; }
+  .cta-box { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); border-radius: 14px; color: #fff; padding: 26px 24px; text-align: center; margin-top: 22px; }
+  .cta-box h3 { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+  .cta-box p { font-size: 14px; opacity: .9; margin-bottom: 18px; }
+  .hidden { display: none; }
+  .brand-foot { text-align: center; font-size: 12px; color: #7d8b97; margin-top: 22px; }
+  .brand-foot a { color: var(--blue); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head">
+      <div class="kicker">Free 2-Minute Diagnostic</div>
+      <h1 id="headTitle">What does your business actually need next?</h1>
+      <p id="headSub">Every stage needs a different build. Answer 7 quick questions and find out whether your next move is foundation, AI, an operating system, or intelligence on top.</p>
+    </div>
+    <div class="card-body">
+
+      <!-- INTRO -->
+      <div id="viewIntro">
+        <p style="margin-bottom:16px;">Owners usually know something needs to change. What's harder to know is <strong>what to build first</strong>. Build the wrong layer and you get either a fancy system with no customers, or growth standing on chaos.</p>
+        <p style="margin-bottom:16px;">This diagnostic reads your stage, your team, your systems, and where the pain actually is, then tells you which of four builds fits your business right now.</p>
+        <p style="margin-bottom:26px;">7 questions, about 2 minutes.</p>
+        <button class="btn btn-gold" onclick="startQuiz()">Find My Next Build</button>
+      </div>
+
+      <!-- QUIZ -->
+      <div id="viewQuiz" class="hidden">
+        <div class="q-count"><span id="qNum">1</span> of 7</div>
+        <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+        <div class="q-text" id="qText"></div>
+        <div class="opts" id="qOpts"></div>
+        <div class="nav-row">
+          <button class="back-link" id="btnBack" onclick="prevQ()">&larr; Back</button>
+          <span style="font-size:13px;color:#8895a2;">Select an answer to continue</span>
+        </div>
+      </div>
+
+      <!-- GATE -->
+      <div id="viewGate" class="hidden">
+        <div class="q-text" style="margin-bottom:8px;">Your recommendation is ready.</div>
+        <p style="font-size:14.5px;margin-bottom:22px;">Tell us where to send your results and we'll show your next build now, plus email you the full breakdown.</p>
+        <div class="field">
+          <label for="fName">First name</label>
+          <input type="text" id="fName" autocomplete="given-name" placeholder="Jordan">
+        </div>
+        <div class="field">
+          <label for="fEmail">Email</label>
+          <input type="email" id="fEmail" autocomplete="email" placeholder="you@yourbusiness.com">
+        </div>
+        <div class="field">
+          <label for="fBiz">Business name</label>
+          <input type="text" id="fBiz" autocomplete="organization" placeholder="Your Company LLC">
+        </div>
+        <button class="btn btn-gold" onclick="submitGate()">Show My Recommendation</button>
+        <div class="fine-print">We'll email your results and occasional practical systems tips. No spam, unsubscribe anytime.</div>
+        <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter a first name and a valid email to see your results.</div>
+      </div>
+
+      <!-- RESULTS -->
+      <div id="viewResults" class="hidden">
+        <div class="rec-card">
+          <div class="rec-icon" id="recIcon"></div>
+          <div class="rec-label">Your next build</div>
+          <div class="rec-title" id="recTitle"></div>
+        </div>
+        <div class="rec-body" id="recBody"></div>
+        <div class="inc">
+          <div class="inc-head">What that looks like</div>
+          <ul id="incList"></ul>
+        </div>
+        <div class="also" id="alsoBox"></div>
+        <div class="cta-box">
+          <h3>Want to pressure-test this in 30 minutes?</h3>
+          <p>Book a free call. We'll map your bottlenecks, confirm the right build, and you'll leave with a clear next step whether or not we work together.</p>
+          <a class="btn btn-gold" href="https://www.buildwithbpp.com/booking" target="_blank">Book a Free Call</a>
+        </div>
+        <div class="brand-foot">
+          Built by <a href="https://www.buildwithbpp.com" target="_blank">Business Plans Plus</a>. We build the operating systems that make businesses easier to run.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= CONFIG - wire these before launch ================= */
+const CONFIG = {
+  // HubSpot form: firstname, email, company + hidden fields
+  // recommended_system, business_stage
+  HUBSPOT_PORTAL_ID: "",
+  HUBSPOT_FORM_GUID: ""
+};
+/* ==================================================================== */
+
+// Buckets: L = Launch Pad (foundation), J = AI Jumpstart (AI on-ramp),
+// O = Operator System (operating system), S = Scale System (intelligence layer).
+// "stage" on Q1 is also captured as the qualifying field.
+const QUESTIONS = [
+  { text: "Where is the business today?",
+    opts: [
+      { label: "Idea stage or pre-revenue", w: { L: 5 }, stage: "Pre-revenue / idea" },
+      { label: "Launched, under ~$150K a year", w: { L: 3, J: 1 }, stage: "Under $150K" },
+      { label: "Established, roughly $250K to $2M", w: { O: 4, J: 1 }, stage: "$250K-$2M" },
+      { label: "Past $1.5M and pushing to scale", w: { S: 4 }, stage: "$1.5M-$5M+" }
+    ] },
+  { text: "How big is the team?",
+    opts: [
+      { label: "Just me", w: { L: 2, J: 1 } },
+      { label: "Me plus 1 to 4 people", w: { L: 1, O: 1, J: 1 } },
+      { label: "5 to 25 people", w: { O: 3 } },
+      { label: "More than 25", w: { S: 3 } }
+    ] },
+  { text: "What's the biggest daily pain right now?",
+    opts: [
+      { label: "Getting the first real customers", w: { L: 4 } },
+      { label: "Everything depends on me personally", w: { O: 4 } },
+      { label: "Repetitive busywork eating the week", w: { J: 3, O: 1 } },
+      { label: "We have tools and data but no real visibility", w: { S: 4 } }
+    ] },
+  { text: "What systems run the business today?",
+    opts: [
+      { label: "None yet, we're not running", w: { L: 4 } },
+      { label: "Scattered basics: spreadsheets, texts, memory", w: { O: 3, L: 1 } },
+      { label: "CRM and accounting exist but messy or half-used", w: { O: 3, J: 1 } },
+      { label: "Full stack in place, just not connected or smart", w: { S: 4 } }
+    ] },
+  { text: "If you stepped away for two weeks, what happens?",
+    opts: [
+      { label: "Nothing to step away from yet", w: { L: 3 } },
+      { label: "It stops. Completely.", w: { O: 4 } },
+      { label: "It limps along, things slip", w: { O: 2, J: 1 } },
+      { label: "It mostly runs, but I fly blind on the numbers", w: { S: 3 } }
+    ] },
+  { text: "Have you put AI to work in the business yet?",
+    opts: [
+      { label: "Not yet, and honestly curious", w: { J: 3 } },
+      { label: "I use ChatGPT-type tools personally", w: { J: 2 } },
+      { label: "A little, but nothing connected to real work", w: { J: 2, O: 1 } },
+      { label: "We already automate; we want more leverage", w: { S: 2, O: 1 } }
+    ] },
+  { text: "How do you like working with an expert?",
+    opts: [
+      { label: "Teach me, I'll do it myself", w: { J: 2, L: 1 } },
+      { label: "Build it with me so I learn it", w: { J: 1, O: 1 } },
+      { label: "Do it for me, I'll run what you build", w: { O: 2, S: 1 } },
+      { label: "Own it with me long-term, like a partner", w: { O: 1, S: 2 } }
+    ] }
+];
+
+const BUILDS = {
+  L: { icon: "🏗️", name: "The Foundation Build",
+    body: "Your leverage right now isn't software or AI. It's finishing the foundation: the legal basics, one clear offer with real pricing, a findable front door, and a repeatable way to land your first customers. Build that once, properly, and everything after gets easier.",
+    inc: ["Legal and money basics done right, business and personal fully separated", "One clear offer with pricing built on real cost math", "A brand and online presence you'd put in front of anyone", "Your first-clients engine: one channel plus follow-up that never drops a lead"],
+    also: '<strong>Check your gaps first:</strong> take the free <a href="https://buildwithbpp.github.io/bpp-free-tools/foundation-score/">Foundation Readiness Score</a> and see exactly which of the 5 foundations needs you most.' },
+  J: { icon: "⚡", name: "The AI On-Ramp",
+    body: "Your business runs, but too much of the week goes to work a well-configured AI assistant could own. The right first move isn't a big system overhaul. It's putting AI to work on one real workflow, seeing it pay for itself, then deciding what to build next.",
+    inc: ["AI set up on your actual business, not a demo", "One real workflow automated end to end (follow-up, admin, proposals, or content)", "You and your team trained to run it", "A clear read on what to automate next"],
+    also: '<strong>Not sure which workflow first?</strong> The free <a href="https://buildwithbpp.github.io/bpp-free-tools/ai-readiness/">AI Employee Readiness Assessment</a> tells you which assistant pays for itself fastest.' },
+  O: { icon: "⚙️", name: "The Operating System",
+    body: "You've built a real business, and it's running on your memory. The next build is the operating system underneath it: the CRM and follow-up engine, documented processes, automation on the repetitive admin, and financial visibility. That's how the business stops depending on you personally.",
+    inc: ["A CRM that follows up on every lead and quote automatically", "Your core processes documented so the team runs without you", "The repetitive admin automated", "Margin by job and a monthly scorecard you actually read"],
+    also: '<strong>See how deep it goes:</strong> take the free <a href="https://buildwithbpp.github.io/bpp-free-tools/scorecard/">Owner-Dependency Scorecard</a> or grab the <a href="https://buildwithbpp.github.io/bpp-free-tools/downloads/run-without-you-guide-general.pdf">Run-Without-You Guide</a>.' },
+  S: { icon: "📡", name: "The Intelligence Layer",
+    body: "You already own the tools. What's missing is the layer on top: systems talking to each other, dashboards that answer questions before you ask, and AI working across the stack. The next build turns the data you already generate into decisions.",
+    inc: ["Your existing tools connected into one picture", "Executive dashboards: revenue, margin, pipeline, capacity at a glance", "AI working across the stack: reporting, forecasting, follow-up", "A monthly operating rhythm built around the numbers"],
+    also: '<strong>Quick gut-check:</strong> if you can\'t name your least profitable client right now, the intelligence layer is overdue. The free <a href="https://buildwithbpp.github.io/bpp-free-tools/calculator/">Cost-of-Owner-Dependence Calculator</a> puts a number on the blind spots.' }
+};
+
+let answers = new Array(QUESTIONS.length).fill(null);
+let current = 0;
+
+function show(id) {
+  ["viewIntro","viewQuiz","viewGate","viewResults"].forEach(v =>
+    document.getElementById(v).classList.toggle("hidden", v !== id));
+}
+
+function startQuiz() { current = 0; renderQ(); show("viewQuiz"); }
+
+function renderQ() {
+  const q = QUESTIONS[current];
+  document.getElementById("qNum").textContent = current + 1;
+  document.getElementById("progFill").style.width = ((current) / QUESTIONS.length * 100) + "%";
+  document.getElementById("qText").textContent = q.text;
+  document.getElementById("btnBack").style.visibility = current === 0 ? "hidden" : "visible";
+  const opts = document.getElementById("qOpts");
+  opts.innerHTML = "";
+  q.opts.forEach((o, i) => {
+    const b = document.createElement("button");
+    b.className = "opt" + (answers[current] === i ? " selected" : "");
+    b.innerHTML = '<span class="dot">' + String.fromCharCode(65 + i) + '</span><span>' + o.label + '</span>';
+    b.onclick = () => { answers[current] = i; setTimeout(nextQ, 180); renderQ(); };
+    opts.appendChild(b);
+  });
+}
+
+function nextQ() {
+  if (answers[current] === null) return;
+  if (current < QUESTIONS.length - 1) { current++; renderQ(); }
+  else {
+    document.getElementById("headTitle").textContent = "One last step";
+    document.getElementById("headSub").textContent = "Your recommendation is ready. See it below.";
+    show("viewGate");
+  }
+}
+function prevQ() { if (current > 0) { current--; renderQ(); } }
+
+function compute() {
+  const scores = { L: 0, J: 0, O: 0, S: 0 };
+  QUESTIONS.forEach((q, i) => {
+    const o = q.opts[answers[i] ?? 0];
+    if (o.w) Object.entries(o.w).forEach(([k, v]) => scores[k] += v);
+  });
+  const ranked = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+  const stage = QUESTIONS[0].opts[answers[0] ?? 0].stage || "";
+  return { top: ranked[0], scores, stage };
+}
+
+function submitGate() {
+  const name = document.getElementById("fName").value.trim();
+  const email = document.getElementById("fEmail").value.trim();
+  const biz = document.getElementById("fBiz").value.trim();
+  const valid = name.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  document.getElementById("gateError").classList.toggle("hidden", valid);
+  if (!valid) return;
+  const { top, stage } = compute();
+  sendToHubSpot({ name, email, biz, rec: BUILDS[top].name, stage });
+  renderResults(name);
+}
+
+function sendToHubSpot({ name, email, biz, rec, stage }) {
+  if (!CONFIG.HUBSPOT_PORTAL_ID || !CONFIG.HUBSPOT_FORM_GUID) return;
+  const url = "https://api.hsforms.com/submissions/v3/integration/submit/" +
+    CONFIG.HUBSPOT_PORTAL_ID + "/" + CONFIG.HUBSPOT_FORM_GUID;
+  const payload = {
+    fields: [
+      { name: "firstname", value: name },
+      { name: "email", value: email },
+      { name: "company", value: biz },
+      { name: "recommended_system", value: rec },
+      { name: "business_stage", value: stage }
+    ],
+    context: { pageUri: location.href, pageName: "Business System Finder" }
+  };
+  fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).catch(() => {});
+}
+
+function renderResults(name) {
+  const { top } = compute();
+  const b = BUILDS[top];
+  document.getElementById("headTitle").textContent = (name ? name + ", here" : "Here") + "'s your next build";
+  const wired = CONFIG.HUBSPOT_PORTAL_ID && CONFIG.HUBSPOT_FORM_GUID;
+  document.getElementById("headSub").textContent = wired
+    ? "The full breakdown is on its way to your inbox."
+    : "Based on your stage, your systems, and where the pain is.";
+  document.getElementById("recIcon").textContent = b.icon;
+  document.getElementById("recTitle").textContent = b.name;
+  document.getElementById("recBody").textContent = b.body;
+  const list = document.getElementById("incList");
+  list.innerHTML = "";
+  b.inc.forEach(x => { const li = document.createElement("li"); li.textContent = x; list.appendChild(li); });
+  document.getElementById("alsoBox").innerHTML = b.also;
+  show("viewResults");
+}
+</script>
+</body>
+</html>
