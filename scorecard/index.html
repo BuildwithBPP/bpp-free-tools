@@ -237,7 +237,7 @@
       </div>
 
       <!-- GATE -->
-      <div id="viewGate" class="hidden">
+      <form id="viewGate" class="hidden" novalidate onsubmit="event.preventDefault(); submitGate();">
         <div class="q-text" style="margin-bottom:8px;">Your score is ready.</div>
         <p style="font-size:14.5px;margin-bottom:22px;">Tell us where to send your results and we'll show your score now, plus email you a short breakdown of your two weakest areas and what to do about them.</p>
         <div class="field">
@@ -252,10 +252,10 @@
           <label for="fBiz">Business name</label>
           <input type="text" id="fBiz" autocomplete="organization" placeholder="Your Company LLC">
         </div>
-        <button class="btn btn-gold" id="btnReveal" onclick="submitGate()">Show My Score</button>
-        <div class="fine-print">We'll email your results and occasional practical systems tips. No spam, unsubscribe anytime.</div>
+        <button class="btn btn-gold" id="btnReveal" type="submit">Show My Score</button>
+        <div class="fine-print">We'll email you a copy of your results. No spam, unsubscribe anytime.</div>
         <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter a first name and a valid email to see your score.</div>
-      </div>
+      </form>
 
       <!-- RESULTS -->
       <div id="viewResults" class="hidden">
@@ -291,11 +291,11 @@
 const CONFIG = {
   // HubSpot Forms API. Create a form with fields: firstname, email, company,
   // owner_dependency_score, weakest_pillar_1, weakest_pillar_2, then fill these in.
-  HUBSPOT_PORTAL_ID: "",        // e.g. "45678901"
-  HUBSPOT_FORM_GUID: "",        // e.g. "abcd1234-..."
+  HUBSPOT_PORTAL_ID: "242172275",
+  HUBSPOT_FORM_GUID: "",
   // Where each CTA points.
   BOOKING_URL: "https://www.buildwithbpp.com/booking",           // audit booking / contact
-  GUIDE_URL: "https://www.buildwithbpp.com/resources"            // Run Without You guide
+  GUIDE_URL: "../guides/"            // Run Without You guide
 };
 /* ==================================================================== */
 
@@ -402,8 +402,8 @@ function submitGate() {
   if (!valid) return;
 
   const { dependency, weakest } = computeScores();
-  sendToHubSpot({ name, email, biz, dependency, weakest });
   renderResults(name);
+  sendToHubSpot({ name, email, biz, dependency, weakest });
 }
 
 function sendToHubSpot({ name, email, biz, dependency, weakest }) {
@@ -417,9 +417,12 @@ function sendToHubSpot({ name, email, biz, dependency, weakest }) {
       { name: "company", value: biz },
       { name: "owner_dependency_score", value: String(dependency) },
       { name: "weakest_pillar_1", value: weakest[0] },
-      { name: "weakest_pillar_2", value: weakest[1] }
+      { name: "weakest_pillar_2", value: weakest[1] },
+      { name: "lm_magnet", value: "owner-dependency-scorecard" },
+      { name: "lm_magnet_name", value: "Owner-Dependency Scorecard" },
+      { name: "lm_result_summary", value: buildSummary() }
     ],
-    context: { pageUri: location.href, pageName: "Owner-Dependency Scorecard" }
+    context: hsContext("Owner-Dependency Scorecard")
   };
   fetch(url, {
     method: "POST",
@@ -433,7 +436,7 @@ function renderResults(name) {
   document.getElementById("headTitle").textContent = (name ? name + ", here" : "Here") + "'s your score";
   const wired = CONFIG.HUBSPOT_PORTAL_ID && CONFIG.HUBSPOT_FORM_GUID;
   document.getElementById("headSub").textContent = wired
-    ? "Your full breakdown is on its way to your inbox."
+    ? "A copy of your results is on its way to your inbox."
     : "Here's where your business stands today.";
 
   const scoreEl = document.getElementById("scoreNum");
@@ -493,6 +496,27 @@ function renderResults(name) {
 
   show("viewResults");
 }
+// Plain-text copy of the results screen, emailed by the HubSpot sequence.
+function buildSummary() {
+  const t = id => document.getElementById(id).textContent.trim();
+  const rows = [...document.querySelectorAll("#pillarBars .pillar-row")].map(r =>
+    [...r.querySelectorAll(".pr-head span")].map(s => s.textContent.trim()).join(": "));
+  return [
+    "Your score: " + t("scoreNum") + " (" + t("bandPill") + ")",
+    t("bandBlurb"),
+    "By area:\n" + rows.join("\n"),
+    t("weakCallout"),
+    t("ctaTitle") + ". " + t("ctaBody")
+  ].join("\n\n");
+}
+function hsContext(pageName) {
+  const c = { pageUri: location.href, pageName };
+  const m = document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/);
+  if (m) c.hutk = m[1];
+  return c;
+}
 </script>
+<!-- HubSpot tracking: page views + ties form submissions to the visitor -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242172275.js"></script>
 </body>
 </html>

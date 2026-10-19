@@ -146,6 +146,60 @@
     transition: transform .12s ease, box-shadow .12s ease;
   }
   .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+  .big-cost.pending { color: #9aa8b4; }
+
+  /* Email-me-my-report */
+  .report-box {
+    background: #fff;
+    border: 1px solid #dde5ec;
+    border-radius: 14px;
+    padding: 22px 20px;
+    margin-top: 20px;
+  }
+  .report-box h3 { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: var(--navy-dark); margin-bottom: 4px; }
+  .report-box p { font-size: 13.5px; color: #55677a; margin-bottom: 14px; }
+  .report-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  @media (max-width: 420px) { .report-fields { grid-template-columns: 1fr; } }
+  .field label { display: block; font-size: 13px; font-weight: 600; color: var(--navy-dark); margin-bottom: 4px; }
+  .field input {
+    width: 100%;
+    font: inherit; font-size: 15px;
+    padding: 11px 12px;
+    border: 1.5px solid #cdd8e2;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ink);
+  }
+  .field input:focus { outline: 2px solid var(--navy); outline-offset: 1px; border-color: var(--navy); }
+  .btn-navy {
+    width: 100%;
+    border: 0; cursor: pointer;
+    font-size: 15px; padding: 13px 20px;
+    background: var(--navy); color: #fff;
+  }
+  .btn-navy:disabled { opacity: .6; cursor: default; transform: none; box-shadow: none; }
+  .fine-print { font-size: 12px; color: #6b7c88; margin-top: 10px; }
+  .form-error { color: var(--red); font-size: 13px; margin-top: 8px; }
+  .hidden { display: none; }
+
+  /* Phones: the result panel sits below the sliders, so pin the total while dragging */
+  .sticky-total {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: var(--navy-dark); color: #fff;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, .18);
+    transform: translateY(110%);
+    transition: transform .2s ease;
+  }
+  .sticky-total.show { transform: none; }
+  .sticky-total .st-lbl { font-size: 12px; opacity: .85; line-height: 1.3; }
+  .sticky-total .st-amt { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: var(--gold); line-height: 1.2; }
+  .sticky-total a { color: #fff; font-size: 13px; font-weight: 600; white-space: nowrap; }
+  @media (max-width: 760px) { .wrap { padding-bottom: 96px; } }
+  @media (min-width: 761px) { .sticky-total { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .sticky-total { transition: none; } }
+
   .method-note { font-size: 12px; color: #7d8b97; margin-top: 22px; text-align: center; }
   .brand-foot { text-align: center; font-size: 12px; color: #7d8b97; margin-top: 18px; }
   .brand-foot a { color: var(--blue); }
@@ -207,9 +261,9 @@
         </div>
 
         <div>
-          <div class="result-panel">
-            <div class="big-cost" id="totalCost">$0</div>
-            <div class="big-cost-label">estimated cost of owner dependence per year</div>
+          <div class="result-panel" id="resultPanel">
+            <div class="big-cost pending" id="totalCost">$ ?</div>
+            <div class="big-cost-label" id="totalLabel">move any slider to see your estimate</div>
             <div class="break-row">
               <span class="lbl"><strong>Your time trapped in admin</strong><span class="sub" id="timeSub"></span></span>
               <span class="amt" id="timeCost">$0</span>
@@ -219,6 +273,28 @@
               <span class="amt" id="leadCost">$0</span>
             </div>
             <div class="equiv" id="equivBox"></div>
+          </div>
+
+          <form class="report-box" id="reportForm" novalidate>
+            <h3>Email me my report</h3>
+            <p>Get this breakdown in your inbox, to come back to or share with a partner.</p>
+            <div class="report-fields">
+              <div class="field">
+                <label for="rName">First name</label>
+                <input type="text" id="rName" autocomplete="given-name" placeholder="Jordan">
+              </div>
+              <div class="field">
+                <label for="rEmail">Email</label>
+                <input type="email" id="rEmail" autocomplete="email" placeholder="you@yourbusiness.com">
+              </div>
+            </div>
+            <button class="btn btn-navy" type="submit" id="rBtn">Send My Report</button>
+            <div class="fine-print">We'll email you this report. No spam, unsubscribe anytime.</div>
+            <div class="form-error hidden" id="reportError" role="alert"></div>
+          </form>
+          <div class="report-box hidden" id="reportDone" role="status">
+            <h3>On its way.</h3>
+            <p style="margin-bottom:0;">Check your inbox in a minute or two. Nothing there? Look in your promotions or spam folder.</p>
           </div>
 
           <div class="cta-box">
@@ -239,13 +315,33 @@
   </div>
 </div>
 
+<div class="sticky-total" id="stickyTotal" aria-hidden="true">
+  <div>
+    <div class="st-lbl">Your estimated yearly cost</div>
+    <div class="st-amt" id="stickyAmt">$0</div>
+  </div>
+  <a href="#resultPanel" tabindex="-1">See the breakdown</a>
+</div>
+
 <script>
+/* ================= CONFIG ================= */
+const CONFIG = {
+  HUBSPOT_PORTAL_ID: "242172275",
+  HUBSPOT_FORM_GUID: ""
+};
+/* ========================================== */
+
 const fmt = n => {
   if (n >= 1000000) return "$" + (n / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
   if (n >= 1000) return "$" + Math.round(n / 100) / 10 + "K";
   return "$" + Math.round(n);
 };
 const fmtFull = n => "$" + Math.round(n).toLocaleString("en-US");
+
+// No number until the visitor moves a slider: the defaults alone add up to ~$198K,
+// and showing that before any input reads as a made-up figure.
+let touched = false;
+let last = null;
 
 function calc() {
   const hours = +document.getElementById("inHours").value;
@@ -263,16 +359,31 @@ function calc() {
   const timeCost = hours * rate * 50;
   const leadCost = leads * close * job * 12;
   const total = timeCost + leadCost;
+  const timeSub = hours + " hrs/week at $" + rate + "/hr, 50 weeks";
+  const leadSub = leads + " leads/mo at " + Math.round(close * 100) + "% close, " + fmt(job) + " each";
+  const weeksBack = Math.round(hours * 50 / 40);
+  last = { total, timeCost, leadCost, timeSub, leadSub, weeksBack };
 
-  document.getElementById("totalCost").textContent = fmt(total);
+  document.getElementById("timeSub").textContent = timeSub;
+  document.getElementById("leadSub").textContent = leadSub;
+
+  const totalEl = document.getElementById("totalCost");
+  if (!touched) {
+    totalEl.textContent = "$ ?";
+    document.getElementById("timeCost").textContent = "?";
+    document.getElementById("leadCost").textContent = "?";
+    document.getElementById("equivBox").innerHTML =
+      "<strong>Start with the slider that stings most.</strong> Your estimate updates as you go.";
+    return;
+  }
+
+  totalEl.classList.remove("pending");
+  totalEl.textContent = fmt(total);
+  document.getElementById("totalLabel").textContent = "estimated cost of owner dependence per year";
+  document.getElementById("stickyAmt").textContent = fmt(total);
   document.getElementById("timeCost").textContent  = fmt(timeCost);
   document.getElementById("leadCost").textContent  = fmt(leadCost);
-  document.getElementById("timeSub").textContent =
-    hours + " hrs/week at $" + rate + "/hr, 50 weeks";
-  document.getElementById("leadSub").textContent =
-    leads + " leads/mo at " + Math.round(close * 100) + "% close, " + fmt(job) + " each";
 
-  const weeksBack = Math.round(hours * 50 / 40);
   let equiv;
   if (total <= 0) {
     equiv = "<strong>Nothing slipping?</strong> Either you're already running on systems, or the sliders are shy. Most owners underestimate both numbers.";
@@ -281,11 +392,87 @@ function calc() {
       " every month</strong>, and about <strong>" + weeksBack + " full work-weeks of your year</strong> spent on work that shouldn't need you.";
   }
   document.getElementById("equivBox").innerHTML = equiv;
+  syncSticky();
 }
 
 ["inHours","inRate","inLeads","inClose","inJob"].forEach(id =>
-  document.getElementById(id).addEventListener("input", calc));
+  document.getElementById(id).addEventListener("input", () => { touched = true; calc(); }));
+
+// Sticky total (phones only, via CSS): shown while the result panel is off screen.
+let panelInView = true;
+function syncSticky() {
+  document.getElementById("stickyTotal").classList.toggle("show", touched && !panelInView);
+}
+if ("IntersectionObserver" in window) {
+  new IntersectionObserver(([entry]) => { panelInView = entry.isIntersecting; syncSticky(); },
+    { threshold: 0.3 }).observe(document.getElementById("resultPanel"));
+}
+
+// Plain-text copy of the estimate, emailed by the HubSpot sequence.
+function buildSummary() {
+  return [
+    "Estimated cost of owner dependence: " + fmtFull(last.total) + " a year (about " +
+      fmtFull(Math.round(last.total / 12)) + " a month).",
+    "Your time trapped in admin: " + fmtFull(last.timeCost) + "\n" + last.timeSub,
+    "Revenue lost to dropped leads: " + fmtFull(last.leadCost) + "\n" + last.leadSub,
+    "That's about " + last.weeksBack + " full work-weeks of your year spent on work that shouldn't need you.",
+    "How we got there: time cost = admin hours x your hourly value x 50 working weeks. " +
+      "Lead cost = slipped leads x close rate x customer value x 12 months. Estimates, not accounting."
+  ].join("\n\n");
+}
+
+function hsContext(pageName) {
+  const c = { pageUri: location.href, pageName };
+  const m = document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/);
+  if (m) c.hutk = m[1];
+  return c;
+}
+
+document.getElementById("reportForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = document.getElementById("rName").value.trim();
+  const email = document.getElementById("rEmail").value.trim();
+  const err = document.getElementById("reportError");
+  const fail = msg => { err.textContent = msg; err.classList.remove("hidden"); };
+  err.classList.add("hidden");
+
+  if (!touched) return fail("Move the sliders to match your business first, so the report is yours.");
+  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail("Enter a first name and a valid email.");
+  if (!CONFIG.HUBSPOT_PORTAL_ID || !CONFIG.HUBSPOT_FORM_GUID) return fail("Email reports aren't switched on yet. Your numbers are above.");
+
+  const btn = document.getElementById("rBtn");
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  const url = "https://api.hsforms.com/submissions/v3/integration/submit/" +
+    CONFIG.HUBSPOT_PORTAL_ID + "/" + CONFIG.HUBSPOT_FORM_GUID;
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      fields: [
+        { name: "firstname", value: name },
+        { name: "email", value: email },
+        { name: "calc_annual_cost", value: String(Math.round(last.total)) },
+        { name: "lm_magnet", value: "cost-of-owner-dependence-calculator" },
+        { name: "lm_magnet_name", value: "Cost of Owner Dependence Calculator" },
+        { name: "lm_result_summary", value: buildSummary() }
+      ],
+      context: hsContext("Cost of Owner Dependence Calculator")
+    })
+  }).then(r => {
+    if (!r.ok) throw new Error(r.status);
+    document.getElementById("reportForm").classList.add("hidden");
+    document.getElementById("reportDone").classList.remove("hidden");
+  }).catch(() => {
+    btn.disabled = false;
+    btn.textContent = "Send My Report";
+    fail("That didn't go through. Try again in a moment.");
+  });
+});
+
 calc();
 </script>
+<!-- HubSpot tracking: page views + ties form submissions to the visitor -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242172275.js"></script>
 </body>
 </html>

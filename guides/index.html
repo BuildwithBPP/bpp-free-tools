@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Run-Without-You Guide | Business Plans Plus</title>
+<meta property="og:title" content="The Run-Without-You Guide">
+<meta property="og:description" content="The 25-point checklist that tells you whether your business runs on systems or runs on you. Free PDF from Business Plans Plus.">
+<meta property="og:type" content="website">
+<meta name="description" content="Free 25-point checklist for service business owners: process, sales follow-up, your front door, automation, and financial clarity, plus a 90-day fix-it order.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #044771;
+    --navy-dark: #033654;
+    --gold: #F1BE5C;
+    --blue: #5987A5;
+    --bg: #edf1f5;
+    --red: #c0392b;
+    --ink: #1c2b36;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Poppins', -apple-system, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px 64px; }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(4, 71, 113, 0.10);
+    overflow: hidden;
+  }
+  .card-head {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    color: #fff;
+    padding: 36px 32px 30px;
+  }
+  .card-head .kicker {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .card-head h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(24px, 5vw, 32px);
+    font-weight: 800; line-height: 1.25; margin-bottom: 10px;
+  }
+  .card-head p { font-size: 15px; opacity: .9; max-width: 560px; }
+  .card-body { padding: 32px; }
+  @media (max-width: 560px) { .card-body { padding: 24px 20px; } .card-head { padding: 28px 20px 24px; } }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  /* Phones: form first, the pitch is already in the header */
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } .form-col { order: -1; } }
+
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--navy); text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--gold);
+    display: inline-block;
+  }
+  .inside { list-style: none; }
+  .inside li { padding: 10px 0; border-bottom: 1px solid #dde5ec; font-size: 14px; }
+  .inside li:last-child { border-bottom: none; }
+  .inside strong { display: block; color: var(--navy-dark); font-size: 14.5px; }
+  .inside span { color: #55677a; font-size: 13px; }
+
+  .form-panel { background: var(--bg); border-radius: 14px; padding: 24px; }
+  fieldset { border: 0; margin-bottom: 16px; }
+  legend { font-size: 13px; font-weight: 600; color: var(--navy-dark); margin-bottom: 8px; }
+  .choice {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: #fff;
+    border: 1.5px solid #cdd8e2;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .choice input { margin-top: 5px; accent-color: var(--navy); }
+  .choice strong { display: block; color: var(--navy-dark); }
+  .choice span { color: #55677a; font-size: 12.5px; }
+  .choice:has(input:checked) { border-color: var(--navy); box-shadow: 0 0 0 1px var(--navy); }
+  .choice:has(input:focus-visible) { outline: 2px solid var(--navy); outline-offset: 2px; }
+  .field { margin-bottom: 12px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; color: var(--navy-dark); margin-bottom: 4px; }
+  .field input {
+    width: 100%;
+    font: inherit; font-size: 15px;
+    padding: 11px 12px;
+    border: 1.5px solid #cdd8e2;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ink);
+  }
+  .field input:focus { outline: 2px solid var(--navy); outline-offset: 1px; border-color: var(--navy); }
+  .btn {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 16px;
+    padding: 14px 32px;
+    border-radius: 10px;
+    border: 0; cursor: pointer;
+    background: var(--gold);
+    color: var(--navy-dark);
+    text-decoration: none;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+  .btn:disabled { opacity: .6; cursor: default; transform: none; box-shadow: none; }
+  .btn-full { width: 100%; margin-top: 4px; }
+  .fine-print { font-size: 12px; color: #6b7c88; margin-top: 10px; }
+  .form-error { color: var(--red); font-size: 13px; margin-top: 8px; }
+  .hidden { display: none; }
+
+  .done h2 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: var(--navy-dark); margin-bottom: 6px; }
+  .done p { font-size: 14px; color: #55677a; margin-bottom: 16px; }
+  .done .btn { margin-bottom: 10px; }
+  .next {
+    background: rgba(241, 190, 92, .16);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    margin-top: 18px;
+  }
+  .next a { color: var(--navy); font-weight: 600; }
+
+  .brand-foot { text-align: center; font-size: 12px; color: #7d8b97; margin-top: 28px; }
+  .brand-foot a { color: var(--blue); }
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="card-head">
+      <div class="kicker">Free Guide</div>
+      <h1>The Run-Without-You Guide</h1>
+      <p>The 25-point checklist that tells you whether your business runs on systems or runs on you. It's the same checklist we use when we pressure-test a business's operations.</p>
+    </div>
+    <div class="card-body">
+      <div class="grid">
+        <div>
+          <div class="section-title">What's Inside</div>
+          <ul class="inside">
+            <li><strong>Process</strong><span>Does the work run without your memory?</span></li>
+            <li><strong>Sales follow-up</strong><span>Do leads survive a busy week?</span></li>
+            <li><strong>Your front door</strong><span>Does your business sell while you sleep?</span></li>
+            <li><strong>Automation</strong><span>Is the repetitive admin off your plate?</span></li>
+            <li><strong>Financial clarity</strong><span>Do you know your numbers cold?</span></li>
+            <li><strong>Your score and a 90-day fix-it order</strong><span>Count your checks, then close the biggest gaps first.</span></li>
+          </ul>
+        </div>
+
+        <div class="form-col">
+          <form class="form-panel" id="guideForm" novalidate>
+            <fieldset>
+              <legend>Pick your version</legend>
+              <label class="choice">
+                <input type="radio" name="version" value="general" checked>
+                <span><strong>Any service business</strong><span>5 to 25 employees, any trade or service.</span></span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="version" value="commercial-cleaning">
+                <span><strong>Commercial cleaning</strong><span>Written for janitorial and commercial cleaning owners.</span></span>
+              </label>
+            </fieldset>
+            <div class="field">
+              <label for="gName">First name</label>
+              <input type="text" id="gName" autocomplete="given-name" placeholder="Jordan">
+            </div>
+            <div class="field">
+              <label for="gEmail">Email</label>
+              <input type="email" id="gEmail" autocomplete="email" placeholder="you@yourbusiness.com">
+            </div>
+            <button class="btn btn-full" type="submit" id="gBtn">Get the Free Guide</button>
+            <div class="fine-print">You'll download it right here, and we'll email you a copy. No spam, unsubscribe anytime.</div>
+            <div class="form-error hidden" id="guideError" role="alert"></div>
+          </form>
+
+          <div class="form-panel done hidden" id="guideDone" role="status" tabindex="-1">
+            <h2>It's yours.</h2>
+            <p id="doneText">A copy is on its way to your inbox too.</p>
+            <a class="btn" id="dlBtn" href="#" target="_blank" rel="noopener">Download the PDF</a>
+            <div class="next">
+              Prefer a score? Take the 2-minute <a href="../scorecard/">Owner-Dependency Scorecard</a> and see which pillar to fix first.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="brand-foot">
+        Built by <a href="https://www.buildwithbpp.com" target="_blank">Business Plans Plus</a>. We build the operating systems that make growth-stage businesses easier to run.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= CONFIG ================= */
+const CONFIG = {
+  HUBSPOT_PORTAL_ID: "242172275",
+  HUBSPOT_FORM_GUID: ""
+};
+/* ========================================== */
+
+const GUIDES = {
+  "general": {
+    title: "The Run-Without-You Guide",
+    short: "Run-Without-You Guide",
+    file: "../downloads/run-without-you-guide-general.pdf"
+  },
+  "commercial-cleaning": {
+    title: "The Run-Without-You Guide for Commercial Cleaning Owners",
+    short: "Run-Without-You Guide for Commercial Cleaning",
+    file: "../downloads/run-without-you-guide-commercial-cleaning.pdf"
+  }
+};
+
+function hsContext(pageName) {
+  const c = { pageUri: location.href, pageName };
+  const m = document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/);
+  if (m) c.hutk = m[1];
+  return c;
+}
+
+// Plain-text delivery email body (the HubSpot sequence inserts it).
+function buildSummary(guide) {
+  const pdf = new URL(guide.file, location.href).href;
+  const scorecard = new URL("../scorecard/", location.href).href;
+  return [
+    "Here's your copy of " + guide.title + ":\n" + pdf,
+    "How to use it: check what's true today, not what you plan to fix. Count your checks at the end and use the 90-day plan to close the biggest gaps first.",
+    "Prefer a score? The 2-minute Owner-Dependency Scorecard shows which pillar to fix first:\n" + scorecard
+  ].join("\n\n");
+}
+
+document.getElementById("guideForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = document.getElementById("gName").value.trim();
+  const email = document.getElementById("gEmail").value.trim();
+  const version = document.querySelector('input[name="version"]:checked').value;
+  const guide = GUIDES[version];
+  const err = document.getElementById("guideError");
+  err.classList.add("hidden");
+  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    err.textContent = "Enter a first name and a valid email.";
+    err.classList.remove("hidden");
+    return;
+  }
+
+  // The download never depends on the email: show it now, send in the background.
+  const showDone = sent => {
+    document.getElementById("dlBtn").href = guide.file;
+    document.getElementById("doneText").textContent = sent
+      ? "A copy is on its way to your inbox too."
+      : "Download it below.";
+    document.getElementById("guideForm").classList.add("hidden");
+    const done = document.getElementById("guideDone");
+    done.classList.remove("hidden");
+    done.focus();
+  };
+
+  if (!CONFIG.HUBSPOT_PORTAL_ID || !CONFIG.HUBSPOT_FORM_GUID) return showDone(false);
+
+  const btn = document.getElementById("gBtn");
+  btn.disabled = true;
+  btn.textContent = "One second...";
+  fetch("https://api.hsforms.com/submissions/v3/integration/submit/" +
+      CONFIG.HUBSPOT_PORTAL_ID + "/" + CONFIG.HUBSPOT_FORM_GUID, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      fields: [
+        { name: "firstname", value: name },
+        { name: "email", value: email },
+        { name: "lm_guide_requested", value: version },
+        { name: "lm_magnet", value: "run-without-you-guide" },
+        { name: "lm_magnet_name", value: guide.short },
+        { name: "lm_result_summary", value: buildSummary(guide) }
+      ],
+      context: hsContext("Run-Without-You Guide")
+    })
+  }).then(r => showDone(r.ok)).catch(() => showDone(false));
+});
+</script>
+<!-- HubSpot tracking: page views + ties form submissions to the visitor -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242172275.js"></script>
+</body>
+</html>

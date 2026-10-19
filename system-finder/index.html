@@ -97,7 +97,7 @@
       </div>
 
       <!-- GATE -->
-      <div id="viewGate" class="hidden">
+      <form id="viewGate" class="hidden" novalidate onsubmit="event.preventDefault(); submitGate();">
         <div class="q-text" style="margin-bottom:8px;">Your recommendation is ready.</div>
         <p style="font-size:14.5px;margin-bottom:22px;">Tell us where to send your results and we'll show your next build now, plus email you the full breakdown.</p>
         <div class="field">
@@ -112,10 +112,10 @@
           <label for="fBiz">Business name</label>
           <input type="text" id="fBiz" autocomplete="organization" placeholder="Your Company LLC">
         </div>
-        <button class="btn btn-gold" onclick="submitGate()">Show My Recommendation</button>
-        <div class="fine-print">We'll email your results and occasional practical systems tips. No spam, unsubscribe anytime.</div>
+        <button class="btn btn-gold" type="submit">Show My Recommendation</button>
+        <div class="fine-print">We'll email you a copy of your results. No spam, unsubscribe anytime.</div>
         <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter a first name and a valid email to see your results.</div>
-      </div>
+      </form>
 
       <!-- RESULTS -->
       <div id="viewResults" class="hidden">
@@ -149,7 +149,7 @@
 const CONFIG = {
   // HubSpot form: firstname, email, company + hidden fields
   // recommended_system, business_stage
-  HUBSPOT_PORTAL_ID: "",
+  HUBSPOT_PORTAL_ID: "242172275",
   HUBSPOT_FORM_GUID: ""
 };
 /* ==================================================================== */
@@ -285,8 +285,8 @@ function submitGate() {
   document.getElementById("gateError").classList.toggle("hidden", valid);
   if (!valid) return;
   const { top, stage } = compute();
-  sendToHubSpot({ name, email, biz, rec: BUILDS[top].name, stage });
   renderResults(name);
+  sendToHubSpot({ name, email, biz, rec: BUILDS[top].name, stage });
 }
 
 function sendToHubSpot({ name, email, biz, rec, stage }) {
@@ -299,9 +299,12 @@ function sendToHubSpot({ name, email, biz, rec, stage }) {
       { name: "email", value: email },
       { name: "company", value: biz },
       { name: "recommended_system", value: rec },
-      { name: "business_stage", value: stage }
+      { name: "business_stage", value: stage },
+      { name: "lm_magnet", value: "business-system-finder" },
+      { name: "lm_magnet_name", value: "Business System Finder" },
+      { name: "lm_result_summary", value: buildSummary() }
     ],
-    context: { pageUri: location.href, pageName: "Business System Finder" }
+    context: hsContext("Business System Finder")
   };
   fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }).catch(() => {});
 }
@@ -312,7 +315,7 @@ function renderResults(name) {
   document.getElementById("headTitle").textContent = (name ? name + ", here" : "Here") + "'s your next build";
   const wired = CONFIG.HUBSPOT_PORTAL_ID && CONFIG.HUBSPOT_FORM_GUID;
   document.getElementById("headSub").textContent = wired
-    ? "The full breakdown is on its way to your inbox."
+    ? "A copy of your results is on its way to your inbox."
     : "Based on your stage, your systems, and where the pain is.";
   document.getElementById("recIcon").textContent = b.icon;
   document.getElementById("recTitle").textContent = b.name;
@@ -323,6 +326,25 @@ function renderResults(name) {
   document.getElementById("alsoBox").innerHTML = b.also;
   show("viewResults");
 }
+// Plain-text copy of the results screen, emailed by the HubSpot sequence.
+function buildSummary() {
+  const t = id => document.getElementById(id).textContent.trim();
+  const inc = [...document.querySelectorAll("#incList li")].map(li => "- " + li.textContent.trim());
+  return [
+    "Your next build: " + t("recTitle"),
+    t("recBody"),
+    "What that looks like:\n" + inc.join("\n"),
+    t("alsoBox")
+  ].join("\n\n");
+}
+function hsContext(pageName) {
+  const c = { pageUri: location.href, pageName };
+  const m = document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/);
+  if (m) c.hutk = m[1];
+  return c;
+}
 </script>
+<!-- HubSpot tracking: page views + ties form submissions to the visitor -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242172275.js"></script>
 </body>
 </html>
