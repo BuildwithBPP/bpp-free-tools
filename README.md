@@ -14,7 +14,7 @@ Public free tools and downloadable resources from [Business Plans Plus](https://
 
 ## Capture + delivery
 
-Every tool POSTs to a HubSpot form (portal `242172275`, v3 Forms API) from its `CONFIG` block. Each submission sets `lm_magnet` (the slug, same as the Webflow waitlist Product field), `lm_magnet_name`, and `lm_result_summary` (a plain-text copy of the result). A HubSpot workflow enrolls the contact in a one-email sequence that sends that summary. The HubSpot v3 API returns 200 even when it drops a field that isn't on the form, so after any change, submit a test and check every property on the contact record.
+Every tool POSTs to one shared HubSpot form, "Lead magnet - all tools" (portal `242172275`, v3 Forms API), from its `CONFIG` block. Each submission sets `lm_magnet` (the slug, same as the Webflow waitlist Product field), `lm_magnet_name`, and `lm_result_summary` (a plain-text copy of the result). A HubSpot workflow enrolls the contact in a one-email sequence that sends that summary. The HubSpot v3 API returns 200 even when it drops a field that isn't on the form, so after any change, submit a test and check every property on the contact record.
 
 Served via GitHub Pages. Source of truth for content edits lives in the BPP workspace (`1. Internal Operations/2. Marketing & Sales/Free Resources/`); copy changed files here and push to deploy.
 

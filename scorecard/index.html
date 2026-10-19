@@ -203,6 +203,10 @@
   .section-title { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 1px; margin: 26px 0 14px; }
   .brand-foot { text-align: center; font-size: 12px; color: #7d8b97; margin-top: 22px; }
   .brand-foot a { color: var(--blue); }
+  .optin { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.5; color: #55677a; margin: 4px 0 16px; cursor: pointer; text-align: left; }
+  .optin input { margin-top: 2px; width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--navy); }
+  .cta-note { font-size: 12.5px; opacity: .85; margin-top: 12px; }
+  .book-box { margin-top: 18px; background: #fff; border-radius: 14px; overflow: hidden; min-height: 120px; }
 </style>
 </head>
 <body>
@@ -252,6 +256,7 @@
           <label for="fBiz">Business name</label>
           <input type="text" id="fBiz" autocomplete="organization" placeholder="Your Company LLC">
         </div>
+        <label class="optin"><input type="checkbox" id="fOptin"> <span>Also send me one practical systems tip a month. Unsubscribe anytime.</span></label>
         <button class="btn btn-gold" id="btnReveal" type="submit">Show My Score</button>
         <div class="fine-print">We'll email you a copy of your results. No spam, unsubscribe anytime.</div>
         <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter a first name and a valid email to see your score.</div>
@@ -275,7 +280,9 @@
           <h3 id="ctaTitle"></h3>
           <p id="ctaBody"></p>
           <a class="btn btn-gold" id="ctaBtn" href="#" target="_blank"></a>
+          <div class="cta-note" id="ctaNote">A few 20-minute call slots open each week.</div>
         </div>
+        <div class="book-box hidden" id="bookBox"></div>
 
         <div class="brand-foot">
           Built by <a href="https://www.buildwithbpp.com" target="_blank">Business Plans Plus</a>. We build the operating systems that make growth-stage businesses easier to run.
@@ -289,12 +296,14 @@
 <script>
 /* ================= CONFIG - wire these before launch ================= */
 const CONFIG = {
-  // HubSpot Forms API. Create a form with fields: firstname, email, company,
-  // owner_dependency_score, weakest_pillar_1, weakest_pillar_2, then fill these in.
+  // One shared HubSpot form for every lead magnet (see README). Fields this page sends
+  // must exist on that form or HubSpot silently drops them.
   HUBSPOT_PORTAL_ID: "242172275",
   HUBSPOT_FORM_GUID: "",
   // Where each CTA points.
   BOOKING_URL: "https://www.buildwithbpp.com/booking",           // audit booking / contact
+  // HubSpot Meetings page; when set, "Book a call" opens the calendar inline.
+  MEETINGS_URL: "",
   GUIDE_URL: "../guides/"            // Run Without You guide
 };
 /* ==================================================================== */
@@ -402,6 +411,7 @@ function submitGate() {
   if (!valid) return;
 
   const { dependency, weakest } = computeScores();
+  lead = { first: name, email };
   renderResults(name);
   sendToHubSpot({ name, email, biz, dependency, weakest });
 }
@@ -420,7 +430,9 @@ function sendToHubSpot({ name, email, biz, dependency, weakest }) {
       { name: "weakest_pillar_2", value: weakest[1] },
       { name: "lm_magnet", value: "owner-dependency-scorecard" },
       { name: "lm_magnet_name", value: "Owner-Dependency Scorecard" },
-      { name: "lm_result_summary", value: buildSummary() }
+      { name: "lm_result_summary", value: buildSummary() },
+      ...emailFields(),
+      ...optinField("fOptin")
     ],
     context: hsContext("Owner-Dependency Scorecard")
   };
@@ -493,6 +505,7 @@ function renderResults(name) {
   const btn = document.getElementById("ctaBtn");
   btn.textContent = cta.btn;
   btn.href = cta.url;
+  document.getElementById("ctaNote").classList.toggle("hidden", cta.url !== CONFIG.BOOKING_URL);
 
   show("viewResults");
 }
@@ -509,6 +522,54 @@ function buildSummary() {
     t("ctaTitle") + ". " + t("ctaBody")
   ].join("\n\n");
 }
+// Short single-line fields for the follow-up emails.
+function emailFields() {
+  const { dependency, weakest } = computeScores();
+  const t = id => document.getElementById(id).textContent.trim();
+  const btn = document.getElementById("ctaBtn");
+  const isGuide = btn.getAttribute("href") === CONFIG.GUIDE_URL;
+  const next = t("ctaTitle") + ". " + t("ctaBody") + (isGuide ? " " + new URL(CONFIG.GUIDE_URL, location.href).href : "");
+  return [
+    { name: "lm_result_headline", value: "Your Owner-Dependency Score is " + dependency + "% (" + t("bandPill") + ")." },
+    { name: "lm_result_focus", value: "Your two weakest areas are " + weakest[0] + " and " + weakest[1] + "." },
+    { name: "lm_quick_win", value: "Start with " + PILLAR_FIXES[weakest[0]] + "." },
+    { name: "lm_next_step", value: next },
+    { name: "lm_fit", value: dependency >= 60 ? "strong" : dependency >= 35 ? "medium" : "low" }
+  ];
+}
+// Newsletter opt-in: only ever sends "true", so a later submission can't erase an earlier opt-in.
+function optinField(id) {
+  const el = document.getElementById(id);
+  return el && el.checked ? [{ name: "lm_newsletter_optin", value: "true" }] : [];
+}
+// "Book a call" opens the HubSpot calendar inline once CONFIG.MEETINGS_URL is set;
+// until then the button keeps linking to the booking page.
+let lead = {};
+function openCalendar() {
+  const box = document.getElementById("bookBox");
+  if (!box.dataset.loaded) {
+    const u = new URL(CONFIG.MEETINGS_URL);
+    u.searchParams.set("embed", "true");
+    if (lead.first) u.searchParams.set("firstname", lead.first);
+    if (lead.email) u.searchParams.set("email", lead.email);
+    const c = document.createElement("div");
+    c.className = "meetings-iframe-container";
+    c.dataset.src = u.href;
+    box.appendChild(c);
+    const s = document.createElement("script");
+    s.src = "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js";
+    document.body.appendChild(s);
+    box.dataset.loaded = "1";
+  }
+  box.classList.remove("hidden");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  box.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+}
+document.getElementById("ctaBtn").addEventListener("click", e => {
+  if (!CONFIG.MEETINGS_URL || e.currentTarget.getAttribute("href") !== CONFIG.BOOKING_URL) return;
+  e.preventDefault();
+  openCalendar();
+});
 function hsContext(pageName) {
   const c = { pageUri: location.href, pageName };
   const m = document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/);

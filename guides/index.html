@@ -138,6 +138,10 @@
   .brand-foot { text-align: center; font-size: 12px; color: #7d8b97; margin-top: 28px; }
   .brand-foot a { color: var(--blue); }
   @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+  .optin { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.5; color: #55677a; margin: 4px 0 16px; cursor: pointer; text-align: left; }
+  .optin input { margin-top: 2px; width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--navy); }
+  .cta-note { font-size: 12.5px; color: #55677a; margin-top: 8px; }
+  .book-box { margin-top: 18px; background: #fff; border-radius: 14px; overflow: hidden; min-height: 120px; }
 </style>
 </head>
 <body>
@@ -183,6 +187,7 @@
               <label for="gEmail">Email</label>
               <input type="email" id="gEmail" autocomplete="email" placeholder="you@yourbusiness.com">
             </div>
+            <label class="optin"><input type="checkbox" id="gOptin"> <span>Also send me one practical systems tip a month. Unsubscribe anytime.</span></label>
             <button class="btn btn-full" type="submit" id="gBtn">Get the Free Guide</button>
             <div class="fine-print">You'll download it right here, and we'll email you a copy. No spam, unsubscribe anytime.</div>
             <div class="form-error hidden" id="guideError" role="alert"></div>
@@ -195,6 +200,11 @@
             <div class="next">
               Prefer a score? Take the 2-minute <a href="../scorecard/">Owner-Dependency Scorecard</a> and see which pillar to fix first.
             </div>
+            <div class="next">
+              Rather talk it through? <a id="ctaBtn" href="https://www.buildwithbpp.com/booking" target="_blank">Book a free 20-minute call</a>.
+              <div class="cta-note" id="ctaNote">A few 20-minute call slots open each week.</div>
+            </div>
+            <div class="book-box hidden" id="bookBox"></div>
           </div>
         </div>
       </div>
@@ -210,7 +220,10 @@
 /* ================= CONFIG ================= */
 const CONFIG = {
   HUBSPOT_PORTAL_ID: "242172275",
-  HUBSPOT_FORM_GUID: ""
+  HUBSPOT_FORM_GUID: "",
+  BOOKING_URL: "https://www.buildwithbpp.com/booking",
+  // HubSpot Meetings page; when set, "Book a call" opens the calendar inline.
+  MEETINGS_URL: ""
 };
 /* ========================================== */
 
@@ -227,6 +240,49 @@ const GUIDES = {
   }
 };
 
+// Short single-line fields for the follow-up emails.
+function emailFields(guide) {
+  return [
+    { name: "lm_result_headline", value: "Here's your copy of " + guide.title + ": " + new URL(guide.file, location.href).href },
+    { name: "lm_result_focus", value: "Check what's true today, not what you plan to fix, then count your checks." },
+    { name: "lm_quick_win", value: "Start with days 1-30 of the 90-day plan: get every lead into one system and put automatic follow-up on every quote. It's the highest-return fix in the guide." },
+    { name: "lm_next_step", value: "Prefer a score to a checklist? The 2-minute Owner-Dependency Scorecard shows which pillar to fix first: " + new URL("../scorecard/", location.href).href },
+    { name: "lm_fit", value: "medium" }
+  ];
+}
+// Newsletter opt-in: only ever sends "true", so a later submission can't erase an earlier opt-in.
+function optinField(id) {
+  const el = document.getElementById(id);
+  return el && el.checked ? [{ name: "lm_newsletter_optin", value: "true" }] : [];
+}
+// "Book a call" opens the HubSpot calendar inline once CONFIG.MEETINGS_URL is set;
+// until then the button keeps linking to the booking page.
+let lead = {};
+function openCalendar() {
+  const box = document.getElementById("bookBox");
+  if (!box.dataset.loaded) {
+    const u = new URL(CONFIG.MEETINGS_URL);
+    u.searchParams.set("embed", "true");
+    if (lead.first) u.searchParams.set("firstname", lead.first);
+    if (lead.email) u.searchParams.set("email", lead.email);
+    const c = document.createElement("div");
+    c.className = "meetings-iframe-container";
+    c.dataset.src = u.href;
+    box.appendChild(c);
+    const s = document.createElement("script");
+    s.src = "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js";
+    document.body.appendChild(s);
+    box.dataset.loaded = "1";
+  }
+  box.classList.remove("hidden");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  box.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+}
+document.getElementById("ctaBtn").addEventListener("click", e => {
+  if (!CONFIG.MEETINGS_URL || e.currentTarget.getAttribute("href") !== CONFIG.BOOKING_URL) return;
+  e.preventDefault();
+  openCalendar();
+});
 function hsContext(pageName) {
   const c = { pageUri: location.href, pageName };
   const m = document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/);
@@ -273,6 +329,7 @@ document.getElementById("guideForm").addEventListener("submit", e => {
 
   if (!CONFIG.HUBSPOT_PORTAL_ID || !CONFIG.HUBSPOT_FORM_GUID) return showDone(false);
 
+  lead = { first: name, email };
   const btn = document.getElementById("gBtn");
   btn.disabled = true;
   btn.textContent = "One second...";
@@ -287,7 +344,9 @@ document.getElementById("guideForm").addEventListener("submit", e => {
         { name: "lm_guide_requested", value: version },
         { name: "lm_magnet", value: "run-without-you-guide" },
         { name: "lm_magnet_name", value: guide.short },
-        { name: "lm_result_summary", value: buildSummary(guide) }
+        { name: "lm_result_summary", value: buildSummary(guide) },
+        ...emailFields(guide),
+        ...optinField("gOptin")
       ],
       context: hsContext("Run-Without-You Guide")
     })
