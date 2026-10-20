@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Is Your Business Foundation Ready? | Business Plans Plus</title>
 <meta property="og:title" content="Is your business foundation ready to build on?">
-<meta property="og:description" content="Answer 10 questions and get your Foundation Readiness Score, plus the gaps to close before you push for growth. Free, 2 minutes.">
+<meta property="og:description" content="Answer 10 questions and get your Foundation Readiness Score, plus any gaps to close before you push for growth. Free, 2 minutes.">
 <meta property="og:type" content="website">
 <meta name="description" content="Free 2-minute Foundation Readiness Score for new business owners. Find out if your legal setup, brand, offer, lead engine, and money basics are ready to grow on.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,7 +90,7 @@
     <div class="card-head">
       <div class="kicker">Free 2-Minute Score</div>
       <h1 id="headTitle">Is your foundation ready to build on?</h1>
-      <p id="headSub">Answer 10 quick questions and get your Foundation Readiness Score, plus the gaps to close before you push for growth.</p>
+      <p id="headSub">Answer 10 quick questions and get your Foundation Readiness Score, plus any gaps to close before you push for growth.</p>
     </div>
     <div class="card-body">
 
@@ -98,7 +98,7 @@
       <div id="viewIntro">
         <p style="margin-bottom:16px;">Most new businesses don't stall because the idea was bad. They stall because the foundation under the idea was never finished: the legal setup, the money basics, a clear offer, and a repeatable way to get customers.</p>
         <p style="margin-bottom:16px;">This score checks your foundation across 5 areas: <strong>legal and money basics, brand and online presence, your offer and pricing, your first-clients engine, and simple operations</strong>.</p>
-        <p style="margin-bottom:26px;">It takes about 2 minutes. You'll get your score plus the two gaps to close first.</p>
+        <p style="margin-bottom:26px;">It takes about 2 minutes. You'll get your score plus the gaps to close first, if any.</p>
         <button class="btn btn-gold" onclick="startQuiz()">Get My Score</button>
       </div>
 
@@ -118,10 +118,14 @@
       <!-- GATE -->
       <form id="viewGate" data-hs-do-not-collect="true" class="hidden" novalidate onsubmit="event.preventDefault(); submitGate();">
         <div class="q-text" style="margin-bottom:8px;">Your score is ready.</div>
-        <p style="font-size:14.5px;margin-bottom:22px;">Tell us where to send your results and we'll show your score now, plus email you a short breakdown of your two biggest gaps and what to do about them.</p>
+        <p style="font-size:14.5px;margin-bottom:22px;">Tell us where to send your results and we'll show your score now, plus email you a short breakdown of the gaps to close first, if any, and what to do about them.</p>
         <div class="field">
           <label for="fName">First name</label>
           <input type="text" id="fName" autocomplete="given-name" placeholder="Jordan">
+        </div>
+        <div class="field">
+          <label for="fLast">Last name</label>
+          <input type="text" id="fLast" autocomplete="family-name" placeholder="Smith">
         </div>
         <div class="field">
           <label for="fEmail">Email</label>
@@ -134,7 +138,7 @@
         <label class="optin"><input type="checkbox" id="fOptin"> <span>Also send me one practical systems tip a month. Unsubscribe anytime.</span></label>
         <button class="btn btn-gold" id="btnReveal" type="submit">Show My Score</button>
         <div class="fine-print">We'll email you a copy of your results. No spam, unsubscribe anytime.</div>
-        <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter a first name and a valid email to see your score.</div>
+        <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter your first and last name and a valid email to see your score.</div>
       </form>
 
       <!-- RESULTS -->
@@ -206,6 +210,11 @@ const QUESTIONS = [
 ];
 
 const PILLARS = ["Legal & Money Basics", "Brand & Presence", "Offer & Pricing", "First-Clients Engine", "Simple Operations"];
+// A foundation under GAP_PCT% counts as a gap (the same line where its bar turns green).
+// Ties between gaps break by build order: legal and money first, then the offer the brand
+// has to describe, then the brand, then the channel that sells it, then delivery.
+const GAP_PCT = 70;
+const GAP_ORDER = ["Legal & Money Basics", "Offer & Pricing", "Brand & Presence", "First-Clients Engine", "Simple Operations"];
 const PILLAR_FIXES = {
   "Legal & Money Basics": "finishing the legal setup and splitting business money from personal",
   "Brand & Presence": "getting a clean brand and a findable online front door",
@@ -216,6 +225,7 @@ const PILLAR_FIXES = {
 
 let answers = new Array(QUESTIONS.length).fill(null);
 let current = 0;
+let advT; // pending auto-advance; one tap = one advance
 
 function show(id) {
   ["viewIntro","viewQuiz","viewGate","viewResults"].forEach(v =>
@@ -237,7 +247,7 @@ function renderQ() {
     const b = document.createElement("button");
     b.className = "opt" + (answers[current] === i + 1 ? " selected" : "");
     b.innerHTML = '<span class="dot">' + (i + 1) + '</span><span>' + label + '</span>';
-    b.onclick = () => { answers[current] = i + 1; setTimeout(nextQ, 180); renderQ(); };
+    b.onclick = () => { answers[current] = i + 1; clearTimeout(advT); advT = setTimeout(nextQ, 180); renderQ(); };
     opts.appendChild(b);
   });
 }
@@ -251,7 +261,7 @@ function nextQ() {
     show("viewGate");
   }
 }
-function prevQ() { if (current > 0) { current--; renderQ(); } }
+function prevQ() { clearTimeout(advT); if (current > 0) { current--; renderQ(); } }
 
 function computeScores() {
   const byPillar = {};
@@ -267,36 +277,41 @@ function computeScores() {
     pillarPct[p] = Math.round(((sum - n) / (n * 4)) * 100);
   });
   const readiness = Math.round(PILLARS.reduce((a, p) => a + pillarPct[p], 0) / PILLARS.length);
-  const weakest = [...PILLARS].sort((a, b) => pillarPct[a] - pillarPct[b]).slice(0, 2);
+  // Up to 2 gaps: under GAP_PCT, lowest first, ties in GAP_ORDER. Can be empty.
+  const weakest = PILLARS.filter(p => pillarPct[p] < GAP_PCT)
+    .sort((a, b) => pillarPct[a] - pillarPct[b] || GAP_ORDER.indexOf(a) - GAP_ORDER.indexOf(b))
+    .slice(0, 2);
   return { pillarPct, readiness, weakest };
 }
 
 function submitGate() {
   const name = document.getElementById("fName").value.trim();
+  const last = document.getElementById("fLast").value.trim();
   const email = document.getElementById("fEmail").value.trim();
   const biz = document.getElementById("fBiz").value.trim();
-  const valid = name.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const valid = name.length > 0 && last.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   document.getElementById("gateError").classList.toggle("hidden", valid);
   if (!valid) return;
 
   const { readiness, weakest } = computeScores();
-  lead = { first: name, email };
+  lead = { first: name, last, email };
   renderResults(name);
-  sendToHubSpot({ name, email, biz, readiness, weakest });
+  sendToHubSpot({ name, last, email, biz, readiness, weakest });
 }
 
-function sendToHubSpot({ name, email, biz, readiness, weakest }) {
+function sendToHubSpot({ name, last, email, biz, readiness, weakest }) {
   if (!CONFIG.HUBSPOT_PORTAL_ID || !CONFIG.HUBSPOT_FORM_GUID) return;
   const url = "https://api.hsforms.com/submissions/v3/integration/submit/" +
     CONFIG.HUBSPOT_PORTAL_ID + "/" + CONFIG.HUBSPOT_FORM_GUID;
   const payload = {
     fields: [
       { name: "firstname", value: name },
+      { name: "lastname", value: last },
       { name: "email", value: email },
       { name: "company", value: biz },
       { name: "foundation_readiness_score", value: String(readiness) },
-      { name: "weakest_foundation_1", value: weakest[0] },
-      { name: "weakest_foundation_2", value: weakest[1] },
+      { name: "weakest_foundation_1", value: weakest[0] || "None" },
+      { name: "weakest_foundation_2", value: weakest[1] || "None" },
       { name: "lm_magnet", value: "foundation-readiness-score" },
       { name: "lm_magnet_name", value: "Foundation Readiness Score" },
       { name: "lm_result_summary", value: buildSummary() },
@@ -334,7 +349,7 @@ function renderResults(name) {
     };
   } else if (readiness >= 40) {
     band = "Almost Ready"; color = "var(--amber)";
-    blurb = "You've done real work, and a few gaps are still holding the structure up with tape. Close the two gaps below before you spend money on growth.";
+    blurb = "You've done real work, and a few gaps are still holding the structure up with tape. Close the gaps below before you spend money on growth.";
     cta = {
       title: "Close the gaps in 30 days",
       body: "Our Launch Pad engagement finishes the foundation: legal, brand, offer, and your first-clients engine, done with you in about a month. Start with a free 30-minute call.",
@@ -366,8 +381,14 @@ function renderResults(name) {
   });
 
   document.getElementById("weakCallout").innerHTML =
-    "<strong>Close these first:</strong> " + weakest[0] + " and " + weakest[1] + ". " +
-    "Start with " + PILLAR_FIXES[weakest[0]] + ", then " + PILLAR_FIXES[weakest[1]] + ".";
+    weakest.length === 0
+      ? "<strong>No gaps to close:</strong> all 5 foundations are " + GAP_PCT + "% or better. " +
+        "Next, check how much the business still runs on you with the Owner-Dependency Score below."
+    : weakest.length === 1
+      ? "<strong>Close this first:</strong> " + weakest[0] + ". " +
+        "Start with " + PILLAR_FIXES[weakest[0]] + ". Your other 4 foundations are " + GAP_PCT + "% or better."
+      : "<strong>Close these first:</strong> " + weakest[0] + " and " + weakest[1] + ". " +
+        "Start with " + PILLAR_FIXES[weakest[0]] + ", then " + PILLAR_FIXES[weakest[1]] + ".";
 
   document.getElementById("ctaTitle").textContent = cta.title;
   document.getElementById("ctaBody").textContent = cta.body;
@@ -397,8 +418,13 @@ function emailFields() {
   const t = id => document.getElementById(id).textContent.trim();
   return [
     { name: "lm_result_headline", value: "Your Foundation Readiness Score is " + readiness + "% (" + t("bandPill") + ")." },
-    { name: "lm_result_focus", value: "Your two biggest gaps are " + weakest[0] + " and " + weakest[1] + "." },
-    { name: "lm_quick_win", value: "Start with " + PILLAR_FIXES[weakest[0]] + "." },
+    { name: "lm_result_focus", value:
+      weakest.length === 0 ? "You have no gaps to close: all 5 foundations scored " + GAP_PCT + "% or better."
+      : weakest.length === 1 ? "Your biggest gap is " + weakest[0] + ". Your other 4 foundations are " + GAP_PCT + "% or better."
+      : "Your two biggest gaps are " + weakest[0] + " and " + weakest[1] + "." },
+    { name: "lm_quick_win", value: weakest.length
+      ? "Start with " + PILLAR_FIXES[weakest[0]] + "."
+      : "Retake this score each quarter so a foundation that starts slipping gets caught early." },
     { name: "lm_next_step", value: t("ctaTitle") + ". " + t("ctaBody") },
     { name: "lm_fit", value: readiness < 40 ? "strong" : readiness < 70 ? "medium" : "low" }
   ];
@@ -417,6 +443,7 @@ function openCalendar() {
     const u = new URL(CONFIG.MEETINGS_URL);
     u.searchParams.set("embed", "true");
     if (lead.first) u.searchParams.set("firstname", lead.first);
+    if (lead.last) u.searchParams.set("lastname", lead.last);
     if (lead.email) u.searchParams.set("email", lead.email);
     const c = document.createElement("div");
     c.className = "meetings-iframe-container";

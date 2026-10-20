@@ -159,6 +159,7 @@
   .report-box h3 { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: var(--navy-dark); margin-bottom: 4px; }
   .report-box p { font-size: 13.5px; color: #55677a; margin-bottom: 14px; }
   .report-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .report-fields .field-wide { grid-column: 1 / -1; }
   @media (max-width: 420px) { .report-fields { grid-template-columns: 1fr; } }
   .field label { display: block; font-size: 13px; font-weight: 600; color: var(--navy-dark); margin-bottom: 4px; }
   .field input {
@@ -289,6 +290,10 @@
                 <input type="text" id="rName" autocomplete="given-name" placeholder="Jordan">
               </div>
               <div class="field">
+                <label for="rLast">Last name</label>
+                <input type="text" id="rLast" autocomplete="family-name" placeholder="Smith">
+              </div>
+              <div class="field field-wide">
                 <label for="rEmail">Email</label>
                 <input type="email" id="rEmail" autocomplete="email" placeholder="you@yourbusiness.com">
               </div>
@@ -361,7 +366,8 @@ function calc() {
   const close = +document.getElementById("inClose").value / 100;
   const job   = +document.getElementById("inJob").value;
 
-  document.getElementById("vHours").textContent = hours + " hrs";
+  const plural = (n, one, many) => n + " " + (n === 1 ? one : many);
+  document.getElementById("vHours").textContent = plural(hours, "hr", "hrs");
   document.getElementById("vRate").textContent  = "$" + rate;
   document.getElementById("vLeads").textContent = leads;
   document.getElementById("vClose").textContent = Math.round(close * 100) + "%";
@@ -370,10 +376,12 @@ function calc() {
   const timeCost = hours * rate * 50;
   const leadCost = leads * close * job * 12;
   const total = timeCost + leadCost;
-  const timeSub = hours + " hrs/week at $" + rate + "/hr, 50 weeks";
-  const leadSub = leads + " leads/mo at " + Math.round(close * 100) + "% close, " + fmt(job) + " each";
+  const timeSub = plural(hours, "hr", "hrs") + "/week at $" + rate + "/hr, 50 weeks";
+  const leadSub = plural(leads, "lead", "leads") + "/mo at " + Math.round(close * 100) + "% close, " + fmt(job) + " each";
   const weeksBack = Math.round(hours * 50 / 40);
-  last = { total, timeCost, leadCost, timeSub, leadSub, weeksBack };
+  // Empty when no admin hours, so the copy never says "about 0 work-weeks".
+  const weeksText = weeksBack > 0 ? plural(weeksBack, "full work-week", "full work-weeks") : "";
+  last = { total, timeCost, leadCost, timeSub, leadSub, weeksText };
 
   document.getElementById("timeSub").textContent = timeSub;
   document.getElementById("leadSub").textContent = leadSub;
@@ -400,7 +408,9 @@ function calc() {
     equiv = "<strong>Nothing slipping?</strong> Either you're already running on systems, or the sliders are shy. Most owners underestimate both numbers.";
   } else {
     equiv = "<strong>Put differently:</strong> that's roughly <strong>" + fmtFull(Math.round(total / 12)) +
-      " every month</strong>, and about <strong>" + weeksBack + " full work-weeks of your year</strong> spent on work that shouldn't need you.";
+      " every month</strong>" + (weeksText
+        ? ", and about <strong>" + weeksText + " of your year</strong> spent on work that shouldn't need you."
+        : " in leads that slip through.");
   }
   document.getElementById("equivBox").innerHTML = equiv;
   syncSticky();
@@ -426,18 +436,23 @@ function buildSummary() {
       fmtFull(Math.round(last.total / 12)) + " a month).",
     "Your time trapped in admin: " + fmtFull(last.timeCost) + "\n" + last.timeSub,
     "Revenue lost to dropped leads: " + fmtFull(last.leadCost) + "\n" + last.leadSub,
-    "That's about " + last.weeksBack + " full work-weeks of your year spent on work that shouldn't need you.",
+    last.weeksText && "That's about " + last.weeksText + " of your year spent on work that shouldn't need you.",
     "How we got there: time cost = admin hours x your hourly value x 50 working weeks. " +
       "Lead cost = slipped leads x close rate x customer value x 12 months. Estimates, not accounting."
-  ].join("\n\n");
+  ].filter(Boolean).join("\n\n");
 }
 
 // Short single-line fields for the follow-up emails.
 function emailFields() {
   const timeBigger = last.timeCost >= last.leadCost;
+  const timePart = fmtFull(last.timeCost) + " of that is your time in admin";
+  const leadPart = fmtFull(last.leadCost) + " is leads that slip through";
+  const focus = !last.leadCost ? "All of it is your time in admin."
+    : !last.timeCost ? "All of it is leads that slip through."
+    : timePart + ", and " + leadPart + ".";
   return [
     { name: "lm_result_headline", value: "Owner dependence is costing you about " + fmtFull(last.total) + " a year (about " + fmtFull(Math.round(last.total / 12)) + " a month)." },
-    { name: "lm_result_focus", value: fmtFull(last.timeCost) + " of that is your time in admin, and " + fmtFull(last.leadCost) + " is leads that slip through." },
+    { name: "lm_result_focus", value: focus },
     { name: "lm_quick_win", value: timeBigger
         ? "Pick the admin task you repeat most each week and write down how it's done, so someone else can own it."
         : "Put an automatic follow-up on every open quote, so nothing waits on your memory." },
@@ -459,6 +474,7 @@ function openCalendar() {
     const u = new URL(CONFIG.MEETINGS_URL);
     u.searchParams.set("embed", "true");
     if (lead.first) u.searchParams.set("firstname", lead.first);
+    if (lead.last) u.searchParams.set("lastname", lead.last);
     if (lead.email) u.searchParams.set("email", lead.email);
     const c = document.createElement("div");
     c.className = "meetings-iframe-container";
@@ -488,16 +504,18 @@ function hsContext(pageName) {
 document.getElementById("reportForm").addEventListener("submit", e => {
   e.preventDefault();
   const name = document.getElementById("rName").value.trim();
+  const lastName = document.getElementById("rLast").value.trim();
   const email = document.getElementById("rEmail").value.trim();
   const err = document.getElementById("reportError");
   const fail = msg => { err.textContent = msg; err.classList.remove("hidden"); };
   err.classList.add("hidden");
 
   if (!touched) return fail("Move the sliders to match your business first, so the report is yours.");
-  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail("Enter a first name and a valid email.");
+  if (last.total <= 0) return fail("Your estimate is $0, so there's no report to send. Set the sliders for anything that's slipping, then try again.");
+  if (!name || !lastName || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail("Enter your first and last name and a valid email.");
   if (!CONFIG.HUBSPOT_PORTAL_ID || !CONFIG.HUBSPOT_FORM_GUID) return fail("Email reports aren't switched on yet. Your numbers are above.");
 
-  lead = { first: name, email };
+  lead = { first: name, last: lastName, email };
   const btn = document.getElementById("rBtn");
   btn.disabled = true;
   btn.textContent = "Sending...";
@@ -509,6 +527,7 @@ document.getElementById("reportForm").addEventListener("submit", e => {
     body: JSON.stringify({
       fields: [
         { name: "firstname", value: name },
+        { name: "lastname", value: lastName },
         { name: "email", value: email },
         { name: "calc_annual_cost", value: String(Math.round(last.total)) },
         { name: "lm_magnet", value: "cost-of-owner-dependence-calculator" },

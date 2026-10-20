@@ -185,6 +185,10 @@
               <input type="text" id="gName" autocomplete="given-name" placeholder="Jordan">
             </div>
             <div class="field">
+              <label for="gLast">Last name</label>
+              <input type="text" id="gLast" autocomplete="family-name" placeholder="Smith">
+            </div>
+            <div class="field">
               <label for="gEmail">Email</label>
               <input type="email" id="gEmail" autocomplete="email" placeholder="you@yourbusiness.com">
             </div>
@@ -265,6 +269,7 @@ function openCalendar() {
     const u = new URL(CONFIG.MEETINGS_URL);
     u.searchParams.set("embed", "true");
     if (lead.first) u.searchParams.set("firstname", lead.first);
+    if (lead.last) u.searchParams.set("lastname", lead.last);
     if (lead.email) u.searchParams.set("email", lead.email);
     const c = document.createElement("div");
     c.className = "meetings-iframe-container";
@@ -312,13 +317,14 @@ if (edition && GUIDES[edition]) {
 document.getElementById("guideForm").addEventListener("submit", e => {
   e.preventDefault();
   const name = document.getElementById("gName").value.trim();
+  const last = document.getElementById("gLast").value.trim();
   const email = document.getElementById("gEmail").value.trim();
   const version = document.querySelector('input[name="version"]:checked').value;
   const guide = GUIDES[version];
   const err = document.getElementById("guideError");
   err.classList.add("hidden");
-  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    err.textContent = "Enter a first name and a valid email.";
+  if (!name || !last || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    err.textContent = "Enter your first and last name and a valid email.";
     err.classList.remove("hidden");
     return;
   }
@@ -337,7 +343,7 @@ document.getElementById("guideForm").addEventListener("submit", e => {
 
   if (!CONFIG.HUBSPOT_PORTAL_ID || !CONFIG.HUBSPOT_FORM_GUID) return showDone(false);
 
-  lead = { first: name, email };
+  lead = { first: name, last, email };
   const btn = document.getElementById("gBtn");
   btn.disabled = true;
   btn.textContent = "One second...";
@@ -348,6 +354,7 @@ document.getElementById("guideForm").addEventListener("submit", e => {
     body: JSON.stringify({
       fields: [
         { name: "firstname", value: name },
+        { name: "lastname", value: last },
         { name: "email", value: email },
         { name: "lm_guide_requested", value: version },
         { name: "lm_magnet", value: "run-without-you-guide" },

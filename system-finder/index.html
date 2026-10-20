@@ -110,6 +110,10 @@
           <input type="text" id="fName" autocomplete="given-name" placeholder="Jordan">
         </div>
         <div class="field">
+          <label for="fLast">Last name</label>
+          <input type="text" id="fLast" autocomplete="family-name" placeholder="Smith">
+        </div>
+        <div class="field">
           <label for="fEmail">Email</label>
           <input type="email" id="fEmail" autocomplete="email" placeholder="you@yourbusiness.com">
         </div>
@@ -120,7 +124,7 @@
         <label class="optin"><input type="checkbox" id="fOptin"> <span>Also send me one practical systems tip a month. Unsubscribe anytime.</span></label>
         <button class="btn btn-gold" type="submit">Show My Recommendation</button>
         <div class="fine-print">We'll email you a copy of your results. No spam, unsubscribe anytime.</div>
-        <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter a first name and a valid email to see your results.</div>
+        <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter your first and last name and a valid email to see your results.</div>
       </form>
 
       <!-- RESULTS -->
@@ -168,13 +172,15 @@ const CONFIG = {
 // Buckets: L = Launch Pad (foundation), J = AI Jumpstart (AI on-ramp),
 // O = Operator System (operating system), S = Scale System (intelligence layer).
 // "stage" on Q1 is also captured as the qualifying field.
+// "fit" on Q1 gates the result: only those builds can win at that stage, and a tie
+// goes to the one listed first (the build the stage points to), then down the list.
 const QUESTIONS = [
   { text: "Where is the business today?",
     opts: [
-      { label: "Idea stage or pre-revenue", w: { L: 5 }, stage: "Pre-revenue / idea" },
-      { label: "Launched, under ~$150K a year", w: { L: 3, J: 1 }, stage: "Under $150K" },
-      { label: "Established, roughly $250K to $2M", w: { O: 4, J: 1 }, stage: "$250K-$2M" },
-      { label: "Past $1.5M and pushing to scale", w: { S: 4 }, stage: "$1.5M-$5M+" }
+      { label: "Idea stage or pre-revenue", w: { L: 5 }, stage: "Pre-revenue / idea", fit: ["L", "J"] },
+      { label: "Under $250K a year", w: { L: 3, J: 1 }, stage: "Under $250K", fit: ["L", "J", "O", "S"] },
+      { label: "$250K to $1.5M a year", w: { O: 4, J: 1 }, stage: "$250K-$1.5M", fit: ["O", "J", "S", "L"] },
+      { label: "More than $1.5M a year", w: { S: 4 }, stage: "$1.5M+", fit: ["S", "O", "J"] }
     ] },
   { text: "How big is the team?",
     opts: [
@@ -241,6 +247,7 @@ const BUILDS = {
 
 let answers = new Array(QUESTIONS.length).fill(null);
 let current = 0;
+let advT; // pending auto-advance, so a double tap can't skip a question
 
 function show(id) {
   ["viewIntro","viewQuiz","viewGate","viewResults"].forEach(v =>
@@ -261,7 +268,7 @@ function renderQ() {
     const b = document.createElement("button");
     b.className = "opt" + (answers[current] === i ? " selected" : "");
     b.innerHTML = '<span class="dot">' + String.fromCharCode(65 + i) + '</span><span>' + o.label + '</span>';
-    b.onclick = () => { answers[current] = i; setTimeout(nextQ, 180); renderQ(); };
+    b.onclick = () => { answers[current] = i; clearTimeout(advT); advT = setTimeout(nextQ, 180); renderQ(); };
     opts.appendChild(b);
   });
 }
@@ -275,7 +282,7 @@ function nextQ() {
     show("viewGate");
   }
 }
-function prevQ() { if (current > 0) { current--; renderQ(); } }
+function prevQ() { clearTimeout(advT); if (current > 0) { current--; renderQ(); } }
 
 function compute() {
   const scores = { L: 0, J: 0, O: 0, S: 0 };
@@ -283,39 +290,41 @@ function compute() {
     const o = q.opts[answers[i] ?? 0];
     if (o.w) Object.entries(o.w).forEach(([k, v]) => scores[k] += v);
   });
-  const ranked = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
-  const stage = QUESTIONS[0].opts[answers[0] ?? 0].stage || "";
-  return { top: ranked[0], scores, stage };
+  const q1 = QUESTIONS[0].opts[answers[0] ?? 0];
+  const top = q1.fit.reduce((best, k) => scores[k] > scores[best] ? k : best);
+  return { top, scores, stage: q1.stage || "" };
 }
 
 function submitGate() {
   const name = document.getElementById("fName").value.trim();
+  const last = document.getElementById("fLast").value.trim();
   const email = document.getElementById("fEmail").value.trim();
   const biz = document.getElementById("fBiz").value.trim();
-  const valid = name.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const valid = name.length > 0 && last.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   document.getElementById("gateError").classList.toggle("hidden", valid);
   if (!valid) return;
   const { top, stage } = compute();
-  lead = { first: name, email };
+  lead = { first: name, last, email };
   renderResults(name);
-  sendToHubSpot({ name, email, biz, rec: BUILDS[top].name, stage });
+  sendToHubSpot({ name, last, email, biz, rec: BUILDS[top].name, stage });
 }
 
 // business_stage is a shared HubSpot dropdown (the /booking intake writes it too),
 // so send its option values, not this quiz's labels.
 const STAGE_TO_HUBSPOT = {
   "Pre-revenue / idea": "Pre-launch",
-  "Under $150K": "Early-Stage Business",
-  "$250K-$2M": "Established Business",
-  "$1.5M-$5M+": "Scaling/Growing Business"
+  "Under $250K": "Early-Stage Business",
+  "$250K-$1.5M": "Established Business",
+  "$1.5M+": "Scaling/Growing Business"
 };
-function sendToHubSpot({ name, email, biz, rec, stage }) {
+function sendToHubSpot({ name, last, email, biz, rec, stage }) {
   if (!CONFIG.HUBSPOT_PORTAL_ID || !CONFIG.HUBSPOT_FORM_GUID) return;
   const url = "https://api.hsforms.com/submissions/v3/integration/submit/" +
     CONFIG.HUBSPOT_PORTAL_ID + "/" + CONFIG.HUBSPOT_FORM_GUID;
   const payload = {
     fields: [
       { name: "firstname", value: name },
+      { name: "lastname", value: last },
       { name: "email", value: email },
       { name: "company", value: biz },
       { name: "recommended_system", value: rec },
@@ -352,11 +361,14 @@ function renderResults(name) {
 function buildSummary() {
   const t = id => document.getElementById(id).textContent.trim();
   const inc = [...document.querySelectorAll("#incList li")].map(li => "- " + li.textContent.trim());
+  // Plain text drops links, so write each one as "text (url)".
+  const also = document.getElementById("alsoBox").cloneNode(true);
+  also.querySelectorAll("a").forEach(a => a.replaceWith(a.textContent + " (" + a.href + ")"));
   return [
     "Your next build: " + t("recTitle"),
     t("recBody"),
     "What that looks like:\n" + inc.join("\n"),
-    t("alsoBox")
+    also.textContent.trim()
   ].join("\n\n");
 }
 // Short single-line fields for the follow-up emails.
@@ -386,6 +398,7 @@ function openCalendar() {
     const u = new URL(CONFIG.MEETINGS_URL);
     u.searchParams.set("embed", "true");
     if (lead.first) u.searchParams.set("firstname", lead.first);
+    if (lead.last) u.searchParams.set("lastname", lead.last);
     if (lead.email) u.searchParams.set("email", lead.email);
     const c = document.createElement("div");
     c.className = "meetings-iframe-container";
