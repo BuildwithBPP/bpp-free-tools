@@ -464,7 +464,9 @@ document.getElementById("ctaBtn").addEventListener("click", e => {
   openCalendar();
 });
 function hsContext(pageName) {
-  const c = { pageUri: location.href, pageName };
+  // HubSpot silently drops submissions whose page URL is on github.io (found 10/20),
+  // so report the tool under its buildwithbpp.com home; pageName keeps the tool name.
+  const c = { pageUri: "https://www.buildwithbpp.com/resources?tool=foundation-readiness-score", pageName };
   const m = document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/);
   if (m) c.hutk = m[1];
   return c;
