@@ -11,7 +11,7 @@
       '<a class="bpp-brand" href="' + SITE + '/"><img src="' + MARK + '" alt="" width="26" height="30">' +
         '<span class="bpp-brand-txt">Business Plans <span class="bpp-accent">Plus</span></span></a>' +
       '<div class="bpp-bar-links">' +
-        '<a class="bpp-bar-link" href="' + SITE + '/resources">Free tools</a>' +
+        '<a class="bpp-bar-link" href="' + SITE + '/resources">Resources</a>' +
         '<a class="bpp-bar-cta" href="' + SITE + '/booking#book">Book a Call</a>' +
       '</div>' +
     '</nav>';
@@ -27,7 +27,7 @@
         '<a class="bpp-footer-link" href="' + SITE + '/packages">Packages</a>' +
         '<a class="bpp-footer-link" href="' + SITE + '/about">About</a>' +
         '<a class="bpp-footer-link" href="' + SITE + '/referral">Referral Program</a>' +
-        '<a class="bpp-footer-link" href="' + SITE + '/resources">Free Tools</a></div>' +
+        '<a class="bpp-footer-link" href="' + SITE + '/resources">Resources</a></div>' +
       '<div><div class="bpp-footer-title">Get started</div>' +
         '<a class="bpp-footer-link" href="' + SITE + '/booking#book">Book a discovery call</a>' +
         '<a class="bpp-footer-link" href="' + SITE + '/booking#book">Contact us</a>' +
