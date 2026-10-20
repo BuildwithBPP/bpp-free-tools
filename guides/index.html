@@ -302,6 +302,13 @@ function buildSummary(guide) {
   ].join("\n\n");
 }
 
+// ?edition=commercial-cleaning preselects that version (the /resources card links here)
+const edition = new URLSearchParams(location.search).get("edition");
+if (edition && GUIDES[edition]) {
+  const pick = document.querySelector('input[name="version"][value="' + edition + '"]');
+  if (pick) pick.checked = true;
+}
+
 document.getElementById("guideForm").addEventListener("submit", e => {
   e.preventDefault();
   const name = document.getElementById("gName").value.trim();
