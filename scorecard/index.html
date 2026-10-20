@@ -241,7 +241,7 @@
       </div>
 
       <!-- GATE -->
-      <form id="viewGate" class="hidden" novalidate onsubmit="event.preventDefault(); submitGate();">
+      <form id="viewGate" data-hs-do-not-collect="true" class="hidden" novalidate onsubmit="event.preventDefault(); submitGate();">
         <div class="q-text" style="margin-bottom:8px;">Your score is ready.</div>
         <p style="font-size:14.5px;margin-bottom:22px;">Tell us where to send your results and we'll show your score now, plus email you a short breakdown of your two weakest areas and what to do about them.</p>
         <div class="field">
@@ -299,7 +299,7 @@ const CONFIG = {
   // One shared HubSpot form for every lead magnet (see README). Fields this page sends
   // must exist on that form or HubSpot silently drops them.
   HUBSPOT_PORTAL_ID: "242172275",
-  HUBSPOT_FORM_GUID: "",
+  HUBSPOT_FORM_GUID: "089a12d8-df0a-4ff1-9089-7bd50853250d",
   // Where each CTA points.
   BOOKING_URL: "https://www.buildwithbpp.com/booking",           // audit booking / contact
   // HubSpot Meetings page; when set, "Book a call" opens the calendar inline.
