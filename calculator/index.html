@@ -306,7 +306,7 @@
             <h3>Want this number to shrink?</h3>
             <p id="ctaText">A Business Systems Audit finds your three biggest leaks and gives you a prioritized roadmap in 1-2 weeks, with quick wins you keep either way. The fee is credited in full toward a full build within 30 days.</p>
             <a class="btn" id="ctaBtn" href="https://www.buildwithbpp.com/booking" target="_blank">Book a Call</a>
-            <div class="cta-note" id="ctaNote">A few 20-minute call slots open each week.</div>
+            <div class="cta-note" id="ctaNote">A few 30-minute call slots open each week.</div>
           </div>
           <div class="book-box hidden" id="bookBox"></div>
         </div>
@@ -337,7 +337,7 @@ const CONFIG = {
   HUBSPOT_FORM_GUID: "",
   BOOKING_URL: "https://www.buildwithbpp.com/booking",
   // HubSpot Meetings page; when set, "Book a call" opens the calendar inline.
-  MEETINGS_URL: ""
+  MEETINGS_URL: "https://meetings-na2.hubspot.com/bpp/consultation-call-group"
 };
 /* ========================================== */
 
@@ -440,7 +440,7 @@ function emailFields() {
     { name: "lm_quick_win", value: timeBigger
         ? "Pick the admin task you repeat most each week and write down how it's done, so someone else can own it."
         : "Put an automatic follow-up on every open quote, so nothing waits on your memory." },
-    { name: "lm_next_step", value: "A Business Systems Audit finds your three biggest leaks and gives you a roadmap in 1-2 weeks, and the fee is credited toward a build within 30 days. A free 20-minute call tells you if it's worth it." },
+    { name: "lm_next_step", value: "A Business Systems Audit finds your three biggest leaks and gives you a roadmap in 1-2 weeks, and the fee is credited toward a build within 30 days. A free 30-minute call tells you if it's worth it." },
     { name: "lm_fit", value: last.total >= 100000 ? "strong" : last.total >= 30000 ? "medium" : "low" }
   ];
 }
