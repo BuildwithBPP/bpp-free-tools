@@ -208,6 +208,10 @@
   .optin input { margin-top: 2px; width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--navy); }
   .cta-note { font-size: 12.5px; opacity: .85; margin-top: 12px; }
   .book-box { margin-top: 18px; background: #fff; border-radius: 14px; overflow: hidden; min-height: 120px; }
+  .gate-panel { background: #F4F6F8; border-radius: 14px; padding: 24px 22px; margin-top: 24px; }
+  @media (max-width: 520px) { .gate-panel { padding: 20px 16px; } }
+  #viewReport, .card { scroll-margin-top: 84px; }
+  #reportTitle:focus { outline: none; }
 </style>
 <link rel="stylesheet" href="../assets/site-chrome.css">
 </head>
@@ -225,7 +229,7 @@
       <div id="viewIntro">
         <p style="margin-bottom:16px;">Most service businesses between $250K and $2M run on the owner's memory. That works until it doesn't: a vacation, a busy season, a growth spurt, and things start slipping.</p>
         <p style="margin-bottom:16px;">This score measures how much of your business depends on you personally, across 5 areas: <strong>process, sales follow-up, your front door, automation, and financial clarity</strong>.</p>
-        <p style="margin-bottom:26px;">It takes about 2 minutes. You'll get your score plus a short breakdown of where to focus first.</p>
+        <p style="margin-bottom:26px;">It takes about 2 minutes. You'll see your score right away, no email needed. Then you can get a short breakdown of where to focus first.</p>
         <button class="btn btn-gold" onclick="startQuiz()">Get My Score</button>
       </div>
 
@@ -242,33 +246,7 @@
         </div>
       </div>
 
-      <!-- GATE -->
-      <form id="viewGate" data-hs-do-not-collect="true" class="hidden" novalidate onsubmit="event.preventDefault(); submitGate();">
-        <div class="q-text" style="margin-bottom:8px;">Your score is ready.</div>
-        <p style="font-size:14.5px;margin-bottom:22px;">Tell us where to send your results and we'll show your score now, plus email you a short breakdown of where you're most exposed (if anywhere) and what to do about it.</p>
-        <div class="field">
-          <label for="fName">First name</label>
-          <input type="text" id="fName" autocomplete="given-name" placeholder="Jordan">
-        </div>
-        <div class="field">
-          <label for="fLast">Last name</label>
-          <input type="text" id="fLast" autocomplete="family-name" placeholder="Smith">
-        </div>
-        <div class="field">
-          <label for="fEmail">Email</label>
-          <input type="email" id="fEmail" autocomplete="email" placeholder="you@yourbusiness.com">
-        </div>
-        <div class="field">
-          <label for="fBiz">Business name</label>
-          <input type="text" id="fBiz" autocomplete="organization" placeholder="Your Company LLC">
-        </div>
-        <label class="optin"><input type="checkbox" id="fOptin"> <span>Also send me one practical systems tip a month. Unsubscribe anytime.</span></label>
-        <button class="btn btn-gold" id="btnReveal" type="submit">Show My Score</button>
-        <div class="fine-print">We'll email you a copy of your results. No spam, unsubscribe anytime.</div>
-        <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter your first and last name and a valid email to see your score.</div>
-      </form>
-
-      <!-- RESULTS -->
+      <!-- RESULTS: the score and band show with no form; the report below sits behind the email form -->
       <div id="viewResults" class="hidden">
         <div class="score-ring-wrap">
           <div class="score-big" id="scoreNum">0%</div>
@@ -278,21 +256,50 @@
         </div>
         <p id="bandBlurb" style="font-size:15px;text-align:center;margin-bottom:8px;"></p>
 
-        <div class="section-title">Your 5 pillars</div>
-        <div id="pillarBars"></div>
+        <!-- GATE -->
+        <form id="viewGate" class="gate-panel" data-hs-do-not-collect="true" novalidate onsubmit="event.preventDefault(); submitGate();">
+          <div class="q-text" style="margin-bottom:8px;">Get your full report</div>
+          <p style="font-size:14.5px;margin-bottom:22px;">See how each of your 5 areas scored and what to fix first. We'll show it here and email you a copy.</p>
+          <div class="field">
+            <label for="fName">First name</label>
+            <input type="text" id="fName" autocomplete="given-name" placeholder="Jordan">
+          </div>
+          <div class="field">
+            <label for="fLast">Last name</label>
+            <input type="text" id="fLast" autocomplete="family-name" placeholder="Smith">
+          </div>
+          <div class="field">
+            <label for="fEmail">Email</label>
+            <input type="email" id="fEmail" autocomplete="email" placeholder="you@yourbusiness.com">
+          </div>
+          <div class="field">
+            <label for="fBiz">Business name</label>
+            <input type="text" id="fBiz" autocomplete="organization" placeholder="Your Company LLC">
+          </div>
+          <label class="optin"><input type="checkbox" id="fOptin"> <span>Also send me one practical systems tip a month. Unsubscribe anytime.</span></label>
+          <button class="btn btn-gold" id="btnReveal" type="submit">Show My Full Report</button>
+          <div class="fine-print">We'll email you a copy of your results. No spam, unsubscribe anytime.</div>
+          <div id="gateError" style="color:var(--red);font-size:13px;margin-top:10px;" class="hidden">Enter your first and last name and a valid email to see your full report.</div>
+        </form>
 
-        <div class="weak-callout" id="weakCallout"></div>
+        <!-- REPORT (gated): pillar breakdown, fix-first plan, next step -->
+        <div id="viewReport" class="hidden">
+          <div class="section-title" id="reportTitle" tabindex="-1">Your 5 pillars</div>
+          <div id="pillarBars"></div>
 
-        <div class="cta-box" id="ctaBox">
-          <h3 id="ctaTitle"></h3>
-          <p id="ctaBody"></p>
-          <a class="btn btn-gold" id="ctaBtn" href="#" target="_blank"></a>
-          <div class="cta-note" id="ctaNote">A few 30-minute call slots open each week.</div>
-        </div>
-        <div class="book-box hidden" id="bookBox"></div>
+          <div class="weak-callout" id="weakCallout"></div>
 
-        <div class="brand-foot">
-          Built by <a href="https://www.buildwithbpp.com" target="_blank">Business Plans Plus</a>. We build the operating systems that make growth-stage businesses easier to run.
+          <div class="cta-box" id="ctaBox">
+            <h3 id="ctaTitle"></h3>
+            <p id="ctaBody"></p>
+            <a class="btn btn-gold" id="ctaBtn" href="#" target="_blank"></a>
+            <div class="cta-note" id="ctaNote">A few 30-minute call slots open each week.</div>
+          </div>
+          <div class="book-box hidden" id="bookBox"></div>
+
+          <div class="brand-foot">
+            Built by <a href="https://www.buildwithbpp.com" target="_blank">Business Plans Plus</a>. We build the operating systems that make growth-stage businesses easier to run.
+          </div>
         </div>
       </div>
 
@@ -358,7 +365,7 @@ let current = 0;
 let advT; // pending auto-advance; one tap = one advance
 
 function show(id) {
-  ["viewIntro","viewQuiz","viewGate","viewResults"].forEach(v =>
+  ["viewIntro","viewQuiz","viewResults"].forEach(v =>
     document.getElementById(v).classList.toggle("hidden", v !== id));
 }
 
@@ -385,13 +392,39 @@ function renderQ() {
 function nextQ() {
   if (answers[current] === null) return;
   if (current < QUESTIONS.length - 1) { current++; renderQ(); }
-  else {
-    document.getElementById("headTitle").textContent = "One last step";
-    document.getElementById("headSub").textContent = "Your Owner-Dependency Score is calculated. See it below.";
-    show("viewGate");
-  }
+  else showScore();
 }
 function prevQ() { clearTimeout(advT); if (current > 0) { current--; renderQ(); } }
+
+// The score and band show right after the last answer, with no form. The pillar
+// breakdown and fix-first plan (viewReport) are filled in now but stay hidden until
+// the email form is sent, so the HubSpot payload reads the same screen it always has.
+function showScore() {
+  renderResults();
+  document.getElementById("headTitle").textContent = "Here's your score";
+  document.getElementById("headSub").textContent = "Want to know which area to fix first? Your full report is one step below.";
+  show("viewResults");
+  // On a phone the last answer is often tapped low on the screen; bring the score into view.
+  const r = document.getElementById("scoreNum").getBoundingClientRect();
+  if (r.top < 70 || r.bottom > window.innerHeight) {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.querySelector(".card").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  }
+}
+
+function revealReport(name) {
+  document.getElementById("headTitle").textContent = (name ? name + ", here" : "Here") + "'s your full report";
+  const wired = CONFIG.HUBSPOT_PORTAL_ID && CONFIG.HUBSPOT_FORM_GUID;
+  document.getElementById("headSub").textContent = wired
+    ? "A copy of your results is on its way to your inbox."
+    : "Here's where your business stands today.";
+  document.getElementById("viewGate").classList.add("hidden");
+  const report = document.getElementById("viewReport");
+  report.classList.remove("hidden");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  report.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  document.getElementById("reportTitle").focus({ preventScroll: true });
+}
 
 function computeScores() {
   // Per-pillar readiness 0-100 for the bars. The headline averages all 10 answers
@@ -431,7 +464,7 @@ function submitGate() {
 
   const { dependency, weakest } = computeScores();
   lead = { first: name, last, email };
-  renderResults(name);
+  revealReport(name);
   sendToHubSpot({ name, last, email, biz, dependency, weakest });
 }
 
@@ -463,13 +496,9 @@ function sendToHubSpot({ name, last, email, biz, dependency, weakest }) {
   }).catch(() => {}); // never block the user's results
 }
 
-function renderResults(name) {
+// Fills the whole results screen: the free score block and the gated report.
+function renderResults() {
   const { pillarPct, dependency, weakest } = computeScores();
-  document.getElementById("headTitle").textContent = (name ? name + ", here" : "Here") + "'s your score";
-  const wired = CONFIG.HUBSPOT_PORTAL_ID && CONFIG.HUBSPOT_FORM_GUID;
-  document.getElementById("headSub").textContent = wired
-    ? "A copy of your results is on its way to your inbox."
-    : "Here's where your business stands today.";
 
   const scoreEl = document.getElementById("scoreNum");
   scoreEl.textContent = dependency + "%";
@@ -532,8 +561,6 @@ function renderResults(name) {
   btn.textContent = cta.btn;
   btn.href = cta.url;
   document.getElementById("ctaNote").classList.toggle("hidden", cta.url !== CONFIG.BOOKING_URL);
-
-  show("viewResults");
 }
 // Plain-text copy of the results screen, emailed by the HubSpot sequence.
 function buildSummary() {
