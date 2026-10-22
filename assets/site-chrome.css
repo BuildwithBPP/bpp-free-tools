@@ -45,3 +45,7 @@ body { background: #f8f8f8; color: #040708; }
 @media (max-width: 760px) { body[data-sticky-total] .bpp-footer { padding-bottom: 120px; } }
 @media (prefers-reduced-motion: reduce) { .bpp-bar-link::after { transition: none; } }
 .brand-foot { display: none; } /* the site footer now carries the brand line */
+
+/* Partner ref line ("Shared by <name>"), added by assets/ref.js for codes in assets/partners.js */
+.bpp-ref { margin: 0 0 12px; font-family: Poppins, sans-serif; font-size: 14px; line-height: 1.4; color: #1A2B3C; }
+.bpp-ref strong { color: #044771; font-weight: 600; }

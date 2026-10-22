@@ -536,7 +536,8 @@ document.getElementById("reportForm").addEventListener("submit", e => {
         { name: "lm_magnet_name", value: "Cost of Owner Dependence Calculator" },
         { name: "lm_result_summary", value: buildSummary() },
         ...emailFields(),
-        ...optinField("rOptin")
+        ...optinField("rOptin"),
+        ...(window.bppRefFields ? window.bppRefFields() : [])
       ],
       context: hsContext("Cost of Owner Dependence Calculator")
     })
@@ -553,6 +554,8 @@ document.getElementById("reportForm").addEventListener("submit", e => {
 
 calc();
 </script>
+<script src="../assets/partners.js"></script>
+<script src="../assets/ref.js"></script>
 <script src="../assets/site-chrome.js"></script>
 <!-- HubSpot tracking: page views + ties form submissions to the visitor -->
 <script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242172275.js"></script>
