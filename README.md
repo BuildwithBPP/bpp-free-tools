@@ -32,6 +32,10 @@ Any tool URL can carry `?ref=<code>`, for example `/scorecard/?ref=smith-cpa`. A
 
 **Before this ships:** a `lm_ref` contact property (single-line text) must exist in HubSpot and be added to the "Lead magnet - all tools" form. Until then HubSpot drops the code without an error (see above), so partner attribution is lost. After adding it, send one test with `?ref=` and check `lm_ref` on the contact record.
 
+## Results index (scaffold)
+
+`scripts/index-aggregate.py` reads a HubSpot contacts CSV export and prints counts, medians and band splits per tool, for a future quarterly owner-dependence index. Export `createdate`, `email`, `lm_ref` and the result fields each tool sends: `owner_dependency_score`, `weakest_pillar_1` (Scorecard); `calc_annual_cost` (Calculator); `foundation_readiness_score`, `weakest_foundation_1` (Foundation Score); `ai_first_hire`, `ai_readiness_level` (AI Readiness); `recommended_system`, `business_stage` (System Finder); `lm_guide_requested` (Guide). `--publish` prints only tools with 50 or more completions and exits 2 if none qualify; the floor can be raised, never lowered. Contacts at buildwithbpp.com are dropped as tests. HubSpot keeps only each contact's latest value, and `createdate` is when the contact was created, so treat date windows as a proxy. `python3 scripts/index-aggregate.py --self-test` runs it on `scripts/fixtures/synthetic-hubspot-contacts.csv`, which is made-up data.
+
 Served via GitHub Pages. Source of truth for content edits lives in the BPP workspace (`1. Internal Operations/2. Marketing & Sales/Free Resources/`); copy changed files here and push to deploy.
 
 **This repo is public. Nothing internal goes in here, ever.**
