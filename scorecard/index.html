@@ -273,6 +273,10 @@
   .why-matters { font-size: 13.5px; line-height: 1.55; color: #55677a; border-left: 3px solid #dde5ec; padding: 2px 0 2px 14px; margin: 18px 0 4px; }
   .why-matters strong { color: var(--navy-dark); }
   .retake { font-size: 13.5px; color: #55677a; margin-top: 18px; }
+  .bars-note { font-size: 12.5px; color: #55677a; margin: -2px 0 6px; }
+  .proof { margin: 20px 0 0; padding: 0 0 0 14px; border-left: 3px solid var(--gold); }
+  .proof blockquote { font-size: 14.5px; line-height: 1.55; font-style: italic; color: var(--ink); }
+  .proof figcaption { font-size: 13px; font-weight: 600; color: var(--navy-dark); margin-top: 6px; }
   .link-btn { background: none; border: none; padding: 0; font: inherit; color: #3b6684; text-decoration: underline; cursor: pointer; }
   @media print {
     body { background: #fff; }
@@ -294,7 +298,7 @@
 
       <!-- INTRO -->
       <div id="viewIntro">
-        <p style="margin-bottom:16px;">Most service businesses between $250K and $2M run on the owner's memory. That works until it doesn't: a vacation, a busy season, a growth spurt, and things start slipping.</p>
+        <p style="margin-bottom:16px;">Most service businesses between $250K and $2M run on the owner's memory. It holds until a vacation, a busy season or a growth spurt, and then things slip.</p>
         <p style="margin-bottom:16px;">This score measures how well your business runs without you, across 5 areas: <strong>process, sales follow-up, your front door, automation, and financial clarity</strong>.</p>
         <p style="margin-bottom:26px;">It takes about 2 minutes. You'll see your score right away, no email needed. Then you can get your full report: each area's score and a 30-day plan for the weakest one.</p>
         <button class="btn btn-gold" onclick="startQuiz()">Get My Score</button>
@@ -330,7 +334,7 @@
           <p style="font-size:14.5px;margin-bottom:22px;">See how each of your 5 areas scored, what breaks first when you step away, and a 30-day plan for your weakest area. We'll show it here and email you a copy.</p>
           <div class="field">
             <label for="fName">First name</label>
-            <input type="text" id="fName" autocomplete="given-name" placeholder="Jordan">
+            <input type="text" id="fName" autocomplete="given-name">
           </div>
           <div class="field">
             <label for="fEmail">Email</label>
@@ -344,8 +348,9 @@
 
         <!-- REPORT (gated): pillar breakdown, fix-first plan, next step -->
         <div id="viewReport" class="hidden">
-          <div class="section-title" id="reportTitle" tabindex="-1">Your 5 pillars</div>
+          <div class="section-title" id="reportTitle" tabindex="-1">Your 5 areas</div>
           <div id="pillarBars"></div>
+          <p class="bars-note">Your score counts all 8 answers equally, so it can differ a little from the bars.</p>
 
           <div class="weak-callout" id="weakCallout"></div>
 
@@ -357,10 +362,14 @@
             <h3 id="ctaTitle"></h3>
             <p id="ctaBody"></p>
             <a class="btn btn-gold" id="ctaBtn" href="#" target="_blank"></a>
-            <div class="cta-note" id="ctaNote">A few 30-minute call slots open each week.</div>
+            <div class="cta-note" id="ctaNote">30-minute calls, weekdays 3 to 7 PM Eastern, with one of our co-owners: Daunte Benjamin, Kenny Hawkins or Eli Fisher.</div>
             <a class="alt-link hidden" id="altLink" href="#" target="_blank"></a>
           </div>
           <div class="book-box hidden" id="bookBox"></div>
+          <figure class="proof">
+            <blockquote>“Words cannot explain how awesome BPP’s services are. The welcoming personalities, the professionalism, and the knowledge this company brings are amazing. I strongly recommend them.”</blockquote>
+            <figcaption>Wanda Barton, Owner, Xtremely Clean Janitorial Services</figcaption>
+          </figure>
 
           <p class="retake">Save this report and retake the score in 90 days to see what moved. <button type="button" class="link-btn" id="btnPrint" onclick="window.print()">Save or print this report</button></p>
 
@@ -422,7 +431,7 @@
       <li><strong>41 to 65: Partially Owner-Dependent.</strong> You have real systems in places, but a few weak areas still pull you back into the day-to-day.</li>
       <li><strong>66 or higher: Running on Systems.</strong> The business largely runs without you. The next step is protecting that as you grow.</li>
     </ul>
-    <p>For the full report, give your first name and email. The report shows a bar for each of the 5 areas. Green means 70% ready or better, amber means 40% to 69%, and red means under 40%. It names what would break first if you stepped away for 2 weeks, and gives you a 3-step, 30-day plan for your weakest area, taken from our Run-Without-You Guide. For example, if Sales Follow-Up is your weakest area, step one is getting every lead into one list. We show the report on the page and email you a copy.</p>
+    <p>For the full report, give your first name and email. The report shows a bar for each of the 5 areas: Solid (green, 70% ready or better), Partly there (amber, 40% to 69%) or Exposed (red, under 40%). It names what would break first if you stepped away for 2 weeks, and gives you a 3-step, 30-day plan for your weakest area, taken from our Run-Without-You Guide. For example, if Sales Follow-Up is your weakest area, step one is getting every lead into one list. We show the report on the page and email you a copy.</p>
 
     <h3>Common questions</h3>
     <div class="ex-faq">
@@ -501,12 +510,14 @@ const PILLAR_FIXES = {
 };
 // What a 2-week absence breaks first, per weak area.
 const PILLAR_BREAKS = {
-  "Process": "the work itself: the team waits on answers that only live in your head",
-  "Sales Follow-Up": "new revenue: quotes go quiet and leads go to whoever calls back first",
-  "Front Door": "inbound requests: visitors leave without a clear way to book or ask for a quote",
-  "Automation": "the admin: scheduling, invoices and reminders stall until you're back",
-  "Financial Clarity": "your read on money: you come back not knowing what made money while you were gone"
+  "Process": "the team waits on answers that only live in your head",
+  "Sales Follow-Up": "quotes go quiet and leads go to whoever calls back first",
+  "Front Door": "visitors leave without a clear way to book or ask for a quote",
+  "Automation": "scheduling, invoices and reminders stall until you're back",
+  "Financial Clarity": "you come back not knowing what made money while you were gone"
 };
+// Words, not percents, on the bars: two answers can't support "38% ready".
+const levelWord = pct => pct >= 70 ? "Solid" : pct >= 40 ? "Partly there" : "Exposed";
 const KEEP_PLAN = [
   "Retake this score each quarter, so an area that starts slipping gets caught early.",
   "Step away for a full week once a year and write down everything that waited for you.",
@@ -710,7 +721,7 @@ function renderResults() {
     blurb = "Right now the business runs because you personally push it every day. The good news: this is the most fixable problem in business, and it's the work we do.";
   } else if (readiness <= 65) {
     band = "Partially Owner-Dependent"; color = "var(--amber)";
-    blurb = "You've built real systems in places, but a few weak areas still pull you back into the day-to-day. Closing those gaps is a focused fix, not a rebuild.";
+    blurb = "You've built real systems in places, but a few weak areas still pull you back into the day-to-day.";
   } else {
     band = "Running on Systems"; color = "var(--green)";
     blurb = "Your business largely runs without you. Nice work. The next step is protecting that as you grow.";
@@ -745,22 +756,24 @@ function renderResults() {
     const pct = pillarPct[p];
     const c = pct >= 70 ? "var(--green)" : pct >= 40 ? "var(--amber)" : "var(--red)";
     bars.innerHTML +=
-      '<div class="pillar-row"><div class="pr-head"><span>' + p + '</span><span>' + pct + '% ready</span></div>' +
+      '<div class="pillar-row"><div class="pr-head"><span>' + p + '</span><span>' + levelWord(pct) + '</span></div>' +
       '<div class="pillar-bar-track"><div class="pillar-bar-fill" style="width:' + pct + '%;background:' + c + ';"></div></div></div>';
   });
 
   document.getElementById("weakCallout").innerHTML =
     weakest.length === 0
-      ? "<strong>No area is exposed:</strong> every one is " + GAP_PCT + "% ready or better. " +
+      ? "<strong>No area is exposed:</strong> every one is solid. " +
         "Keep it that way by retaking this score each quarter."
-      : "<strong>If you stepped away for 2 weeks, what breaks first is</strong> " + PILLAR_BREAKS[weakest[0]] + "." +
-        (weakest[1] ? " Next in line: " + weakest[1] + "." : " Every other area is " + GAP_PCT + "% ready or better.");
+      : "<strong>If you stepped away for 2 weeks, " + weakest[0] + " breaks first:</strong> " + PILLAR_BREAKS[weakest[0]] + "." +
+        (!weakest[1] ? " Every other area is solid."
+          : pillarPct[weakest[1]] === pillarPct[weakest[0]] ? " " + weakest[1] + " is tied with it and comes next in our fix order."
+          : " Next in line: " + weakest[1] + ".");
 
   // 30-day plan for the weakest area; with nothing exposed, the lowest-scoring one.
   const planFor = weakest[0];
   document.getElementById("planTitle").textContent = planFor ? "Your first 30 days" : "Keep it that way";
   document.getElementById("planIntro").textContent = planFor
-    ? "Three moves for " + planFor + ", in order. Each one takes work off your plate for good."
+    ? "Three moves for " + planFor + ", in order. Start the first one this week."
     : "Nothing is exposed. Three habits keep it that way as you grow.";
   const plan = document.getElementById("planList");
   plan.innerHTML = "";
@@ -819,8 +832,8 @@ function emailFields() {
   return [
     { name: "lm_result_headline", value: "Your Run-Without-You Score is " + readiness + " out of 100 (higher is better): " + t("bandPill") + "." },
     { name: "lm_result_focus", value:
-      weakest.length === 0 ? "No area scored under " + GAP_PCT + "% ready, so nothing is exposed right now."
-      : weakest.length === 1 ? "Your weakest area is " + weakest[0] + ". Every other area is " + GAP_PCT + "% ready or better."
+      weakest.length === 0 ? "No area is exposed right now: every one is solid."
+      : weakest.length === 1 ? "Your weakest area is " + weakest[0] + ". Every other area is solid."
       : "Your two weakest areas are " + weakest[0] + " and " + weakest[1] + "." },
     { name: "lm_quick_win", value: firstStep.trim() || "Retake this score each quarter so an area that starts slipping gets caught early." },
     { name: "lm_next_step", value: next },
