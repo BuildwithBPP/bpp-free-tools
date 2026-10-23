@@ -4,12 +4,13 @@ Public free tools and downloadable resources from [Business Plans Plus](https://
 
 | Path | What it is |
 |---|---|
-| `/scorecard` | Owner-Dependency Scorecard — 10-question interactive quiz. Score and band show with no form; the pillar breakdown and fix-first plan sit behind the email form |
+| `/scorecard` | Owner-Dependency Scorecard — 8 scored questions + 2 unscored (revenue band, timing). The Run-Without-You Score (out of 100, higher is better) and band show with no form; area scores, what breaks first and a 30-day plan sit behind first name + email. HubSpot still gets `owner_dependency_score` = 100 minus that score |
 | `/calculator` | Cost-of-Owner-Dependence Calculator |
 | `/foundation-score` | Foundation Readiness Score — 10-question quiz for new businesses |
 | `/ai-readiness` | AI Employee Readiness Assessment — which AI assistant to hire first |
 | `/system-finder` | Business System Finder — 7-question qualifier |
 | `/guides` | Run-Without-You Guide gate — name + email, then the PDF (general or commercial cleaning) |
+| `/speed-test` | Speed-to-Lead Test — 7 channel questions + volume, value, timing. Grade and slip estimate show with no form; channel breakdown, fixes and live-test steps sit behind first name + email |
 | `/downloads/` | Free guides and templates (PDF/DOCX) |
 
 ## Capture + delivery
@@ -32,9 +33,13 @@ Any tool URL can carry `?ref=<code>`, for example `/scorecard/?ref=smith-cpa`. A
 
 **Before this ships:** a `lm_ref` contact property (single-line text) must exist in HubSpot and be added to the "Lead magnet - all tools" form. Until then HubSpot drops the code without an error (see above), so partner attribution is lost. After adding it, send one test with `?ref=` and check `lm_ref` on the contact record.
 
+## Routing (`lm_fit`)
+
+Each tool sends `lm_fit` (strong / medium / low; a strong result creates a personal-note task for Eli). The Scorecard and Speed-to-Lead Test route on fit, not just pain: an operating owner who wants it fixed in the next 90 days gets the call button (strong when the result is weak, and for the Speed Test only with enough volume or job value); later this year, just curious, pre-launch, or a top grade get the guide with a quieter link to book. The Scorecard's revenue answer goes to the shared `business_stage` dropdown with the System Finder's bands.
+
 ## Results index (scaffold)
 
-`scripts/index-aggregate.py` reads a HubSpot contacts CSV export and prints counts, medians and band splits per tool, for a future quarterly owner-dependence index. Export `createdate`, `email`, `lm_ref` and the result fields each tool sends: `owner_dependency_score`, `weakest_pillar_1` (Scorecard); `calc_annual_cost` (Calculator); `foundation_readiness_score`, `weakest_foundation_1` (Foundation Score); `ai_first_hire`, `ai_readiness_level` (AI Readiness); `recommended_system`, `business_stage` (System Finder); `lm_guide_requested` (Guide). `--publish` prints only tools with 50 or more completions and exits 2 if none qualify; the floor can be raised, never lowered. Contacts at buildwithbpp.com are dropped as tests. HubSpot keeps only each contact's latest value, and `createdate` is when the contact was created, so treat date windows as a proxy. `python3 scripts/index-aggregate.py --self-test` runs it on `scripts/fixtures/synthetic-hubspot-contacts.csv`, which is made-up data.
+`scripts/index-aggregate.py` reads a HubSpot contacts CSV export and prints counts, medians and band splits per tool, for a future quarterly owner-dependence index. Export `createdate`, `email`, `lm_ref` and the result fields each tool sends: `owner_dependency_score`, `weakest_pillar_1` (Scorecard); `calc_annual_cost` (Calculator); `foundation_readiness_score`, `weakest_foundation_1` (Foundation Score); `ai_first_hire`, `ai_readiness_level` (AI Readiness); `recommended_system`, `business_stage` (System Finder); `lm_guide_requested` (Guide). The Speed-to-Lead Test sends no property of its own yet (its grade is in `lm_result_headline`), so the index can't count it until a `speed_response_score` number property is added to HubSpot and the form. `--publish` prints only tools with 50 or more completions and exits 2 if none qualify; the floor can be raised, never lowered. Contacts at buildwithbpp.com are dropped as tests. HubSpot keeps only each contact's latest value, and `createdate` is when the contact was created, so treat date windows as a proxy. `python3 scripts/index-aggregate.py --self-test` runs it on `scripts/fixtures/synthetic-hubspot-contacts.csv`, which is made-up data.
 
 Served via GitHub Pages. Source of truth for content edits lives in the BPP workspace (`1. Internal Operations/2. Marketing & Sales/Free Resources/`); copy changed files here and push to deploy.
 

@@ -64,7 +64,7 @@
     --blue: #5987A5;
     --bg: #edf1f5;
     --green: #1a9e5c;
-    --amber: #d4920a;
+    --amber: #9a6400;
     --red: #c0392b;
     --ink: #1c2b36;
   }
@@ -118,7 +118,7 @@
     border: none;
     cursor: pointer;
     text-decoration: none;
-    transition: transform .12s ease, box-shadow .12s ease;
+    transition: transform .16s ease, box-shadow .16s ease;
   }
   .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(4,71,113,.22); }
   .btn-gold { background: var(--gold); color: var(--navy-dark); }
@@ -164,7 +164,7 @@
     cursor: pointer;
     font-size: 15px;
     background: #fff;
-    transition: border-color .12s ease, background .12s ease;
+    transition: border-color .16s ease, background .16s ease;
     text-align: left;
     width: 100%;
     font-family: inherit;
@@ -185,7 +185,7 @@
   }
   .opt.selected .dot { background: var(--gold); color: var(--navy-dark); }
   .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; }
-  .back-link { background: none; border: none; color: var(--blue); font-family: inherit; font-size: 14px; cursor: pointer; padding: 8px 0; }
+  .back-link { background: none; border: none; color: #3b6684; font-family: inherit; font-size: 14px; cursor: pointer; padding: 8px 0; }
   .back-link:hover { text-decoration: underline; }
 
   /* Gate form */
@@ -201,7 +201,7 @@
     color: var(--ink);
   }
   .field input:focus { outline: none; border-color: var(--blue); }
-  .fine-print { font-size: 12px; color: #6b7c88; margin-top: 14px; }
+  .fine-print { font-size: 12px; color: #55677a; margin-top: 14px; }
 
   /* Results */
   .score-ring-wrap { text-align: center; margin: 6px 0 22px; }
@@ -212,7 +212,7 @@
     line-height: 1;
   }
   .score-label { font-size: 14px; color: #55677a; margin-top: 4px; }
-  .score-hint { font-size: 12.5px; color: #6b7c88; margin-top: 2px; }
+  .score-hint { font-size: 12.5px; color: #55677a; margin-top: 2px; }
   .band-pill {
     display: inline-block;
     font-family: 'Montserrat', sans-serif;
@@ -249,7 +249,7 @@
   .hidden { display: none; }
   .section-title { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 1px; margin: 26px 0 14px; }
   .brand-foot { text-align: center; font-size: 12px; color: #7d8b97; margin-top: 22px; }
-  .brand-foot a { color: var(--blue); }
+  .brand-foot a { color: #3b6684; }
   .optin { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.5; color: #55677a; margin: 4px 0 16px; cursor: pointer; text-align: left; }
   .optin input { margin-top: 2px; width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--navy); }
   .cta-note { font-size: 12.5px; opacity: .85; margin-top: 12px; }
@@ -258,7 +258,7 @@
   @media (max-width: 520px) { .gate-panel { padding: 20px 16px; } }
   #viewReport, .card { scroll-margin-top: 84px; }
   #reportTitle:focus { outline: none; }
-  .score-out { font-size: 24px; font-weight: 700; color: #8a9aa8; margin-left: 2px; }
+  .score-out { font-size: 24px; font-weight: 700; color: #55677a; margin-left: 2px; }
   .plan { list-style: none; counter-reset: step; margin: 6px 0 4px; display: flex; flex-direction: column; gap: 10px; }
   .plan li { counter-increment: step; position: relative; padding-left: 40px; font-size: 14.5px; line-height: 1.5; }
   .plan li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--navy); color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
@@ -270,10 +270,10 @@
   .more-row a strong { display: block; font-family: 'Montserrat', sans-serif; color: var(--navy-dark); font-size: 14px; margin-bottom: 2px; }
   .alt-link { display: inline-block; margin-top: 12px; color: #fff; font-size: 13px; opacity: .9; }
   .alt-link.hidden { display: none; }
-  .why-matters { font-size: 13.5px; line-height: 1.55; color: #55677a; background: #F4F6F8; border-radius: 12px; padding: 14px 16px; margin: 14px 0 4px; }
+  .why-matters { font-size: 13.5px; line-height: 1.55; color: #55677a; border-left: 3px solid #dde5ec; padding: 2px 0 2px 14px; margin: 18px 0 4px; }
   .why-matters strong { color: var(--navy-dark); }
   .retake { font-size: 13.5px; color: #55677a; margin-top: 18px; }
-  .link-btn { background: none; border: none; padding: 0; font: inherit; color: var(--blue); text-decoration: underline; cursor: pointer; }
+  .link-btn { background: none; border: none; padding: 0; font: inherit; color: #3b6684; text-decoration: underline; cursor: pointer; }
   @media print {
     body { background: #fff; }
     .bpp-bar, .bpp-footer, .explainer, #viewGate, .cta-box, .book-box, .more-row, .retake button, [data-next-step] { display: none !important; }
@@ -309,7 +309,7 @@
         <div class="opts" id="qOpts"></div>
         <div class="nav-row">
           <button class="back-link" id="btnBack" onclick="prevQ()">&larr; Back</button>
-          <span style="font-size:13px;color:#8895a2;">Select an answer to continue</span>
+          <span style="font-size:13px;color:#55677a;">Select an answer to continue</span>
         </div>
       </div>
 
@@ -322,7 +322,7 @@
           <div class="band-pill" id="bandPill"></div>
         </div>
         <p id="bandBlurb" style="font-size:15px;text-align:center;margin-bottom:8px;"></p>
-        <p class="why-matters"><strong>Why it matters:</strong> buyers, lenders and key hires all pay for a business that runs without its owner. In one industry dataset of 80,000+ companies, owner-dependent businesses sold for about 2.9 times earnings, against about 3.9 times for ones that run without the founder (Value Builder System, 2026).</p>
+        <p class="why-matters"><strong>Why it matters:</strong> buyers pay more for a business that runs without its owner. Value Builder System reports that across the 80,000+ companies in its data, owner-dependent businesses sold for about 2.9 times earnings, against about 3.9 times for ones that run without the founder (vendor data, 2026).</p>
 
         <!-- GATE -->
         <form id="viewGate" class="gate-panel" data-hs-do-not-collect="true" novalidate onsubmit="event.preventDefault(); submitGate();">
@@ -365,7 +365,7 @@
           <p class="retake">Save this report and retake the score in 90 days to see what moved. <button type="button" class="link-btn" id="btnPrint" onclick="window.print()">Save or print this report</button></p>
 
           <div class="more-row">
-            <a href="../calculator/"><strong>Put a dollar figure on it</strong>The Cost-of-Owner-Dependence Calculator turns your admin hours and slipped leads into a yearly number.</a>
+            <a id="moreA" href="../calculator/"><strong>Put a dollar figure on it</strong>The Cost-of-Owner-Dependence Calculator turns your admin hours and slipped leads into a yearly number.</a>
             <a href="../guides/"><strong>Get the full checklist</strong>The Run-Without-You Guide: 25 checks across the same 5 areas, plus a 90-day fix order.</a>
           </div>
 
@@ -433,7 +433,7 @@
       <h4>How long does it take?</h4>
       <p>About 2 minutes. There are 10 questions, and each one is a single tap.</p>
       <h4>What happens to my answers?</h4>
-      <p>Your answers to the 8 scored questions are never sent anywhere. If you ask for the full report, we save your first name, email, score, area results and plan, plus your answers to the two questions about your business, so we can email the report to you and suggest the right next step. You only get the monthly tips email if you check that box.</p>
+      <p>Nothing is saved unless you ask for the full report. Then we save your first name, email, score, your area results (an area with one question shows how you answered it), your plan, and your answers to the two questions about your business, so we can email the report to you and suggest the right next step. You only get the monthly tips email if you check that box.</p>
       <h4>How often should I retake it?</h4>
       <p>Once a quarter. That way an area that starts slipping gets caught early.</p>
     </div>
@@ -507,6 +507,11 @@ const PILLAR_BREAKS = {
   "Automation": "the admin: scheduling, invoices and reminders stall until you're back",
   "Financial Clarity": "your read on money: you come back not knowing what made money while you were gone"
 };
+const KEEP_PLAN = [
+  "Retake this score each quarter, so an area that starts slipping gets caught early.",
+  "Step away for a full week once a year and write down everything that waited for you.",
+  "Review one page of numbers every month: revenue, margin, new leads, win rate, and what's owed to you."
+];
 // 30-day plans, taken from the Run-Without-You Guide's checklist for each area.
 const PILLAR_PLANS = {
   "Process": [
@@ -645,9 +650,8 @@ function business() {
 function route({ readiness, revenue, timing }) {
   const operating = revenue !== 0;               // not "Just getting started"
   const soon = timing === 0 || timing === 1;     // next 30 or 90 days
-  if (readiness >= 66 || !operating || timing === 3) return "low";
-  if (readiness <= 50 && soon) return "strong";
-  return "medium";
+  if (!operating || !soon) return "low";         // later this year, just curious, or pre-launch
+  return readiness <= 50 ? "strong" : "medium";
 }
 
 function submitGate() {
@@ -716,11 +720,11 @@ function renderResults() {
   const focus = weakest.length ? weakest.join(" and ") : "the areas that slip first";
   const cta = fit === "strong" ? {
       title: "Want this fixed in the next 90 days?",
-      body: "On a free 30-minute call we'll walk through " + focus + " and show you what we'd fix first in a business like yours. You keep that plan whether we work together or not. Most owners fix this with our Operator System, from $5,500 over 6 to 8 weeks.",
+      body: "On a free 30-minute call we'll walk through " + focus + " and show you what we'd fix first in a business like yours. You keep that plan whether we work together or not. This is the work our Operator System does, from $5,500 over 6 to 8 weeks.",
       btn: "Pick a Time", url: CONFIG.BOOKING_URL
     } : fit === "medium" ? {
       title: "See exactly what to fix first",
-      body: "Start with the 30-day plan above. If you'd rather have a second pair of eyes on it, a free 30-minute call will show you what we'd fix first and roughly what it takes.",
+      body: "Start with the 30-day plan in your report. If you'd rather have a second pair of eyes on it, a free 30-minute call will show you what we'd fix first and roughly what it takes.",
       btn: "Pick a Time", url: CONFIG.BOOKING_URL
     } : {
       title: readiness >= 66 ? "Keep sharpening the machine" : "Start with the checklist",
@@ -753,13 +757,21 @@ function renderResults() {
         (weakest[1] ? " Next in line: " + weakest[1] + "." : " Every other area is " + GAP_PCT + "% ready or better.");
 
   // 30-day plan for the weakest area; with nothing exposed, the lowest-scoring one.
-  const planFor = weakest[0] || PILLARS.slice().sort((a, b) => pillarPct[a] - pillarPct[b] || GAP_ORDER.indexOf(a) - GAP_ORDER.indexOf(b))[0];
-  document.getElementById("planIntro").textContent = weakest.length
+  const planFor = weakest[0];
+  document.getElementById("planTitle").textContent = planFor ? "Your first 30 days" : "Keep it that way";
+  document.getElementById("planIntro").textContent = planFor
     ? "Three moves for " + planFor + ", in order. Each one takes work off your plate for good."
-    : "Nothing is exposed, so protect your lowest area, " + planFor + ", with these three checks.";
+    : "Nothing is exposed. Three habits keep it that way as you grow.";
   const plan = document.getElementById("planList");
   plan.innerHTML = "";
-  PILLAR_PLANS[planFor].forEach(step => { const li = document.createElement("li"); li.textContent = step; plan.appendChild(li); });
+  (planFor ? PILLAR_PLANS[planFor] : KEEP_PLAN).forEach(step => { const li = document.createElement("li"); li.textContent = step; plan.appendChild(li); });
+  // A weak front door or follow-up points to the Speed-to-Lead Test; otherwise the calculator.
+  const moreA = document.getElementById("moreA");
+  const speedFirst = planFor === "Sales Follow-Up" || planFor === "Front Door";
+  moreA.href = speedFirst ? "../speed-test/" : "../calculator/";
+  moreA.innerHTML = speedFirst
+    ? "<strong>Test how fast you answer</strong>The Speed-to-Lead Test grades how your business handles a new inquiry, in 2 minutes."
+    : "<strong>Put a dollar figure on it</strong>The Cost-of-Owner-Dependence Calculator turns your admin hours and slipped leads into a yearly number.";
 
   document.getElementById("ctaTitle").textContent = cta.title;
   document.getElementById("ctaBody").textContent = cta.body;
@@ -770,11 +782,13 @@ function renderResults() {
   document.getElementById("ctaNote").classList.toggle("hidden", cta.url !== CONFIG.BOOKING_URL);
   // Owners routed to the guide can still book; it's just not the headline.
   const alt = document.getElementById("altLink");
-  const showAlt = cta.url !== CONFIG.BOOKING_URL && readiness < 66;
+  const showAlt = cta.url !== CONFIG.BOOKING_URL;
   alt.classList.toggle("hidden", !showAlt);
   alt.textContent = "Rather talk it through? Book a free 30-minute call.";
   alt.href = CONFIG.BOOKING_URL;
 }
+// "Title. Body" without doubling the title's own punctuation ("...90 days?. On...").
+const joinTitle = (title, body) => title + (/[.?!]$/.test(title) ? " " : ". ") + body;
 // Plain-text copy of the results screen, emailed by the HubSpot sequence.
 function buildSummary() {
   const t = id => document.getElementById(id).textContent.trim();
@@ -790,7 +804,7 @@ function buildSummary() {
     t("weakCallout"),
     t("planIntro") + "\n" + steps.join("\n"),
     "Revenue: " + s.revenueLabel + ". Wants it fixed: " + s.timingLabel + ".",
-    t("ctaTitle") + ". " + t("ctaBody")
+    joinTitle(t("ctaTitle"), t("ctaBody"))
   ].join("\n\n");
 }
 // Short single-line fields for the follow-up emails.
@@ -800,7 +814,7 @@ function emailFields() {
   const t = id => document.getElementById(id).textContent.trim();
   const btn = document.getElementById("ctaBtn");
   const isGuide = btn.getAttribute("href") === CONFIG.GUIDE_URL;
-  const next = t("ctaTitle") + ". " + t("ctaBody") + (isGuide ? " " + new URL(CONFIG.GUIDE_URL, location.href).href : "");
+  const next = joinTitle(t("ctaTitle"), t("ctaBody")) + (isGuide ? " " + new URL(CONFIG.GUIDE_URL, location.href).href : "");
   const firstStep = (document.querySelector("#planList li") || {}).textContent || "";
   return [
     { name: "lm_result_headline", value: "Your Run-Without-You Score is " + readiness + " out of 100 (higher is better): " + t("bandPill") + "." },
