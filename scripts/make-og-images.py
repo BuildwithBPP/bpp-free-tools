@@ -23,6 +23,7 @@ TOOLS = [
     ("foundation-score", "Foundation Readiness Score", "Check your legal, money, brand, offer and sales basics before you grow."),
     ("system-finder", "Business System Finder", "Find out which build your business needs next. 7\u00a0questions, 2\u00a0minutes."),
     ("guides", "The Run-Without-You Guide", "A free 25-point checklist, plus a 90-day\u00a0plan to fix the\u00a0gaps."),
+    ("speed-test", "Speed-to-Lead Test", "How fast does your business answer a new customer? Grade it in 2\u00a0minutes."),
 ]
 
 
