@@ -325,6 +325,7 @@
               <span class="amt" id="leadCost">$0</span>
             </div>
             <div class="equiv" id="equivBox"></div>
+            <p class="next-step hidden" id="nextStep" data-next-step><strong>Next step:</strong> see how much your business runs on you with the <span style="white-space:nowrap">2-minute</span> <a href="../scorecard/">Owner-Dependency Scorecard</a>.</p>
           </div>
 
           <form class="report-box" id="reportForm" data-hs-do-not-collect="true" novalidate>
@@ -491,6 +492,7 @@ function calc() {
   }
 
   totalEl.classList.remove("pending");
+  document.getElementById("nextStep").classList.remove("hidden"); // only once a real number shows
   totalEl.textContent = fmt(total);
   document.getElementById("totalLabel").textContent = "estimated cost of owner dependence per year";
   document.getElementById("stickyAmt").textContent = fmt(total);
