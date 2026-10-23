@@ -49,3 +49,24 @@ body { background: #f8f8f8; color: #040708; }
 /* Partner ref line ("Shared by <name>"), added by assets/ref.js for codes in assets/partners.js */
 .bpp-ref { margin: 0 0 12px; font-family: Poppins, sans-serif; font-size: 14px; line-height: 1.4; color: #1A2B3C; }
 .bpp-ref strong { color: #044771; font-weight: 600; }
+
+/* Static explainer under each tool: plain HTML, readable with JavaScript off.
+   Palette only: navy #044771, navy-dark #033359, gold #F1BE5C (decorative only),
+   text #1A2B3C, bg #F4F6F8. Muted #64748B is ~4.4:1 on #F4F6F8, under AA, so it is not used for text. */
+.explainer { max-width: 720px; margin: 40px auto 0; padding: 36px 36px 30px; background: #F4F6F8; border: 1px solid rgba(4, 71, 113, 0.12); border-radius: 16px; color: #1A2B3C; font-family: Poppins, -apple-system, 'Segoe UI', sans-serif; font-size: 16px; line-height: 1.7; overflow-wrap: break-word; }
+.explainer h2 { font-family: Montserrat, sans-serif; font-size: clamp(22px, 4vw, 28px); font-weight: 800; line-height: 1.25; color: #033359; margin: 0 0 16px; }
+.explainer h2::after { content: ""; display: block; width: 56px; height: 4px; margin-top: 12px; border-radius: 2px; background: #F1BE5C; }
+.explainer h3 { font-family: Montserrat, sans-serif; font-size: 19px; font-weight: 700; line-height: 1.3; color: #044771; margin: 32px 0 10px; }
+.explainer h4 { font-family: Montserrat, sans-serif; font-size: 16px; font-weight: 700; line-height: 1.4; color: #033359; margin: 20px 0 4px; }
+.explainer p { margin: 0 0 14px; }
+.explainer ul, .explainer ol { margin: 0 0 16px; padding-left: 22px; }
+.explainer li { margin-bottom: 10px; }
+.explainer li::marker { color: #044771; font-weight: 700; }
+.explainer strong { color: #033359; }
+.explainer a { color: #044771; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.explainer .ex-tag { display: inline-block; margin-right: 6px; padding: 1px 9px; border-radius: 999px; background: rgba(4, 71, 113, 0.09); color: #044771; font-family: Montserrat, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; vertical-align: 1px; }
+.explainer .ex-scale { display: block; font-size: 15px; }
+.explainer .ex-formula { padding: 14px 18px; border-left: 4px solid #F1BE5C; border-radius: 0 10px 10px 0; background: rgba(4, 71, 113, 0.05); }
+.explainer .ex-faq h4:first-child { margin-top: 4px; }
+.explainer .ex-credit { margin: 28px 0 0; padding-top: 18px; border-top: 1px solid rgba(4, 71, 113, 0.15); font-size: 15px; }
+@media (max-width: 600px) { .explainer { margin-top: 28px; padding: 26px 18px 22px; font-size: 16px; } .explainer h3 { font-size: 18px; } }
