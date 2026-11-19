@@ -5,6 +5,7 @@ Public free tools and downloadable resources from [Business Plans Plus](https://
 | Path | What it is |
 |---|---|
 | `/scorecard` | Owner-Dependency Scorecard — 8 scored questions + 2 unscored (revenue band, timing). The Run-Without-You Score (out of 100, higher is better) and band show with no form; area scores, what breaks first and a 30-day plan sit behind first name + email. HubSpot still gets `owner_dependency_score` = 100 minus that score |
+| `/money-allocator` | Business Money Allocator, prelaunch review; email delivery disabled |
 | `/calculator` | Cost-of-Owner-Dependence Calculator |
 | `/foundation-score` | Foundation Readiness Score — 10-question quiz for new businesses |
 | `/ai-readiness` | AI Employee Readiness Assessment — which AI assistant to hire first |
